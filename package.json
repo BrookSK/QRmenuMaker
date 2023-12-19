@@ -1,0 +1,69 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "ngrok": "./ngrok http 80",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+       
+        "zipupdate": "cat .diff-files.txt | zip -@ update.zip",
+
+        "zipgeneral":"zip -r general.zip ./ -x \".dev/*\" -x \"node_modules/*\" -x \"modules/*\" -x \".env*\" -x \"ngrok\" -x \"*.git*\" -x \"*.DS_Store\" -x \"public/agris/*\" -x \"public/taxi/*\" -x \"public/social/*\" -x \"public/js/appreact.js\" -x \"resources/js/components/QRBuilder.js\" -x \"public/impactfront/*\" -x \"public/softd/*\" -x \"resources/lang/en/poslanding.php\" -x \"resources/lang/en/agris.php\" -x \"resources/lang/en/qrlanding.php\" -x \"resources/lang/en/taxi.php\" -x \"resources/lang/en/whatsapp.php\" -x \"resources/views/poslanding/*\" -x \"resources/views/qrsaas/*\" -x \"resources/views/agrislanding/*\" -x \"resources/views/taxilanding/*\" -x \"resources/views/social/*\" -x \"storage/debugbar/*\" -x \"storage/framework/cache/data/*\" -x \"storage/framework/views/*\" -x \"storage/logs/*\" -x \"storage/installed\" -x \"storage/verified\" -x \"storage/multilanguagemigrated\" -x \"public/uploads/restorants/*\" -x \"public/uploads/settings/*\" -x \"bootstrap/cache/*\" -x \"agris.zip\" -x \"lionpos.zip\" -x \"whatsapp_food.zip\" -x \"ftiger.zip\" -x \"qr_maker.zip\" -x \"whatsapp_taxis.zip\" && zip -r general.zip storage/framework/cache/data/.gitignore storage/framework/views/.gitignore bootstrap/cache/.gitignore storage/logs/.gitignore public/uploads/restorants/.dev public/uploads/settings/.dev ",
+        "addenvtogeneral":"zip -r general.zip .env",
+
+        "addsd": "zip -r whatsapp_taxis.zip public/taxi/* resources/lang/en/taxi.php resources/views/taxilanding/* modules/Expenses/* modules/Cockpit/* modules/Drivers/*",
+        "zipsd":"npm run zipgeneral && cp .env_sd .env && npm run addenvtogeneral && mv general.zip whatsapp_taxis.zip && npm run addsd",
+
+        "addag": "zip -r agris.zip public/agris/* resources/lang/en/agris.php resources/views/agrislanding/* modules/Expenses/* modules/Fields/* modules/Weather/* modules/Notes/* modules/Staff/*",
+        "zipag":"npm run zipgeneral && cp .env_ag .env  && npm run addenvtogeneral  && mv general.zip agris.zip && npm run addag",
+        
+        "addpc": "zip -r lionpos.zip public/softd/* resources/lang/en/poslanding.php resources/views/poslanding/*  modules/Expenses/* modules/Floorplan/* modules/Poscloud/* modules/Staff/*",
+        "zippc":"npm run zipgeneral && cp .env_pc .env  && npm run addenvtogeneral && mv general.zip lionpos.zip && npm run addpc",
+
+        "addwa": "zip -r whatsapp_food.zip public/social/* resources/lang/en/whatsapp.php resources/views/social/*",
+        "zipwa":"npm run zipgeneral && cp .env_wp .env  && npm run addenvtogeneral && mv general.zip whatsapp_food.zip && npm run addwa",
+
+        "addqr": "zip -r qr_maker.zip public/js/appreact.js resources/js/components/QRBuilder.js public/impactfront/* resources/lang/en/qrlanding.php resources/views/qrsaas/*",
+        "zipqr":"npm run zipgeneral && cp .env_qr .env && npm run addenvtogeneral && mv general.zip qr_maker.zip && npm run addqr",
+
+        "addft": "",
+        "zipft":"npm run zipgeneral && cp .env_ft .env  && npm run addenvtogeneral && mv general.zip ftiger.zip && npm run addft",
+       
+        "zipall":"npm run zipft && npm run zipqr  && npm run zipwa  && npm run zippc  && npm run zipag  && npm run zipsd && afplay /System/Library/Sounds/Funk.aiff ",
+      
+        
+       
+        "missingtranslationshow": "sail artisan translation:list-missing-translation-keys",
+        "missingtranslation": "sail artisan translation:sync-translations"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.0.0",
+        "axios": "^0.19",
+        "bootstrap": "^4.1.0",
+        "cross-env": "^5.1",
+        "jquery": "^3.2",
+        "laravel-echo": "^1.9.0",
+        "laravel-mix": "^4.0.7",
+        "laravel-mix-workbox": "^0.1.2",
+        "lodash": "^4.17.13",
+        "popper.js": "^1.12",
+        "pusher-js": "^7.0.2",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "resolve-url-loader": "^2.3.1",
+        "sass": "^1.15.2",
+        "sass-loader": "^7.1.0",
+        "vue": "^2.5.17",
+        "vue-template-compiler": "^2.6.11",
+        "workbox-webpack-plugin": "^5.1.3"
+    },
+    "dependencies": {
+        "react-color": "^2.18.1",
+        "react-indiana-drag-scroll": "^1.6.1",
+        "react-qrbtf": "^1.2.1"
+    }
+}
