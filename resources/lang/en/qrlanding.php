@@ -4,7 +4,7 @@ return array (
   'featured_clients'=>"Featured clients",
   'list_of_featured_clients'=>"Here is a list of some of our clients",
   'below' => 'below',
-  'contactles_menu' => 'Contact-less QR Menu',
+  'contactles_menu' => 'Contact-less QR Menu Maker Test!!!!',
   'cookies' => 'Cookies',
   'dashboard' => 'Dashboard',
   'demo' => 'Demo',
