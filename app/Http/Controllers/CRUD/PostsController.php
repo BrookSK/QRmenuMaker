@@ -49,6 +49,11 @@ class PostsController extends Controller
             unset($dataToReturn[4]);
             unset($dataToReturn[5]);
         }
+        if($type=="showcase"){
+            unset($dataToReturn[2]);
+            unset($dataToReturn[3]);
+            unset($dataToReturn[4]);
+        }
         if($type=="testimonial"){
             unset($dataToReturn[4]);
             unset($dataToReturn[5]);
@@ -75,6 +80,13 @@ class PostsController extends Controller
             unset($dataToReturn[4]);
             unset($dataToReturn[5]);
         }
+        if($type=="category"){
+            unset($dataToReturn[2]);
+            unset($dataToReturn[3]);
+            unset($dataToReturn[4]);
+            unset($dataToReturn[5]);
+        }
+        
         if($type=="notestatus"){
             unset($dataToReturn[0]);
             unset($dataToReturn[2]);
@@ -97,11 +109,13 @@ class PostsController extends Controller
         $titles=[
             'allergen'=>__('Allergens'),
             'driver'=>__('Driver Categories'),
+            'category'=>__('Categories'),
             'feature'=>__('Features'),
             'testimonial'=>__('Testimonials'),
             'process'=>__('Processes'),
             'faq'=>__('FAQs'),
             'blog'=>__('Blog links'),
+            'showcase'=>__('Showcase links'),
             'notestatus'=>__('Note statuses'),
             'notetype'=>__('Note types'),
         ];
@@ -112,11 +126,13 @@ class PostsController extends Controller
         $titles=[
             'allergen'=>__('allergen'),
             'driver'=>__('driver'),
+            'category'=>__('category'),
             'feature'=>__('feature'),
             'testimonial'=>__('testimonial'),
             'process'=>__('process'),
             'faq'=>__('faq'),
             'blog'=>__('blog'),
+            'showcase'=>__('showcase'),
             'notestatus'=>__('notestatus'),
             'notetype'=>__('notetype'),
         ];
@@ -141,6 +157,10 @@ class PostsController extends Controller
         $dimensions=[
             ['name'=>'large'],
         ];
+        if($type=="showcase"){
+            $dimensions[0]['type']='png';
+        }
+
         return $dimensions;
     }
 

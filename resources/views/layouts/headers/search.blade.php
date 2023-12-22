@@ -10,8 +10,8 @@
 </section>
 <section class="section">
     <div class="container mt--350">
-        <h1><?php echo config('global.header_title') ?></h1>
-        <p><?php echo config('global.header_subtitle') ?></p>
+        <h1><?php echo __(config('global.header_title')) ?></h1>
+        <p><?php echo __(config('global.header_subtitle')) ?></p>
         @if(config('settings.is_demo'))
                     <div class="row">
                         <div class=""><div class="blob red"></div></div>

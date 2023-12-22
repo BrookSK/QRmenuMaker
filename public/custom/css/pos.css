@@ -94,8 +94,12 @@
 }
 
 .occcupied {
- background-color: #f53939;
+ background-color: #ea0606;
 }
+
+.webcccupied {
+   background-color: #cb0c9f;
+  }
 
 
 

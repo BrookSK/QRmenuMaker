@@ -21,10 +21,18 @@
                 <br />
                 <div class="row">
                     <!-- Stores -->
+                    @if (in_array("categories", config('global.modules',[])))
+                        @include('categories::ft')
+                    @endif
                     @isset($section['restorants'])
                         @forelse ($section['restorants'] as $restorant)
                             <?php $link=route('vendor',['alias'=>$restorant->alias]); ?>
-                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+
+                            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 resitems <?php
+                            foreach ($restorant->systemcategories as $key => $cat) {
+                                echo "cat".$cat->id." ";
+                            }
+                            ?>">
                                 <div class="strip">
                                     <figure>
                                     <a href="{{ $link }}"><img src="{{ $restorant->logom }}" data-src="{{ config('global.restorant_details_image') }}" class="img-fluid lazy" alt=""></a>

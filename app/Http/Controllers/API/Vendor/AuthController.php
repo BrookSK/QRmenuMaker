@@ -21,7 +21,7 @@ class AuthController extends Controller
         $user = User::where(['active'=>1, 'email'=>$request->email])->first();
         if ($user != null) {
             if (Hash::check($request->password, $user->password)) {
-                if ($user->hasRole(['owner'])) {
+                if ($user->hasRole(['owner','staff'])) {
                     if( $request->has('expotoken')){
                         $user->setExpoToken($request->expotoken);
                     }

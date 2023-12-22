@@ -186,7 +186,34 @@ class OrderController extends Controller
     public function create()
     {
     }
-    
+
+    private function toiDriveMobileLike(Request $request){
+        //Data
+        $driver=User::findOrFail($request->driver_id);
+        $vendor_id = null;
+        
+       $requestData=[
+           'issd'=>true,
+           'vendor_id'   => $vendor_id,
+           'driver_id' => $request->driver_id,
+           'delivery_method'=> "delivery",
+           'payment_method'=> "cod",
+           'address_id'=>null,
+           'pickup_address'=>$request->pickup_address,
+           'pickup_lat'=>$request->pickup_lat,
+           'pickup_lng'=>$request->pickup_lng,
+           'delivery_address'=>$request->delivery_address,
+           'delivery_lat'=>$request->delivery_lat,
+           'delivery_lng'=>$request->delivery_lng,
+           "timeslot"=>"",
+           "items"=>[],
+           "comment"=>$request->comment,
+           "phone"=>$request->phoneclient,
+       ];
+       return new Request($requestData);
+
+    }
+
     private function toRideMobileLike(Request $request){
         //Data
         $driver=User::findOrFail($request->driver_id);
@@ -317,7 +344,8 @@ class OrderController extends Controller
             "phone"=>$phone,
             "customFields"=>$customFields,
             "deliveryAreaId"=> $deliveryAreaId,
-            "coupon_code"=> $request->has('coupon_code')&&strlen($request->coupon_code)>3?$request->coupon_code:null
+            "tip"=>$request->has('tipapplied')&&$request->tipapplied.""=="1"?$request->tip:0,
+            "coupon_code"=> $request->has('coupon_code')&&strlen($request->coupon_code)>0?$request->coupon_code:null
         ];
 
         
@@ -328,10 +356,13 @@ class OrderController extends Controller
     public function store(Request $request){
 
         //Convert web request to mobile like request
-        if(config('app.issd',false)||$request->has('issd')){
+        if(config('app.isdrive',false)){
+            //iDrive ride
+            $mobileLikeRequest=$this->toiDriveMobileLike($request);
+        }else if(config('app.issd',false)||$request->has('issd')){
             //Web ride
             $mobileLikeRequest=$this->toRideMobileLike($request);
-        }else{
+        } else{
             //Web order
             $mobileLikeRequest=$this->toMobileLike($request);
         }
@@ -625,6 +656,7 @@ class OrderController extends Controller
             }
             array_push($items, [
                 'id'=>$order['id'],
+                'id_formated'=>$order['id_formated'],
                 'restaurant_name'=>$order['restorant']['name'],
                 'last_status'=>count($order['status']) > 0 ? __($order['status'][count($order['status']) - 1]['name']) : 'Just created',
                 'last_status_id'=>count($order['status']) > 0 ? $order['status'][count($order['status']) - 1]['pivot']['status_id'] : 1,
@@ -814,7 +846,7 @@ class OrderController extends Controller
             }
         }
 
-        if (auth()->user()->hasRole('sstaff')) {
+        if (auth()->user()->hasRole('staff')) {
             //This user is owner, but we must check if this is order from his restaurant
             if (auth()->user()->restaurant_id != $order->restorant->id) {
                 abort(403, 'Unauthorized action. You are not owner of this order restaurant');
@@ -859,7 +891,16 @@ class OrderController extends Controller
         }
 
         if (config('app.isqrsaas') && $alias.'' == 'closed') {
+            //Check if order is not paid  before, payment method should be cash
+            if ($order->payment_status != 'paid' && $order->payment_method != 'cod') {
+                $order->payment_method = 'cod';
+            }
             $order->payment_status = 'paid';
+            $order->update();
+        }
+
+        if ($alias.'' == 'rejected_by_admin' || $alias.'' == 'rejected_by_restaurant' ) {
+            $order->payment_status = '';
             $order->update();
         }
 
@@ -1072,7 +1113,7 @@ class OrderController extends Controller
         }
 
         //Should we show whatsapp send order
-        $showWhatsApp=config('settings.whatsapp_ordering_enabled');
+        $showWhatsApp=config('settings.whatsapp_ordering_enabled')&&!config('app.isdrive',false);
 
         if($showWhatsApp){
             //Disable when WhatsApp Mode

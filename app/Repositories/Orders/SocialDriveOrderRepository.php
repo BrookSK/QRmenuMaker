@@ -82,9 +82,14 @@ class SocialDriveOrderRepository extends BaseOrderRepository implements OrderTyp
 
     public function redirectOrInform(){
         if($this->status){
-            if($this->order->driver->phone=="000000000"){
+            if($this->order->driver->phone=="000000000"||config('app.isdrive')){
                 //New order - redirect to success page
-                return redirect()->route('order.success', ['order' => $this->order])->withCookie(cookie('orders', $this->listOfOrders, 360));
+                if(isset($this->listOfOrders)){
+                    return redirect()->route('order.success', ['order' => $this->order])->withCookie(cookie('orders$this->listOfOrders',$this->listOfOrders , 360));
+                }else{
+                    return redirect()->route('order.success', ['order' => $this->order]);
+                }
+                
             }else{
                 $message=$this->order->getSocialMessageAttribute(true);
                 $url = 'https://api.whatsapp.com/send?phone='.$this->order->driver->phone.'&text='.$message;

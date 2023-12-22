@@ -4,7 +4,7 @@
         <small> @{{ item.last_status }}</small><br />
         <small> @{{ item.time }}</small>
         <h4 class="mb-0">
-            <a href="#!">#@{{ item.id }} @{{ item.restaurant_name }}</a>
+            <a href="#!">#@{{ item.id_formated }} @{{ item.restaurant_name }}</a>
         </h4>
         <small>@{{ item.client }}</small><br />
         <small>@{{ item.price }}</small><br />
