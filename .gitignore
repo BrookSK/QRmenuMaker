@@ -16,6 +16,7 @@
 composer.lock
 
 # Ignore Laravel specific files/directories
+/storage/framework/sessions/*
 /public/storage
 /public/hot
 /storage/*.key
