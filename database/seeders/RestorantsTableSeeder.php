@@ -149,13 +149,23 @@ class RestorantsTableSeeder extends Seeder
         }
 
          //In social drive only add 2 vendors
-         if (config('app.issd')) {
+         if (config('app.issd')||config('app.isdrive')) {
             //SD 3 vendors
             $restorants = [
                 ['city_id'=>1, 'latlngs'=>$BrooklynLatLng, 'latlng'=>$BrooklynLatLng[0], 'area'=>$BrooklynArea, 'items'=>[], 'name'=>'Brooklyn Taxi', 'description'=>'Brooklyn Taxi and Limo', 'image'=>'https://i.imgur.com/R7Oe2ABm.jpg'],
                 ['city_id'=>1, 'latlngs'=>$QueensLatLng, 'latlng'=>$QueensLatLng[0], 'area'=>$QueensArea, 'items'=>[], 'name'=>'Queens cabs', 'description'=>'Best taxi in Queens', 'image'=>'https://i.imgur.com/R7Oe2ABm.jpg'],
                 ['city_id'=>1, 'latlngs'=>$ManhattnLatLng, 'latlng'=>$ManhattnLatLng[0], 'area'=>$ManhattnArea, 'items'=>[], 'name'=>'ManhattnGo', 'description'=>'Best taxi in Manhattn', 'image'=>'https://i.imgur.com/R7Oe2ABm.jpg']
             ];
+        }
+
+        if (config('app.isdrive')) {
+            //Drive 0 inserted vendors
+            $lastFakeInsertedVendor=1;
+            foreach ($restorants as $key => $restorant) {
+                    $this->demoDriversInsert($restorant,$lastFakeInsertedVendor,false); 
+                    $lastFakeInsertedVendor++;
+            }
+            $restorants = [];
         }
 
         $id = 1;
@@ -181,105 +191,12 @@ class RestorantsTableSeeder extends Seeder
                 'mollie_payment_key'=>"test_W7vgVS4bUTVarzBm39wjUk7SRV3Aek"
             ]);
 
-            //Insert 2 demo drivers per restaurant
             if(config('app.issd')){
-                $imagesDemoDrivers=[
-                    ['https://randomuser.me/api/portraits/men/81.jpg','https://randomuser.me/api/portraits/men/62.jpg'],
-                    ['https://randomuser.me/api/portraits/men/32.jpg','https://randomuser.me/api/portraits/men/46.jpg'],
-                    ['https://randomuser.me/api/portraits/men/18.jpg','https://randomuser.me/api/portraits/men/72.jpg'],
-                ];
-                $vehiclesDemoDrivers=[
-                    ['Nissan Qashqai','Tesla Model S'],
-                    ['Toyota Yaris','Toyota RAV4'],
-                    ['Honda CR-V','Honda Civic'],
-                ];
-
-                $namesDemoDrivers=[
-                    ['John Doe - ( Demo Driver )','Maurice Graves'],
-                    ['Gabe Elliott','Gilbert Sanders'],
-                    ['Rene Holland','Vincent Mcdonalid'],
-                ];
-                //Staff 1 and 2
-                $demoDriver1Id=DB::table('users')->insertGetId([
-                    'name' => $namesDemoDrivers[$lastRestaurantId-1][0],
-                    'email' =>  ($lastRestaurantId==1?'driver':'driver1_'.$lastRestaurantId).'@example.com',
-                    'password' => Hash::make('secret'),
-                    'lat' => $restorant['latlngs'][0][0],
-                    'lng' => $restorant['latlngs'][0][1],
-                    'api_token' => Str::random(80),
-                    'email_verified_at' => now(),
-                    'phone' =>  '+38971605048',
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                    'restaurant_id'=>$lastRestaurantId
-                ]);
-
-                //Assign driver role
-                DB::table('model_has_roles')->insert([
-                    'role_id' => 3,
-                    'model_type' =>  \App\User::class,
-                    'model_id'=> $demoDriver1Id,
-                ]);
-                
-                //Assign vehicle
-                DB::table('configs')->insert([
-                    'value' => $vehiclesDemoDrivers[$lastRestaurantId-1][0],
-                    'key' => 'vehicle',
-                    'model_type'=>  \App\User::class,
-                    'model_id'=>$demoDriver1Id
-                ]);
-                //Assign image
-                DB::table('configs')->insert([
-                    'value' => $imagesDemoDrivers[$lastRestaurantId-1][0],
-                    'key' => 'avatar',
-                    'model_type'=>  \App\User::class,
-                    'model_id'=>$demoDriver1Id
-                ]);
-                 //Assign cost
-                 if($lastRestaurantId==1){
-                    DB::table('configs')->insert([
-                        'value' => 1.2,
-                        'key' => 'cost_per_kilometer',
-                        'model_type'=>  \App\Restorant::class,
-                        'model_id'=>$lastRestaurantId
-                    ]);
-                 }
-                 
-
-                $demoDriver2Id=DB::table('users')->insertGetId([
-                    'name' => $namesDemoDrivers[$lastRestaurantId-1][1],
-                    'lat' => $restorant['latlngs'][1][0],
-                    'lng' => $restorant['latlngs'][1][1],
-                    'email' =>  ('driver2_'.$lastRestaurantId).'@example.com',
-                    'password' => Hash::make('secret'),
-                    'api_token' => Str::random(80),
-                    'email_verified_at' => now(),
-                    'phone' =>  '+38971605048',
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                    'restaurant_id'=>$lastRestaurantId
-                ]);
-                //Assign driver role
-                DB::table('model_has_roles')->insert([
-                    'role_id' => 3,
-                    'model_type' =>  \App\User::class,
-                    'model_id'=> $demoDriver2Id,
-                ]);
-                 //Assign vehicle
-                 DB::table('configs')->insert([
-                    'value' => $vehiclesDemoDrivers[$lastRestaurantId-1][1],
-                    'key' => 'vehicle',
-                    'model_type'=>  \App\User::class,
-                    'model_id'=>$demoDriver2Id
-                ]);
-                //Assign image
-                DB::table('configs')->insert([
-                    'value' => $imagesDemoDrivers[$lastRestaurantId-1][1],
-                    'key' => 'avatar',
-                    'model_type'=>  \App\User::class,
-                    'model_id'=>$demoDriver2Id
-                ]);
+                //SDrive  vendors
+                $this->demoDriversInsert($restorant,$lastRestaurantId,true);
             }
+            
+            
 
             if(!config('app.issd')){
                 //Insert delivery area
@@ -670,5 +587,110 @@ class RestorantsTableSeeder extends Seeder
 
             $id++;
         }
+    }
+
+    public function demoDriversInsert($restorant,$lastRestaurantId,$assignToVendor){
+        //Insert 2 demo drivers per restaurant
+        $imagesDemoDrivers=[
+            ['https://randomuser.me/api/portraits/men/81.jpg','https://randomuser.me/api/portraits/men/62.jpg'],
+            ['https://randomuser.me/api/portraits/men/32.jpg','https://randomuser.me/api/portraits/men/46.jpg'],
+            ['https://randomuser.me/api/portraits/men/18.jpg','https://randomuser.me/api/portraits/men/72.jpg'],
+        ];
+        $vehiclesDemoDrivers=[
+            ['Nissan Qashqai','Tesla Model S'],
+            ['Toyota Yaris','Toyota RAV4'],
+            ['Honda CR-V','Honda Civic'],
+        ];
+
+        $namesDemoDrivers=[
+            ['John Doe - ( Demo Driver )','Maurice Graves'],
+            ['Gabe Elliott','Gilbert Sanders'],
+            ['Rene Holland','Vincent Mcdonalid'],
+        ];
+        //Staff 1 and 2
+        $demoDriver1Data=[
+            'name' => $namesDemoDrivers[$lastRestaurantId-1][0],
+            'email' =>  ($lastRestaurantId==1?'driver':'driver1_'.$lastRestaurantId).'@example.com',
+            'password' => Hash::make('secret'),
+            'lat' => $restorant['latlngs'][0][0],
+            'lng' => $restorant['latlngs'][0][1],
+            'api_token' => Str::random(80),
+            'email_verified_at' => now(),
+            'phone' =>  '+38971605048',
+            'created_at' => now(),
+            'updated_at' => now()
+        ];
+        if($assignToVendor){
+            $demoDriver1Data['restaurant_id']=$lastRestaurantId;
+        }
+        $demoDriver1Id=DB::table('users')->insertGetId($demoDriver1Data);
+
+        //Assign driver role
+        DB::table('model_has_roles')->insert([
+            'role_id' => 3,
+            'model_type' =>  \App\User::class,
+            'model_id'=> $demoDriver1Id,
+        ]);
+
+        //Assign vehicle
+        DB::table('configs')->insert([
+            'value' => $vehiclesDemoDrivers[$lastRestaurantId-1][0],
+            'key' => 'vehicle',
+            'model_type'=>  \App\User::class,
+            'model_id'=>$demoDriver1Id
+        ]);
+        //Assign image
+        DB::table('configs')->insert([
+            'value' => $imagesDemoDrivers[$lastRestaurantId-1][0],
+            'key' => 'avatar',
+            'model_type'=>  \App\User::class,
+            'model_id'=>$demoDriver1Id
+        ]);
+        //Assign cost
+        if($lastRestaurantId==1){
+            DB::table('configs')->insert([
+                'value' => 1.2,
+                'key' => 'cost_per_kilometer',
+                'model_type'=>  \App\Restorant::class,
+                'model_id'=>$lastRestaurantId
+            ]);
+        }
+        
+        $demoDriver2Data=[
+            'name' => $namesDemoDrivers[$lastRestaurantId-1][1],
+            'lat' => $restorant['latlngs'][1][0],
+            'lng' => $restorant['latlngs'][1][1],
+            'email' =>  ('driver2_'.$lastRestaurantId).'@example.com',
+            'password' => Hash::make('secret'),
+            'api_token' => Str::random(80),
+            'email_verified_at' => now(),
+            'phone' =>  '+38971605048',
+            'created_at' => now(),
+            'updated_at' => now()
+        ];
+        if($assignToVendor){
+            $demoDriver2Data['restaurant_id']=$lastRestaurantId;
+        }
+        $demoDriver2Id=DB::table('users')->insertGetId($demoDriver2Data);
+        //Assign driver role
+        DB::table('model_has_roles')->insert([
+            'role_id' => 3,
+            'model_type' =>  \App\User::class,
+            'model_id'=> $demoDriver2Id,
+        ]);
+        //Assign vehicle
+        DB::table('configs')->insert([
+            'value' => $vehiclesDemoDrivers[$lastRestaurantId-1][1],
+            'key' => 'vehicle',
+            'model_type'=>  \App\User::class,
+            'model_id'=>$demoDriver2Id
+        ]);
+        //Assign image
+        DB::table('configs')->insert([
+            'value' => $imagesDemoDrivers[$lastRestaurantId-1][1],
+            'key' => 'avatar',
+            'model_type'=>  \App\User::class,
+            'model_id'=>$demoDriver2Id
+        ]);
     }
 }

@@ -17,7 +17,7 @@ class Items extends TranslateAwareModel
 
     protected $table = 'items';
     protected $appends = ['logom', 'icon', 'short_description'];
-    protected $fillable = ['name', 'description', 'image', 'price','discounted_price', 'category_id', 'vat','enable_system_variants'];
+    protected $guarded = [];
     protected $imagePath = '/uploads/restorants/';
 
     protected function getImge($imageValue, $default, $version = '_large.jpg')
@@ -99,6 +99,16 @@ class Items extends TranslateAwareModel
     public function variants()
     {
         return $this->hasMany(\App\Models\Variants::class, 'item_id', 'id')->whereNull('deleted_at');;
+    }
+
+    public function availlablevariants()
+    {
+        if($this->qty_management.""=="1"){
+            return $this->hasMany(\App\Models\Variants::class, 'item_id', 'id')->whereNull('deleted_at')->where('qty','>',0);
+        }else{
+            return $this->variants();
+        }
+       
     }
 
     public function allergens()
@@ -233,13 +243,26 @@ class Items extends TranslateAwareModel
                 'item_id'=>$this->id,
                 'options'=>$value,
                 'is_system'=>1,
+                'qty'=>1,
             ]);
             $variant->save();
+
+            $this->calculateQTYBasedOnVariants();
         }
     }
 
     private function converterKV($value){
         return "\"".$value['op_id']."\"".":"."\"".$value['value']."\"";
+    }
+
+    public function calculateQTYBasedOnVariants()
+    {
+        $total=0;
+        foreach ($this->variants as $key => $variant) {
+            $total+=$variant->qty;
+        }
+        $this->qty=$total;
+        $this->save();
     }
 
    

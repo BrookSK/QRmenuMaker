@@ -107,6 +107,7 @@ class InstallDatabaseController extends Controller
         }
         try {
             Artisan::call('migrate', ['--seed' => true]);
+            Artisan::call('module:seed');
             return redirect()->route('LaravelInstaller::install.keys');
         } catch (Exception $e) {
             return view('installer::steps.migrations', ['error' => $e->getMessage() ?: 'An error occurred while executing migrations']);

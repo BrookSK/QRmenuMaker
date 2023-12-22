@@ -7,13 +7,13 @@
 
 @if ($order->delivery_method==1)
 🛵🔜🏡
-{{"*".__('Delivery Order No').": ".$order->id."*"}}
+{{"*".__('Delivery Order No').": ".$order->id_formated."*"}}
 @else
 ✅🏫
 @if($order->delivery_method==3)
-{{"*".__('Delivery Order No').": ".$order->id."*"}}
+{{"*".__('Delivery Order No').": ".$order->id_formated."*"}}
 @else
-{{"*".__('Pickup Order No').": ".$order->id."*"}}
+{{"*".__('Pickup Order No').": ".$order->id_formated."*"}}
 @endif
 @endif
 

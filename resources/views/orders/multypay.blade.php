@@ -14,7 +14,7 @@
                         $currency=config('settings.cashier_currency');
                         $convert=config('settings.do_convertion');
                     ?>
-                    <span class="badge badge-primary">{{ __('Order')." #".$order->id }}</span>
+                    <span class="badge badge-primary">{{ __('Order')." #".$order->id_formated }}</span>
                     <span class="badge badge-primary">@money( $order->delivery_price+$order->order_price_with_discount, $currency,true)</span>  
                     
                 </h1>
