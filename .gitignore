@@ -1,28 +1,66 @@
+# Ignore compiled files
+*.key
+
+# Ignore the environment file
+.env
+
+# Ignore the vendor directory
 /vendor/
-node_modules/
+
+# Ignore node_modules
+/node_modules/
+
+# Ignore composer lock file
+composer.lock
+
+# Ignore Laravel specific files/directories
+/public/storage
+/public/hot
+/storage/*.key
+/bootstrap/compiled.php
+/app/storage/
+/.fleet
+auth.json
+
+# Ignore PHPUnit specific files
+/.phpunit.cache
+.phpunit.result.cache
+
+# Ignore Homestead files
+Homestead.yaml
+Homestead.json
+
+# Ignore Laravel Mix build directory
+/public/build
+
+# Ignore PhpStorm files
+/.idea/
+
+# Ignore Visual Studio Code files
+/.vscode/
+
+# Ignore NPM/Yarn log files
 npm-debug.log
 yarn-error.log
 
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
+# Ignore Laravel Mix
+.mix/
 
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
+# Ignore Laravel Horizon
+/horizon/
 
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
+# Ignore Laravel Dusk
+/storage/dusk-*.jpg
+/storage/dusk-*.png
+/storage/app/dusk-tmp
 
-storage/*.key
-.env
-Homestead.yaml
-Homestead.json
-/.vagrant
-.phpunit.result.cache
+# Ignore Laravel Telescope
+/storage/app/telescope/*.json
+/storage/app/telescope/*.log
+/storage/app/telescope/*.sql
 
-composer.lock
+# Ignore Laravel Debugbar
+/storage/debugbar
 
-##### VisualStudioCode
-.vscode/*
+# Ignore Vagrant files
+/.vagrant/
