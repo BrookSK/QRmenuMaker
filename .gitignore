@@ -3,6 +3,8 @@
 
 # Ignore the environment file
 .env
+.env.backup
+.env.production
 
 # Ignore the vendor directory
 /vendor/
