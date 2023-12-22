@@ -12,9 +12,6 @@
 
       <div class="container">
 
-
-        <x:notify-messages />
-
           <div class="row">
 
             <!-- Left part -->
