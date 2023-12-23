@@ -16,13 +16,16 @@
 composer.lock
 
 # Ignore Laravel specific files/directories
+/storage/framework/sessions/*
 /public/storage
 /public/hot
+/public/byadmin/frontcss.css
 /storage/*.key
 /bootstrap/compiled.php
 /app/storage/
 /storage/installed
 /storage/verified
+/storage/multilanguagemigrated
 /.fleet
 auth.json
 
