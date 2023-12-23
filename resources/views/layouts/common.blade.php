@@ -10,7 +10,7 @@
 <script src="{{ asset('vendor') }}/intltelinput/build/js/intlTelInput.js"></script>
 <script src="{{ asset('vendor') }}/intltelinput/build/js/utils.js"></script>
 <script>
-
+    var defCountry="<?php echo config('settings.default_country','US'); ?>";
     function initPhone(name){
         var input = document.querySelector("input[name='"+name+"']");
         if(input!=null){
@@ -21,14 +21,8 @@
                 autoHideDialCode:true,
                 separateDialCode:true,
                 autoPlaceholder:"aggressive",
-                initialCountry: "auto",
-                utilsScript: "/vendor/intltelinput/build/js/utils.js", 
-                geoIpLookup: function(success, failure) {
-                    $.get("https://ipinfo.io?token=c2999fc5e1aefc",function() {}, "jsonp").always(function(resp) {
-                    var countryCode = (resp && resp.country) ? resp.country : "us";
-                    success(countryCode);
-                    });
-                },
+                initialCountry: defCountry,
+                utilsScript: "/vendor/intltelinput/build/js/utils.js",
             });
 
 

@@ -25,9 +25,9 @@ class Order extends Model
 
     protected $table = 'orders';
 
-    protected $appends = ['order_price_with_discount','time_created','time_formated','last_status','is_prepared','actions','configs','tableassigned'];
+    protected $appends = ['id_formated','order_price_with_discount','time_created','time_formated','last_status','is_prepared','actions','configs','tableassigned'];
 
-    protected $fillable = ['coupon','discount','fee', 'fee_value', 'static_fee', 'vatvalue','payment_info','mollie_payment_key','whatsapp_address','md'];
+    protected $guarded = [];
 
     public function restorant()
     {
@@ -64,6 +64,39 @@ class Order extends Model
         return $this->belongsToMany(\App\Status::class, 'order_has_status', 'order_id', 'status_id')->withPivot('user_id', 'created_at', 'comment')->orderBy('order_has_status.id', 'DESC')->limit(1);
     }
 
+    //Get the id_per_vendor as attribute
+    public function getIdFormatedAttribute()
+    {
+        if(!config('settings.showVendorBasedOrderIDS',false)){
+            return $this->id;
+        }
+
+
+        if(auth()->user()){
+            if(auth()->user()->hasRole(['admin'])){
+                if(strlen($this->id_per_vendor)!=0){
+                    return $this->restorant_id."_".$this->id_per_vendor;
+                }
+            }
+    
+            if(auth()->user()->hasRole(['owner','staff'])){
+                if(strlen($this->id_per_vendor)!=0){
+                    return $this->id_per_vendor;
+                }
+            }
+    
+            if(strlen($this->id_per_vendor)!=0){
+                return $this->id_per_vendor;
+            }
+        }
+
+       
+
+        
+        return $this->id;
+    }
+
+
     public function getTableassignedAttribute()
     {
         return $this->table()->with('restoarea')->get();
@@ -71,7 +104,7 @@ class Order extends Model
 
     public function getOrderPriceWithDiscountAttribute()
     {
-        return $this->order_price-$this->discount;
+        return $this->order_price-$this->discount+$this->tip;
     }
 
     public function getLastStatusAttribute()
@@ -191,6 +224,16 @@ class Order extends Model
 
             return true;
         });
+        self::saved(function (self $order) {
+            if(strlen($order->id_per_vendor)==0){
+                $ordersCount = \App\Order::where('restorant_id',$order->restorant_id)->count();
+                $order->id_per_vendor=$formatted_number = sprintf("%06d", $ordersCount+1);;
+                $order->update();
+            }
+            
+            return true;
+        });
+        
     }
 
     public function getConfigsAttribute(){
@@ -307,7 +350,7 @@ class Order extends Model
                 return ["buttons"=>['prepared'],'message'=>""];
             }else if(in_array($lastStatusAlias,["prepared"])){
                 //In this case we can assign to driver if we have the driver module
-                if(Module::has('drivers')){
+                if(Module::has('drivers') && $this->delivery_method.""!="3"){
                     return ["buttons"=>['delivered','assigned_to_driver'],'message'=>""];
                 }else{
                     //No Drivers

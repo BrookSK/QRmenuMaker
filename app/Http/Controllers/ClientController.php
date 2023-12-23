@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Akaunting\Module\Facade as Module;
 use App\Exports\ClientsExport;
 use App\User;
 use Illuminate\Http\Request;
@@ -54,6 +55,8 @@ class ClientController extends Controller
             $item = [
                 'client_name'=>$client->name,
                 'client_id'=>$client->id,
+                'client_email'=>$client->email,
+                'client_phone'=>$client->phone,
                 'created'=>$client->created_at,
                 ];
             array_push($items, $item);
@@ -106,7 +109,12 @@ class ClientController extends Controller
             $clientOrders=$client->orders()->orderBy('id','DESC');
             $orders=$clientOrders->paginate(5);
             $orderCount=$clientOrders->count();
-            return view('clients.edit', ['client' => $client, 'orders' => $orders,'orderCount'=>$orderCount]);
+            return view('clients.edit', [
+                'client' => $client, 
+                'hasPoints'=>false,//Module::has('cards'),
+                'movements'=>null,//Module::has('cards')?$client->movements()->orderBy('id','DESC')->paginate(5):null,
+                'orders' => $orders,
+                'orderCount'=>$orderCount]);
         } else {
             return redirect()->route('orders.index')->withStatus(__('No Access'));
         }

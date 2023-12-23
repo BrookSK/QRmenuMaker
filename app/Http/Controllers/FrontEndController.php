@@ -32,6 +32,10 @@ use App\Models\Allergens;
 use App\Models\Config;
 use DateTime;
 use Spatie\OpeningHours\Exceptions\MaximumLimitExceeded;
+use Akaunting\Money\Money;
+use Akaunting\Money\Currency;
+use App\Events\NewClient;
+use Illuminate\Support\Facades\Auth;
 
 class FrontEndController extends Controller
 {
@@ -98,6 +102,7 @@ class FrontEndController extends Controller
             $stripedQuery = '%'.strip_tags(\Request::input('q')).'%';
             $q->where('name', 'like', $stripedQuery)->orWhere('description', 'like', $stripedQuery);
         })->with('category.restorant')->get();
+        
 
         //Find how many time happens on item level
         $restorants = [];
@@ -198,11 +203,18 @@ class FrontEndController extends Controller
             }else if(config('app.issd')){
                 //Social Drive Mode
                 return $this->taxiMode();
+            }else if(config('app.isloyalty')){
+                //Loyalty Program Mode
+                return $this->loyaltyMode();
             }else{
                 //Default QR
                 return $this->qrsaasMode();
             }
             
+        }
+
+        if(config('app.isdrive')){
+            return $this->driverMode();
         }
 
         //Multy City mode, and we don't have location atm
@@ -406,7 +418,7 @@ class FrontEndController extends Controller
             }
 
             $response = new \Illuminate\Http\Response(view('social.home', [
-                'col' => $colCounter[count($plans)-1],
+                'col' => count($plans)>0?$colCounter[count($plans)-1]:12,
                 'plans' => $plans,
                 'availableLanguages' => $availableLanguages,
                 'demoLink'=>$demoLink,
@@ -519,12 +531,12 @@ class FrontEndController extends Controller
             $processes = Process::where('post_type', 'process')->get();
 
             $response = new \Illuminate\Http\Response(view('agrislanding.home', [
-                'col' => $colCounter[count($plans)-1],
+                'col' => count($plans)>0?4:$colCounter[count($plans)-1],
                 'plans' => $plans,
                 'availableLanguages' => $availableLanguages,
                 'locale' => $locale,
                 'pages' => Pages::where('showAsLink', 1)->get(),
-                'featured_vendors'=>Restorant::where('active',1)->where('is_featured',0)->get()->shuffle(),
+                'featured_vendors'=>Restorant::where('active',1)->where('is_featured',1)->get()->shuffle(),
                 'features' => $features,
                 'faqs' =>  Process::where('post_type', 'faq')->get(),
                 'testimonials' => $testimonials,
@@ -582,7 +594,141 @@ class FrontEndController extends Controller
                 'availableLanguages' => $availableLanguages,
                 'locale' => $locale,
                 'pages' => Pages::where('showAsLink', 1)->get(),
-                'featured_vendors'=>Restorant::where('active',1)->where('is_featured',0)->get()->shuffle(),
+                'featured_vendors'=>Restorant::where('active',1)->where('is_featured',1)->get()->shuffle(),
+                'features' => $features,
+                'faqs' =>  Process::where('post_type', 'faq')->get(),
+                'testimonials' => $testimonials,
+                'processes' => $processes,
+                'blog_posts' => $blog_posts
+            ]));
+
+            $response->withCookie(cookie('lang', $locale, 120));
+            App::setLocale(strtolower($locale));
+
+            return $response;
+        }
+    }
+
+    /**
+     * 8. Drive Mode
+     */
+    public function driverMode(){
+        if (config('settings.disable_landing')) {
+            //With disabled landing
+            return redirect()->route('login');
+        } else {
+            //Normal, with landing
+            //Normal, with landing
+            $plans = config('settings.forceUserToPay',false)?Plans::where('id','!=',intval(config('settings.free_pricing_id')))->get()->toArray():Plans::get()->toArray();
+            $colCounter = [12, 6, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+
+            $availableLanguagesENV = config('settings.front_languages');
+            $exploded = explode(',', $availableLanguagesENV);
+            $availableLanguages = [];
+            for ($i = 0; $i < count($exploded); $i += 2) {
+                $availableLanguages[$exploded[$i]] = $exploded[$i + 1];
+            }
+
+            $locale = Cookie::get('lang') ? Cookie::get('lang') : config('settings.app_locale');
+            $route = Route::current();
+            $name = Route::currentRouteName();
+            $query = 'lang.';
+            if (substr($name, 0, strlen($query)) === $query) {
+                //this is language route
+                $exploded = explode('.', $name);
+                $lang = strtoupper($exploded[1]);
+                $locale = $lang;
+            }
+            App::setLocale(strtolower($locale));
+            session(['applocale_change' => strtolower($locale)]);
+
+            //Landing page content
+            $features = Features::where('post_type', 'feature')->get();
+            $testimonials = Testimonials::where('post_type', 'testimonial')->get();
+            $processes = Process::where('post_type', 'process')->get();
+            $blog_posts = Process::where('post_type', 'blog')->get();
+
+            $response = new \Illuminate\Http\Response(view('drivelanding.home', [
+                'col' => $colCounter[count($plans)-1],
+                'plans' => $plans,
+                'availableLanguages' => $availableLanguages,
+                'locale' => $locale,
+                'pages' => Pages::where('showAsLink', 1)->get(),
+                'featured_vendors'=>Restorant::where('active',1)->where('is_featured',1)->get()->shuffle(),
+                'features' => $features,
+                'faqs' =>  Process::where('post_type', 'faq')->get(),
+                'testimonials' => $testimonials,
+                'processes' => $processes,
+                'blog_posts' => $blog_posts
+            ]));
+
+            $response->withCookie(cookie('lang', $locale, 120));
+            App::setLocale(strtolower($locale));
+
+            return $response;
+        }
+
+    }
+
+    /**
+     * 9. Loyalty mode
+     * 
+     */
+    public function loyaltyMode(){
+        if (config('settings.disable_landing')) {
+            //With disabled landing
+            return redirect()->route('login');
+        } else {
+            
+
+            //Normal, with landing
+            $plans = config('settings.forceUserToPay',false)?Plans::where('id','!=',intval(config('settings.free_pricing_id')))->get()->toArray():Plans::get()->toArray();
+            $colCounter = [12, 6, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+
+            
+           
+            foreach($plans as $key => $plan){
+                $plans[$key]['price_form'] =rtrim(money($plan['price'],config('settings.cashier_currency'),config('settings.do_convertion'))->format(), ".00");
+            }
+
+
+            $availableLanguagesENV = config('settings.front_languages');
+            $exploded = explode(',', $availableLanguagesENV);
+            $availableLanguages = [];
+            for ($i = 0; $i < count($exploded); $i += 2) {
+                $availableLanguages[$exploded[$i]] = $exploded[$i + 1];
+            }
+
+            $locale = Cookie::get('lang') ? Cookie::get('lang') : config('settings.app_locale');
+            $route = Route::current();
+            $name = Route::currentRouteName();
+            $query = 'lang.';
+            if (substr($name, 0, strlen($query)) === $query) {
+                //this is language route
+                $exploded = explode('.', $name);
+                $lang = strtoupper($exploded[1]);
+                $locale = $lang;
+            }
+            App::setLocale(strtolower($locale));
+            session(['applocale_change' => strtolower($locale)]);
+
+            //Landing page content
+            $features = Features::where('post_type', 'feature')->get();
+            $testimonials = Testimonials::where('post_type', 'testimonial')->get();
+            $processes = Process::where('post_type', 'process')->get();
+            $blog_posts = Process::where('post_type', 'blog')->get();
+
+           
+            $response = new \Illuminate\Http\Response(view('cards::landing', [
+                'pages'=>Pages::where('showAsLink',1)->get(),
+                'isExtended' => md5(config('settings.extended_license_download_code',""))=="d0398556dbecac06370bdc8baec559a9" || config('settings.is_demo',false),
+                'col' => count($plans)>0?$colCounter[count($plans)-1]:12,
+                'plans' => $plans,
+                'availableLanguages' => $availableLanguages,
+                'locale' => $locale,
+                'pages' => Pages::where('showAsLink', 1)->get(),
+                'showcase' =>  Process::where('post_type', 'showcase')->get(),
+                'featured_vendors'=>Restorant::where('active',1)->where('is_featured',1)->get()->shuffle(),
                 'features' => $features,
                 'faqs' =>  Process::where('post_type', 'faq')->get(),
                 'testimonials' => $testimonials,
@@ -853,16 +999,60 @@ class FrontEndController extends Controller
         ]);
     }
 
+    public function loyalty($alias)
+    {
+        return $this->loyaltyPlatform(Restorant::whereRaw('REPLACE(subdomain, "-", "") = ?', [str_replace("-","",$alias)])->first());  
+    }
+
+    public function loyaltyPlatform($company){
+
+        //Set config based on restaurant
+        config(['app.timezone' => $company->getConfig('time_zone',config('app.timezone'))]);
+
+        //Change Language
+        ConfChanger::switchLanguage($company);
+
+        //Change currency
+        ConfChanger::switchCurrency($company);
+
+        $currentEnvLanguage = isset(config('config.env')[2]['fields'][0]['data'][config('app.locale')]) ? config('config.env')[2]['fields'][0]['data'][config('app.locale')] : 'UNKNOWN';
+
+
+        $company->increment('views');
+
+        $viewFile='cards::company.landing';
+
+        session(['last_visited_restaurant_alias' => $company->alias]);
+
+
+        $viewData=[
+             'faqs' =>  Process::where('post_type', 'loyaltyfaq')->where('vendor_id',$company->id)->get(),
+             'rewards' =>  Process::where('post_type', 'reward')->where('vendor_id',$company->id)->get(),
+             'company' => $company,
+             'currentLanguage'=>$currentEnvLanguage,
+        ];
+
+        if(Auth::user()){
+            $viewData['card']=\Modules\Cards\Models\Card::where('client_id',auth()->user()->id)->where('vendor_id',$company->id)->first();
+            if($viewData['card']==null){
+                //dispatch new user event for this vendor
+                NewClient::dispatch(auth()->user(),$company);
+                $viewData['card']=\Modules\Cards\Models\Card::where('client_id',auth()->user()->id)->where('vendor_id',$company->id)->first();
+            }
+        }
+
+ 
+
+        $response = new \Illuminate\Http\Response(view($viewFile,$viewData));
+        return $response;
+    }
+
+
+
     public function restorant($alias)
     {
-       
-
         //Do we have impressum app
         $doWeHaveImpressumApp=Module::has('impressum');
-       
-
-        
-
 
         $subDomain = $this->getSubDomain();
         if ($subDomain && $alias !== $subDomain) {
@@ -870,15 +1060,22 @@ class FrontEndController extends Controller
         }
         $restorant = Restorant::whereRaw('REPLACE(subdomain, "-", "") = ?', [str_replace("-","",$alias)])->first();
 
+        if(config('app.isloyalty',false)&&$restorant){
+            return $this->loyaltyPlatform($restorant);
+        }
+
+
         $doWeHaveOrderAfterHours=Module::has('orderdatetime')&&$restorant->getConfig('order_date_time_enable',false);
 
         //Template switcher
         $menuTemplate=config('settings.front_end_template','defaulttemplate');
         if(Module::has('themeswitcher')){
             $vendorTemplate=$restorant->getConfig('menu_template',$menuTemplate);
-            //dd($vendorTemplate);    
-            config(['settings.front_end_template' =>$vendorTemplate ]);
-            $menuTemplate=$vendorTemplate;
+            if(in_array($vendorTemplate, config('global.modules',[]))){
+                config(['settings.front_end_template' =>$vendorTemplate ]);
+                $menuTemplate=$vendorTemplate;
+            }
+            
         }
         
 
@@ -910,26 +1107,29 @@ class FrontEndController extends Controller
             
             //ratings usernames
             $usernames = [];
-            if ($restorant && $restorant->ratings) {
-                foreach ($restorant->ratings as $rating) {
-                    $user = User::where('id', $rating->user_id)->get()->first();
-
-                    if (! array_key_exists($user->id, $usernames)) {
-                        $new_obj = (object) [];
-                        $new_obj->name = $user->name;
-
-                        $usernames[$user->id] = (object) $new_obj;
+            if(config('app.isft')){
+                if ($restorant && $restorant->ratings) {
+                    foreach ($restorant->ratings as $rating) {
+                        $user = User::where('id', $rating->user_id)->get()->first();
+    
+                        if (! array_key_exists($user->id, $usernames)) {
+                            $new_obj = (object) [];
+                            $new_obj->name = $user->name;
+    
+                            $usernames[$user->id] = (object) $new_obj;
+                        }
                     }
                 }
             }
+            
 
            
             $previousOrders = Cookie::get('orders') ? Cookie::get('orders') : '';
             $previousOrderArray = array_filter(explode(',', $previousOrders));
 
             //tables
-            $tables = Tables::where('restaurant_id', $restorant->id)->get();
             $tablesData = [];
+            $tables = Tables::where('restaurant_id', $restorant->id)->get();
             foreach ($tables as $key => $table) {
                 $tablesData[$table->id] = $table->restoarea ? $table->restoarea->name.' - '.$table->name : $table->name;
             }

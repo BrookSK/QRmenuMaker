@@ -13,6 +13,7 @@
 
 
     <div class="container-fluid mt--7">
+        @yield('customheading')
         <div class="row">
             <div class="col">
                 <div class="card shadow">
@@ -60,14 +61,19 @@
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
-                                    @if(isset($fields))
-                                        @foreach ($fields as $field)
-                                            <th>{{ __( $field['name'] ) }}</th>
-                                        @endforeach 
-                                        <th>{{ __('crud.actions') }}</th>
-                                    @else
+                                    @if(isset($custom_table))
                                         @yield('thead')
+                                    @else
+                                        @if(isset($fields))
+                                            @foreach ($fields as $field)
+                                                <th>{{ __( $field['name'] ) }}</th>
+                                            @endforeach 
+                                            <th>{{ __('crud.actions') }}</th>
+                                        @else
+                                            @yield('thead')
+                                        @endif
                                     @endif
+                                   
                                    
                                        
                                 </thead>

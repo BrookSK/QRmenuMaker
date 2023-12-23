@@ -24,6 +24,7 @@ composer.lock
 /app/storage/
 /storage/installed
 /storage/verified
+/storage/multilanguagemigrated
 /.fleet
 auth.json
 

@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 use Akaunting\Module\Facade as Module;
 use App\Models\Posts;
+use App\Plans;
 
 class DriverController extends Controller
 {
@@ -76,9 +77,12 @@ class DriverController extends Controller
      */
     public function create()
     {
+        $currentPlan = Plans::withTrashed()->find(auth()->user()->mplanid());
         if ($this->hasAccessToDrivers()) {
             return view('drivers.create');
-        } else {
+        } else if($currentPlan->limit_items!=0&& User::role('driver')->where('restaurant_id',auth()->user()->restorant->id)->count()>=$currentPlan->limit_items){
+            return redirect(route('plans.current'))->withError(__('You need to subscribe to a pro plan'));
+        }else {
             return redirect()->route('orders.index')->withStatus(__('No Access'));
         }
     }
@@ -253,6 +257,9 @@ class DriverController extends Controller
 
     public function register()
     {
+        config([
+            'global.restorant_details_cover_image' =>  "",
+        ]);
         return view('general.form_front', ['setup' => [
             'inrow'=>true,
             'action_link'=>null,
@@ -261,7 +268,7 @@ class DriverController extends Controller
             'iscontent'=>true,
             'action'=>route('driver.register.store')
         ],
-        'fields'=>$this->getFields('col-md-6'), ]);
+        'fields'=>$this->getFields('col-md-12'), ]);
     }
 
     public function registerStore(Request $request)

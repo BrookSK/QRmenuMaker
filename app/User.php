@@ -97,6 +97,21 @@ class User extends Authenticatable
                     }
                 }
             }
+        }else if($this->hasRole('client')){
+            foreach (Module::all() as $key => $module) {
+                if(is_array($module->get('clientmenus'))){
+                    foreach ($module->get('clientmenus') as $key => $menu) {
+                        if(isset($menu['onlyin'])){
+                            if(config('app.'.$menu['onlyin'])){
+                                array_push($menus,$menu);
+                            }
+                        }else{
+                            array_push($menus,$menu);
+                        }
+                       
+                    }
+                }
+            }
         }else if($this->hasRole('owner')){
             $allowedPluginsPerPlan = auth()->user()->restorant?auth()->user()->restorant->getPlanAttribute()['allowedPluginsPerPlan']:null;
             foreach (Module::all() as $key => $module) {

@@ -6,7 +6,7 @@
     @foreach ($setup['items'] as $item)
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 mb-4">
             <br/>
-            <a href="{{ route("admin.landing.posts.edit",["post"=>$item->id]) }}">
+            <a href="{{ route( (isset($setup['edit_link'])?$setup['edit_link']:"admin.landing.posts.edit"),["post"=>$item->id]) }}">
                 <div class="card cardWithShadow cardWithShadowAnimated shadow" data-toggle="tooltip" data-placement="top" title="{{ __('Edit this item')}}">
                     <div class="card-body">
                         @if (strlen($item->image)>2)
@@ -24,7 +24,7 @@
             </a>
             <br/>
             <div class="text-center">
-                <a onclick="return confirm('Are you sure?')" href="{{ route("admin.landing.posts.delete",["post"=>$item->id]) }}" class="btn btn-outline-danger btn-sm">{{ __('Delete') }}</a>
+                <a onclick="return confirm('Are you sure?')" href="{{ route((isset($setup['delete_link'])?$setup['delete_link']: "admin.landing.posts.delete"),["post"=>$item->id]) }}" class="btn btn-outline-danger btn-sm">{{ __('Delete') }}</a>
             </div>
         </div>
     @endforeach

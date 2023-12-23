@@ -2,7 +2,7 @@
 <div class="tab-content orders-filters">
     <form>
         <div class="row">
-            @include('partials.fields',['fiedls'=>$fields])
+            @include('partials.fields',['fields'=>isset($filterFields)?$filterFields:$fields])
         </div>
 
         <div class="col-md-6 offset-md-6">

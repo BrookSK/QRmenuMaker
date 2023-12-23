@@ -6,6 +6,7 @@
 <div class="container-fluid mt--7">
     <div class="row">
         <div class="col-xl-9 order-xl-1">
+            <!-- Orders -->
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
@@ -51,6 +52,14 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Points -->
+            @if ($hasPoints)
+                @include('cards::points.client_points')
+            @endif
+            
+
+
         </div>
 
         <div class="col-xl-3 order-xl-2">

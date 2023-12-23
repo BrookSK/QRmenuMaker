@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Cashier\Exceptions\PaymentActionRequired;
 use Laravel\Cashier\Exceptions\PaymentFailure;
 use Akaunting\Module\Facade as Module;
+use Laravel\Cashier\Exceptions\IncompletePayment;
 
 class PlansController extends Controller
 {
@@ -67,7 +68,9 @@ class PlansController extends Controller
     public function index(Plans $plans)
     {
         $this->adminOnly();
-
+        if(!$this->isExtended()){
+            return view('plans.extended');
+        }
         return view('plans.index', ['plans' => $plans->paginate(10)]);
     }
 
@@ -295,6 +298,12 @@ class PlansController extends Controller
                 $paymentRedirect = route('cashier.payment',[$e->payment->id, 'redirect' => route('plans.subscribe_3d_stripe',['plan'=> $plan->id,'user'=>auth()->user()->id])]);
                 return redirect($paymentRedirect);
             }
+            catch (IncompletePayment $e) {
+                //On IncompletePayment - SCA - send the checkout link
+                $paymentRedirect= route('cashier.payment',[$e->payment->id, 'redirect' => route('plans.subscribe_3d_stripe',['plan'=> $plan->id,'user'=>auth()->user()->id])]);
+                return redirect($paymentRedirect);
+    
+            }
 
             //PaymentFailure
             catch (PaymentFailure $e) {
@@ -319,5 +328,20 @@ class PlansController extends Controller
         $user->update();
 
         return redirect()->route('admin.restaurants.edit', $request->restaurant_id)->withStatus(__('Plan successfully updated.'));
+    }
+
+    public function isExtended(){
+        //First check if pure saas
+        if(config('settings.makePureSaaS')){
+            //Do a check if the APPs download code is set
+            if(md5(config('settings.extended_license_download_code',""))=="d0398556dbecac06370bdc8baec559a9" || config('settings.is_demo',false)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            //Old way
+            return true;
+        }
     }
 }

@@ -43,8 +43,8 @@ class CouponsController extends Controller
     private function getFields()
     {
         return [
-            ['class'=>'col-md-4', 'ftype'=>'input', 'name'=>'Name', 'id'=>'name', 'placeholder'=>'Enter code name', 'required'=>true],
-            ['class'=>'col-md-4', 'ftype'=>'input', 'type'=>'number', 'name'=>'Code', 'id'=>'size', 'placeholder'=>'Enter table person size, ex 4', 'required'=>true],
+            ['class'=>'col-md-4', 'ftype'=>'input', 'name'=>'Name', 'id'=>'name', 'placeholder'=>'Enter coupon code name', 'required'=>true],
+            ['class'=>'col-md-4', 'ftype'=>'input', 'type'=>'text', 'name'=>'Code', 'id'=>'code', 'placeholder'=>'Enter coupon code number', 'required'=>true],
             ['ftype'=>'select', 'name'=>'Price', 'id'=>'type', 'placeholder'=>'Select type', 'data'=>['Fixed', 'Percentage'], 'required'=>true],
             ['ftype'=>'select', 'name'=>'Active from', 'id'=>'type', 'placeholder'=>'Select type', 'data'=>['Fixed', 'Percentage'], 'required'=>true],
             ['ftype'=>'select', 'name'=>'Active to', 'id'=>'type', 'placeholder'=>'Select type', 'data'=>['Fixed', 'Percentage'], 'required'=>true],
@@ -52,13 +52,25 @@ class CouponsController extends Controller
             ['ftype'=>'select', 'name'=>'Used from', 'id'=>'type', 'placeholder'=>'Select type', 'data'=>['Fixed', 'Percentage'], 'required'=>true],
         ];
     }
+    private function getFilterFields(){
+        $fields=$this->getFields();
+        $fields[0]['required']=false;
+        $fields[1]['required']=false;
+        unset($fields[2]);
+        unset($fields[3]);
+        unset($fields[4]);
+        unset($fields[5]);
+        unset($fields[6]);
+
+        return $fields;
+    }
 
     /**
      * Auth checker functin for the crud.
      */
     private function authChecker()
     {
-        $this->ownerOnly();
+        $this->ownerAndStaffOnly();
     }
 
     /**
@@ -70,15 +82,28 @@ class CouponsController extends Controller
     {
         $this->authChecker();
 
+        $items=$this->getRestaurant()->coupons();
+        if(isset($_GET['name'])){
+            $items=$items->where('name', 'like', '%'.$_GET['name'].'%');
+        }
+        if(isset($_GET['code'])){
+            $items=$items->where('code', 'like', '%'.$_GET['code'].'%');
+        }
+        $items=$items->paginate(config('settings.paginate'));
+
         return view($this->view_path.'index', ['setup' => [
+            'usefilter'=>true,
             'title'=>__('crud.item_managment', ['item'=>__($this->titlePlural)]),
             'action_link'=>route($this->webroute_path.'create'),
             'action_name'=>__('crud.add_new_item', ['item'=>__($this->title)]),
-            'items'=>$this->getRestaurant()->coupons()->paginate(config('settings.paginate')),
+            'items'=>$items,
             'item_names'=>$this->titlePlural,
             'webroute_path'=>$this->webroute_path,
             'fields'=>$this->getFields(),
+            'filterFields'=>$this->getFilterFields(),
+            'custom_table'=>true,
             'parameter_name'=>$this->parameter_name,
+            'parameters'=>count($_GET) != 0,
         ]]);
     }
 
@@ -177,6 +202,15 @@ class CouponsController extends Controller
         $item = $this->provider::findOrFail($id);
         $item->delete();
         return redirect()->route($this->webroute_path.'index')->withStatus(__('crud.item_has_been_removed', ['item'=>__($this->title)]));
+    }
+
+    public function use($id)
+    {
+        $this->authChecker();
+        $item = $this->provider::findOrFail($id);
+        $item->used_count=$item->limit_to_num_uses;
+        $item->update();
+        return redirect()->route($this->webroute_path.'index')->withStatus(__('crud.item_has_been_updated', ['item'=>__($this->title)]));
     }
 
     public function apply(Request $request)

@@ -8,6 +8,7 @@
 @section('content')
     @include('users.partials.header', [
         'title' => "",
+        'headerImage' =>config('global.restorant_details_cover_image')
     ])
 
 

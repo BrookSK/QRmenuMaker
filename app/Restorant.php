@@ -67,70 +67,80 @@ class Restorant extends MyModel
         }
         $planInfo['plan']=$currentPlan->toArray();
         
-
-        //Count items
-        $itemsCount = Items::whereIn('category_id', $this->categories->pluck('id')->toArray())->whereNull('deleted_at')->count();
-        if ($currentPlan->limit_items != 0) {
-           
-            $allowedNewItems=$currentPlan->limit_items - $itemsCount;
-            $planInfo['canAddNewItems']=$allowedNewItems > 0;
-            if($allowedNewItems > 0){
-                $planInfo['itemsMessage']=__('You can add')." ".$allowedNewItems." ".__('more items.');
-                if($allowedNewItems < 10){
-                    $planInfo['itemsAlertType']="warning";
-                }
-            }
-            if($allowedNewItems < 1){
-                $planInfo['itemsMessage']=__('You can not add more items. Please subscribe to new plan.');
-                $planInfo['itemsAlertType']="danger";
-            }
+        if (!config('settings.makePureSaaS',false)) {
+            //Count items
+            $itemsCount = Items::whereIn('category_id', $this->categories->pluck('id')->toArray())->whereNull('deleted_at')->count();
+            if ($currentPlan->limit_items != 0) {
             
-        }else{
-            //Unlimited items
-            $planInfo['itemsMessage']=__('You can add unlimited number of items');
-            $planInfo['canAddNewItems']=true;
-        }
-
-        //Count orders
-        //Period
-        if($currentPlan->period==1){
-            //Monthly - get start of month
-            $period=Carbon::now()->startOfMonth();
-        }else{
-            //Yearly - get start iof year
-            $period=Carbon::now()->startOfYear();
-        }
-        $orderCount=$this->orders->where('created_at','>=',$period)->count();
-        
-        if ($currentPlan->limit_orders != 0 && $currentPlan->enable_ordering==1) {
-            $allowedNewOrders=$currentPlan->limit_orders - $orderCount;
-           
-            $planInfo['canMakeNewOrder']=$allowedNewOrders > 0;
-            if($allowedNewOrders > 0){
-                $planInfo['ordersMessage']=__('You can receive')." ".$allowedNewOrders." ".__('more orders.')." ".__('Total included in this plan').": ".$currentPlan->limit_orders;
-                if($allowedNewOrders < 20){
-                    $planInfo['ordersAlertType']="warning";
+                $allowedNewItems=$currentPlan->limit_items - $itemsCount;
+                $planInfo['canAddNewItems']=$allowedNewItems > 0;
+                if($allowedNewItems > 0){
+                    $planInfo['itemsMessage']=__('You can add')." ".$allowedNewItems." ".__('more items.');
+                    if($allowedNewItems < 10){
+                        $planInfo['itemsAlertType']="warning";
+                    }
                 }
-            }
-            if($allowedNewOrders < 1){
-                $planInfo['ordersMessage']=__('You can not receive more orders. Please subscribe to new plan.');
-                $planInfo['ordersAlertType']="danger";
-            }
-            
-        }else{
-            //Unlimited orders - if plan has ordering
-            if($currentPlan->enable_ordering==1){
-                //Has ordering
-                $planInfo['ordersMessage']=__('You can receive unlimited number of orders');
-                $planInfo['canMakeNewOrder']=true;
+                if($allowedNewItems < 1){
+                    $planInfo['itemsMessage']=__('You can not add more items. Please subscribe to new plan.');
+                    $planInfo['itemsAlertType']="danger";
+                }
+                
             }else{
-                //Doesn't have ordering
-                $planInfo['ordersMessage']=__('This plan does not allow ordering.');
-                $planInfo['canMakeNewOrder']=false;
-                $planInfo['ordersAlertType']="danger";
+                //Unlimited items
+                $planInfo['itemsMessage']=__('You can add unlimited number of items');
+                $planInfo['canAddNewItems']=true;
             }
-           
+
+            //Count orders
+            //Period
+            if($currentPlan->period==1){
+                //Monthly - get start of month
+                $period=Carbon::now()->startOfMonth();
+            }else{
+                //Yearly - get start iof year
+                $period=Carbon::now()->startOfYear();
+            }
+            $orderCount=$this->orders->where('created_at','>=',$period)->count();
+            
+            if ($currentPlan->limit_orders != 0 && $currentPlan->enable_ordering==1) {
+                $allowedNewOrders=$currentPlan->limit_orders - $orderCount;
+            
+                $planInfo['canMakeNewOrder']=$allowedNewOrders > 0;
+                if($allowedNewOrders > 0){
+                    $planInfo['ordersMessage']=__('You can receive')." ".$allowedNewOrders." ".__('more orders.')." ".__('Total included in this plan').": ".$currentPlan->limit_orders;
+                    if($allowedNewOrders < 20){
+                        $planInfo['ordersAlertType']="warning";
+                    }
+                }
+                if($allowedNewOrders < 1){
+                    $planInfo['ordersMessage']=__('You can not receive more orders. Please subscribe to new plan.');
+                    $planInfo['ordersAlertType']="danger";
+                }
+                
+            }else{
+                //Unlimited orders - if plan has ordering
+                if($currentPlan->enable_ordering==1){
+                    //Has ordering
+                    $planInfo['ordersMessage']=__('You can receive unlimited number of orders');
+                    $planInfo['canMakeNewOrder']=true;
+                }else{
+                    //Doesn't have ordering
+                    $planInfo['ordersMessage']=__('This plan does not allow ordering.');
+                    $planInfo['canMakeNewOrder']=false;
+                    $planInfo['ordersAlertType']="danger";
+                }
+            
+            }
+
+            
+        }else{
+            //Pure SaaS
+            $planInfo['ordersMessage']=$currentPlan->name." - ".rtrim(money($currentPlan['price'],config('settings.cashier_currency'),config('settings.do_convertion'))->format(), ".00")."/".($currentPlan['period']==1?__('m'):__('y'));
+            $planInfo['itemsMessage']=$currentPlan->features;
         }
+      
+
+       
 
         $plugins=$currentPlan->getConfig('plugins',null);
         
@@ -280,8 +290,15 @@ class Restorant extends MyModel
 
     public function coupons()
     {
-        return $this->hasMany(\App\Coupons::class, 'restaurant_id', 'id');
+        return $this->hasMany(\App\Coupons::class, 'restaurant_id', 'id')->orderBy('id', 'desc');
     }
+
+    public function systemcategories()
+    {
+        return $this->belongsToMany(\App\Models\Posts::class,'vendor_has_categories','vendor_id', 'category_id');
+    }
+
+    
 
     public static function boot()
     {
@@ -294,6 +311,12 @@ class Restorant extends MyModel
                 foreach ($restaurant->orders()->get() as $order) {
                     $order->delete();
                 }
+
+                //Delete categories
+                foreach ($restaurant->categories()->get() as $cat) {
+                    $cat->delete();
+                }
+
 
                 return true;
             }
