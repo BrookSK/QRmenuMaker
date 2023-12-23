@@ -34,6 +34,7 @@ trait HasStripe
                 $chargeOptions=$this->stripeConnect();
             }
 
+            $chargeOptions['currency']=$this->vendor->currency;
             //User to apply the charge to
             $user=auth()->user()?auth()->user():$this->vendor->user;
 
@@ -119,6 +120,7 @@ trait HasStripe
         //Create the charge object
         $chargeOptions = [
             'application_fee_amount' => $application_fee_amount,
+            'currency' => config('settings.cashier_currency'),
             'transfer_data' => [
                 'destination' => $this->vendor->user->stripe_account.'',
             ],

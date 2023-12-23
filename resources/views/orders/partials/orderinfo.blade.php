@@ -81,7 +81,7 @@
             <li><h4>{{ $item->pivot->qty." X ".$item->name }} -  @money($theItemPrice, $currency,$convert)  =  ( @money( $item->pivot->qty*$theItemPrice, $currency,true) )
                  
                 @if($item->pivot->vatvalue>0))
-                    <span class="small">-- {{ __('VAT ').$item->pivot->vat."%: "}} ( @money( $item->pivot->vatvalue, $currency,$convert) )</span>
+                    <span class="small">-- {{ __('VAT').' '.$item->pivot->vat."%: "}} ( @money( $item->pivot->vatvalue, $currency,$convert) )</span>
                 @endif
                  @hasrole('admin|owner|staff')
                     <?php $lasStatusId=$order->status->pluck('id')->last(); ?>
@@ -175,6 +175,9 @@
      @if ($order->discount>0)
         <h4>{{ __("Discount") }}: @money( $order->discount, $currency,$convert)</h4>
         <h4>{{ __("Coupon code") }}: {{$order->coupon}}</h4>
+     @endif
+     @if ($order->tip>0)
+        <h4>{{ __("Tip") }}: @money( $order->tip, $currency,$convert)</h4>
      @endif
      <hr />
      <h3>{{ __("TOTAL") }}: @money( $order->delivery_price+$order->order_price_with_discount, $currency,true)</h3>

@@ -103,8 +103,8 @@ class Controller extends BaseController
 
                 //Save location
                $saveLocation=public_path($folder).$uuid.'_'.$version['name'].'.'.'jpg';
-               if(strlen(config('settings.image_store_path'.'')>3)){
-                $saveLocation=config('settings.image_store_path'.'').$uuid.'_'.$version['name'].'.'.'jpg';
+               if(strlen(config('settings.image_store_path'.''))>3){
+                $saveLocation=config('settings.image_store_path'.'').$folder.$uuid.'_'.$version['name'].'.'.'jpg';
                }
 
                 if (isset($version['w']) && isset($version['h'])) {
@@ -285,6 +285,13 @@ class Controller extends BaseController
     public function ownerOnly()
     {
         if (! auth()->user()->hasRole('owner')) {
+            abort(403, 'Unauthorized action.');
+        }
+    }
+
+    public function ownerAndStaffOnly()
+    {
+        if (! auth()->user()->hasRole(['owner','staff'])) {
             abort(403, 'Unauthorized action.');
         }
     }

@@ -23,6 +23,11 @@
                                 <span v-if="deduct">{{ __('Applied coupon discount') }}:</span>
                                 <span v-if="deduct" class="ammount">@{{ deductFormat }}</span>
                                 <br />  
+                            </div>
+
+                            <div v-if="tip"> 
+                                <span v-if="tip">{{ __('Applied tip') }}:</span>
+                                <span v-if="tip" class="ammount">@{{ tipFormat }}</span>
                                 <br />  
                             </div>
                            
@@ -40,6 +45,12 @@
             <!-- Coupons -->
             @include('cart.coupons')
             <!-- End coupons -->
+        @endif
+
+        @if(in_array("tips", config('global.modules',[])))
+            <!-- Tip -->
+            @include('cart.tips')
+            <!-- End tip -->
         @endif
 
 
@@ -101,7 +112,7 @@
         </div><br />
 
         <!-- Payment Actions -->
-        @if(!config('settings.social_mode'))
+        @if(!config('settings.social_mode')||config('settings.do_regular_checkout_social',false))
 
             <!-- COD -->
             @include('cart.payments.cod')

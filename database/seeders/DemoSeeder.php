@@ -64,8 +64,29 @@ class DemoSeeder extends Seeder
             if(config('settings.is_agris_mode')){
                 $this->call(AgrisSeeder::class);
             }
-        } else {
+        }else if (config('app.isdrive')) {
+            //FT Social Dirve
+            $this->call(PlansSeeder::class);
 
+            $demoClientId=DB::table('users')->insertGetId([
+                'name' => 'Demo Client 1',
+                'email' =>  'client@example.com',
+                'password' => Hash::make('secret'),
+                'api_token' => Str::random(80),
+                'email_verified_at' => now(),
+                'phone' =>  '',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            //Assign client role
+            DB::table('model_has_roles')->insert([
+                'role_id' => 4,
+                'model_type' =>  \App\User::class,
+                'model_id'=> $demoClientId,
+            ]);
+         } else {
+            //Pure FT
             $this->call(PlansSeeder::class);
 
             //Driver

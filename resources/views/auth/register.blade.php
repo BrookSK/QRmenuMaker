@@ -1,4 +1,4 @@
-@extends('layouts.app', ['class' => 'bg-default'])
+@extends('layouts.app', ['class' => config('app.isloyalty')?"":'bg-default'])
 @if (strlen(config('settings.recaptcha_site_key'))>2)
     @section('head')
     {!! htmlScriptTagJsApi([]) !!}

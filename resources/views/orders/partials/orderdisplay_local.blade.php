@@ -1,9 +1,9 @@
 <thead class="thead-light">
     <tr>
         <th scope="col">{{ __('ID') }}</th>
-        @if(auth()->user()->hasRole('admin'))
+        @hasrole('admin|driver')
             <th scope="col">{{ __('Restaurant') }}</th>
-        @endif
+        @endhasrole
         <th class="table-web" scope="col">{{ __('Created') }}</th>
         <th class="table-web" scope="col">{{ !config('settings.is_whatsapp_ordering_mode') ? __('Table / Method') : __('Method') }}</th>
         @if (!isset($hideAction))
@@ -21,7 +21,7 @@
 <tr>
     <td>
         
-        <a class="btn badge badge-success badge-pill" href="{{ route('orders.show',$order->id )}}">#{{ $order->id }}</a>
+        <a class="btn badge badge-success badge-pill" href="{{ route('orders.show',$order->id )}}">#{{ $order->id_formated }}</a>
     </td>
     @hasrole('admin|driver')
     <th scope="row">
@@ -40,6 +40,7 @@
         {{ $order->created_at->locale(Config::get('app.locale'))->isoFormat('LLLL')  }}
     </td>
     <td class="table-web">
+        {{ $order->table ? $order->table->getFullNameAttribute()." / " : '' }}
         {{ $order->getExpeditionType() }}
     </td>
     @if (!isset($hideAction))

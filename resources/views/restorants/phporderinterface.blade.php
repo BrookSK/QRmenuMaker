@@ -23,12 +23,13 @@
             $theArray=[
                 'name'=>$item->name,
                 'id'=>$item->id,
+                'qty'=>$item->qty_management.""=="1"?$item->qty:100,
                 'priceNotFormated'=>$item->price,
                 'price'=>@money($item->price, config('settings.cashier_currency'),config('settings.do_convertion'))."",
                 'image'=>$item->logom,
                 'extras'=>$formatedExtras,
                 'options'=>$item->options,
-                'variants'=>$item->variants,
+                'variants'=>$item->availlablevariants,
                 'has_variants'=>$item->has_variants==1&&$item->options->count()>0,
                 'description'=>$item->description
             ];

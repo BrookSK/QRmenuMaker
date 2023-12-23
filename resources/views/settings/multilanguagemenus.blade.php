@@ -12,7 +12,8 @@
             </div>
             <div class="card-body">
                 <?php 
-                    $currentEnvLanguage= isset(config('config.env')[2]['fields'][0]['data'][config('settings.app_locale')]) ? config('config.env')[2]['fields'][0]['data'][config('settings.app_locale')]:"UNKNOWN"; ?>
+                    $appLocale=strtolower(config('settings.app_locale'));
+                    $currentEnvLanguage= isset(config('config.env')[2]['fields'][0]['data'][$appLocale]) ? config('config.env')[2]['fields'][0]['data'][$appLocale]:"UNKNOWN"; ?>
                     <p>You have enabled Multilanguage menus, but we haven't yet done a migaration to add the default language menu in <strong>{{ $currentEnvLanguage  }}</strong>. 
                     <br />At the moment, your default locale / language is <strong>{{ $currentEnvLanguage  }}</strong>!
                     <br />If <strong>{{ $currentEnvLanguage  }}</strong> is not your desired language, you can change it in the "Localization" tab. And then run this action

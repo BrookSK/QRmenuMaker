@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Items;
 use App\Models\Variants;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use PayPal\Api\Item;
 
 class VariantsController extends Controller
 {
@@ -29,9 +31,17 @@ class VariantsController extends Controller
 
     private function getFields(Items $item)
     {
-        return array_merge([
+        $variantData=[
             ['ftype'=>'input', 'type'=>'number', 'name'=>'Price', 'id'=>'price', 'placeholder'=>'Enter variant price', 'required'=>true],
-        ], $this->getOptionsForItem($item));
+        ];
+
+
+        $variantQTY=[];
+        if($item->qty_management==1){
+            array_push($variantQTY, ['ftype'=>'input', 'value'=>1, 'type'=>'number', 'name'=>'Quantity', 'id'=>'qty', 'placeholder'=>'Enter variant quantity', 'required'=>true]); 
+        }  
+
+        return array_merge($variantData, $this->getOptionsForItem($item),$variantQTY);
     }
 
     /**
@@ -41,10 +51,12 @@ class VariantsController extends Controller
      */
     public function index(Items $item)
     {
-        return view('items.variants.index', ['setup' => [
+  
+        return view('items.variants.index', ['restorant'=>$this->getRestaurant(),'item'=>$item,'setup' => [
             'title'=>__('Variants for')." ".$item->name,
             'action_link'=>route('items.variants.create', ['item'=>$item->id]),
             'action_name'=>'Add new variant',
+            
             'items'=>$item->uservariants()->paginate(10),
             'item_names'=>'variants',
             'breadcrumbs'=>[
@@ -107,7 +119,17 @@ class VariantsController extends Controller
             'item_id'=>$item->id,
             'options'=>json_encode($request->option),
         ]);
+
+        if($request->has('qty')){
+            $variant->qty = $request->qty;
+            $variant->enable_qty=1;
+        }else{
+            $variant->enable_qty=0;
+        }   
         $variant->save();
+        if($request->has('qty')){
+            Items::findOrFail($variant->item->id)->calculateQTYBasedOnVariants();
+        } 
         $this->doUpdateOfSystemVariants($variant->item);
 
         return redirect()->route('items.variants.index', ['item'=>$item->id])->withStatus(__('Variant has been added'));
@@ -145,6 +167,11 @@ class VariantsController extends Controller
                 }
             }
         }
+
+        //Now fill the qty
+        if(isset($fields[2])){
+            $fields[2]['value'] = $variant->qty;
+        }
         return view('general.form', ['setup' => [
             'title'=>__('Edit variant').' #'.$variant->id,
             'action_link'=>route('items.variants.index', ['item'=>$variant->item]),
@@ -173,7 +200,16 @@ class VariantsController extends Controller
     {
         $variant->price = $request->price;
         $variant->options = json_encode($request->option);
+        if($request->has('qty')){
+            $variant->qty = $request->qty;
+            $variant->enable_qty=1;
+        }else{
+            $variant->enable_qty=0;
+        }  
         $variant->update();
+        if($request->has('qty')){
+            Items::findOrFail($variant->item->id)->calculateQTYBasedOnVariants();
+        } 
 
         $this->doUpdateOfSystemVariants($variant->item);
 
@@ -190,6 +226,7 @@ class VariantsController extends Controller
     {
         $item=$variant->item;
         $variant->delete();
+        Items::findOrFail($variant->item->id)->calculateQTYBasedOnVariants();
         $this->doUpdateOfSystemVariants($item);
 
         return redirect()->route('items.variants.index', ['item'=>$variant->item->id])->withStatus(__('Variant has been removed'));

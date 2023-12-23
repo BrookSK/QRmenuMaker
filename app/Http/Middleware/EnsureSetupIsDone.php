@@ -18,7 +18,7 @@ class EnsureSetupIsDone
     public function handle(Request $request, Closure $next)
     {
         if (Auth::user()->hasRole('admin')) {
-            if(file_exists(storage_path('verified'))){
+            if(file_exists(storage_path('verified'))   || config('settings.is_demo',false)){
                 return $next($request);
             }else{
                 return redirect(route('systemstatus'));

@@ -9,21 +9,24 @@
                 </div>
                 <h2 class="display-2">{{ __("You're all set!") }}</h2>
                 <h1 class="mb-4">
-                    <span class="badge badge-primary">{{ __('Order')." #".$order->id }}</span>
+                    <span class="badge badge-primary">{{ __('Order')." #".$order->id_formated }}</span>
                 </h1>
                 <div class="d-flex justify-content-center">
                     <div class="col-8">
                         <h5 class="mt-0 mb-5 heading-small text-muted">
                             {{ __("Your order is created. You will be notified for further information.") }}
                         </h5>
-                        <div class="font-weight-300 mb-5">
-                            {{ __("Thanks for your purchase") }}, 
-                        <span class="h3">{{ $order->restorant->name }}</span></div>
-                        @if (config('settings.wildcard_domain_ready'))
-                            <a href="{{ $order->restorant->getLinkAttribute() }}" class="btn btn-outline-primary btn-sm">{{ __('Go back to restaurant') }}</a>
-                        @else
-                            <a href="{{ route('vendor',$order->restorant->subdomain) }}" class="btn btn-outline-primary btn-sm">{{ __('Go back to restaurant') }}</a>
+                        @if (!config('app.isdrive',false))
+                            <div class="font-weight-300 mb-5">
+                                {{ __("Thanks for your purchase") }}, 
+                            <span class="h3">{{ $order->restorant->name }}</span></div>
+                            @if (config('settings.wildcard_domain_ready'))
+                                <a href="{{ $order->restorant->getLinkAttribute() }}" class="btn btn-outline-primary btn-sm">{{ __('Go back to restaurant') }}</a>
+                            @else
+                                <a href="{{ route('vendor',$order->restorant->subdomain) }}" class="btn btn-outline-primary btn-sm">{{ __('Go back to restaurant') }}</a>
+                            @endif
                         @endif
+                        
 
                         <!-- My Order Buttton -->
                         @if (config('app.isqrsaas'))
