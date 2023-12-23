@@ -74,8 +74,6 @@ function setSelectedVariant(element){
 
     $('#modalPrice').html(formatPrice(element.price));
 
-    console.log("Set selected variant",element);
-
     //Set current item price
     currentItemSelectedPrice=element.price;
 
@@ -88,14 +86,6 @@ function setSelectedVariant(element){
     //Empty the extras, and call it
     $('#exrtas-area-inside').empty();
     loadExtras(variantID);
-
-    if(element.enable_qty){
-        currentItem.qty=element.qty;
-    }else{
-        currentItem.qty=100;
-    }
-
-   
 
 }
 
@@ -250,9 +240,6 @@ function setCurrentItem(id){
 
 
     var item=items[id];
-    console.log("---- ITEM ----");  
-    console.log(item); 
-    
     currentItem=item;
     previouslySelected=[];
     $('#modalTitle').text(item.name);
@@ -307,7 +294,7 @@ function setCurrentItem(id){
 
     variantID=null;
 
-    //Now set the extras
+    //Now set the extrast
     if(item.extras.length==0||item.has_variants){
         
         $('#exrtas-area-inside').empty();

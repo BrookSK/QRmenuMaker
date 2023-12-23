@@ -33,9 +33,6 @@ class UsersTableSeeder extends Seeder
             }else if(config('settings.is_agris_mode')){
                 $logo = "/default/agris_logo_dark.png";
                 $darkLogo = "/default/agris_logo_white.png";
-            }else if(config('app.isloyalty')){
-                $logo = "/default/colibri_logo.png";
-                $darkLogo = "/default/colibri_logo_dark.png";
             }else{
                 $logo = "/default/logo_qrzebra.png";
                 $darkLogo = "/default/logo_qrzebra_white.png";

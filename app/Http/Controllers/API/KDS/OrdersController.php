@@ -77,15 +77,8 @@ class OrdersController extends Controller
                     ->where(['restorant_id'=>$vendor_id])
                     ->where('created_at', '>=', Carbon::today())
                     ->where('kds_finished',($finished=="false"?0:1))
-                    ->with(['items', 'status', 'restorant', 'client', 'address']);
-        $dbOrders = $dbOrders->whereHas('laststatus', function($q){
-            $q->where('status_id',3);
-        });
-        $dbOrders = $dbOrders->whereDoesntHave('laststatus', function($q){
-            $q->whereIn('status_id', [11, 9]);
-        });
-
-        $dbOrders = $dbOrders->get();
+                    ->with(['items', 'status', 'restorant', 'client', 'address'])->get();
+    
                     
 
         //Get all the active orders
@@ -93,8 +86,6 @@ class OrdersController extends Controller
         ->where('type',3)
         ->where('kds_finished','!=',($finished=="false"?1:0))
         ->get()->toArray();
-
-      
 
         //Merge the orders
         foreach ($dbOrders as $key => $orderDB) {
@@ -163,9 +154,9 @@ class OrdersController extends Controller
             if(strlen($order['user_id'])>0){
                 $employee=User::find($order['user_id'])->name;
             }
-            
+
             $order['header']=[
-                'title1'=>($order['isFromDbOrder']?"":__('POS'))."#".$order['id']." - ".($order['type']=="3"?__('Dine In'):$order['expeditionType']) ,
+                'title1'=>$order['type']=="3"?__('Dine In'):$order['expeditionType'],
                 'title2'=>$order['type']=="3"?($theTable?$theTable->getFullNameAttribute():""):__("Time slot")." : ".$order['time_slot'],
                 'title3'=>gmdate("H:i", $diff)." - ".$employee,
                 'color'=>"background-color:".$color
@@ -298,7 +289,6 @@ class OrdersController extends Controller
     private function finishDBOrder($orderId){
         $order=Order::findOrFail($orderId);
         $order->kds_finished=1;
-        $order->status()->attach('5', ['user_id'=>auth()->user()->id, 'comment'=> '']);
         $order->update();
         return response()->json([
             'status' => true,

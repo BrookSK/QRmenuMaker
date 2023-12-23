@@ -34,9 +34,9 @@
                                     <div class="form-group">
                                         <br />
                                         <label class="form-control-label" for="quantity">{{ __('Quantity') }}</label>
+                                        <!--<input type="number" name="quantity" id="quantity" class="form-control form-control-alternative" placeholder="1" value="1" required autofocus>-->
                                             <input
                                                     type="number"
-                                                    oninput="validateInput(this)"
                                                     min="1"
                                                     step="1"
                                                     onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -49,21 +49,6 @@
                                                     autofocus
                                             >
                                     </div>
-                                    <script>
-                          
-                                        
-                                        function validateInput(input) {
-                                          if (input.value > currentItem.qty) {
-                                            if(currentItem.qty==0){
-                                                alert('The item is out of stock');
-                                            }else{
-                                                alert('The number must not be greater than '+currentItem.qty);
-                                            }
-                                          
-                                            input.value=currentItem.qty;
-                                          } 
-                                        }
-                                      </script>
                                     <div class="quantity-btn">
                                         <div id="addToCart1">
                                             <button class="btn btn-primary" v-on:click='addToCartAct'>{{ __('Add To Cart') }}</button>

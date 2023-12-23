@@ -123,13 +123,7 @@ function getAllOrders(){
     orderContent.items=response.data.orders;
     makeFree();
     response.data.orders.forEach(element => {
-     // console.log(element);
-      if(element.isPOSOrder){
-        makeOcccupied(element.id) 
-      }else{
-        makeWebOcccupied(element.id,element.order_id)
-      }
-     
+      makeOcccupied(element.id)
     });
     ordersTotal.totalOrders=response.data.count;
     //updateSubTotalPrice(response.data.total,true);
@@ -311,16 +305,6 @@ function submitOrderPOS(){
   if(cartTotal.deduct>0){
     dataToSubmit.coupon_code=$('#coupon_code').val();
   }
-
-  //Loyalty card
-  if(dataToSubmit.custom){
-    dataToSubmit.custom.loyalty_card=$('#loyalty_card').val();
-  }else{
-    dataToSubmit.custom={
-      loyalty_card:$('#loyalty_card').val()
-    }
-  }
-
   
   axios.post(withSession('/poscloud/order'), dataToSubmit).then(function (response) {
 
@@ -564,13 +548,9 @@ window.onload = function () {
     },
     methods:
     {
-      openDetails:function(id,receipt_number,isPOSOrder,order_id){
-        if(isPOSOrder){
-          window.openTable(id,"#"+receipt_number);
-        }else{
-          window.open("/orders/"+order_id,"_blank")
-        }
+      openDetails:function(id,receipt_number){
         
+        window.openTable(id,"#"+receipt_number);
       }
     }
   })

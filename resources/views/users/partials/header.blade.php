@@ -1,5 +1,4 @@
-<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" 
-   style="background-image: url({{ isset($headerImage)?$headerImage:config('global.restorant_details_cover_image')}}); background-size: cover; background-position: center top;">
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="{{ 'background-image: url('.config('global.restorant_details_cover_image').'); background-size: cover; background-position: center top;' }}">
     <!-- Mask -->
     <span class="mask bg-gradient-default opacity-8"></span>
     <!-- Header container -->

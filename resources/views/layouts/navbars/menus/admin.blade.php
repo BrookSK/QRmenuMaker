@@ -63,34 +63,37 @@
             </a>
          </li>
      @endif
+   
+
+    @if(!config('settings.hideApps'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('apps.index') }}">
+                <i class="ni ni-spaceship text-red"></i> {{ __('Apps') }}
+            </a>
+        </li>
+    @endif
+        
+    <li class="nav-item">
+        <a class="nav-link" href="#navbar-resources" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-maps">
+            <i class="ni ni-single-copy-04 text-primary"></i>
+            <span class="nav-link-text">{{ __('Resources') }}</span>
+        </a>
+        <div class="collapse" id="navbar-resources" style="">
+            <ul class="nav nav-sm flex-column">
+
+                @foreach (auth()->user()->getExtraMenus() as $menu)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route($menu['route'],isset($menu['params'])?$menu['params']:[]) }}">
+                                    <i class="{{ $menu['icon'] }}"></i> {{ __($menu['name']) }}
+                                </a>
+                        </li>
+                @endforeach
+            </ul>
+        </div>
+    </li>
 
         
-        @if(!config('settings.hideApps'))
-             <li class="nav-item">
-                <a class="nav-link" href="{{ route('apps.index') }}">
-                    <i class="ni ni-spaceship text-red"></i> {{ __('Apps') }}
-                </a>
-            </li>
-         @endif
-
-         <li class="nav-item">
-            <a class="nav-link" href="#navbar-resources" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-maps">
-                <i class="ni ni-single-copy-04 text-primary"></i>
-                <span class="nav-link-text">{{ __('Resources') }}</span>
-            </a>
-            <div class="collapse" id="navbar-resources" style="">
-                <ul class="nav nav-sm flex-column">
     
-                    @foreach (auth()->user()->getExtraMenus() as $menu)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route($menu['route'],isset($menu['params'])?$menu['params']:[]) }}">
-                                        <i class="{{ $menu['icon'] }}"></i> {{ __($menu['name']) }}
-                                    </a>
-                            </li>
-                    @endforeach
-                </ul>
-            </div>
-        </li>
 
         <li class="nav-item">
             <a class="nav-link" href="#navbar-system" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-maps">
@@ -144,53 +147,48 @@
                             </a>
                         </li>
                     @endif
-
-                    @if(!config('settings.hideUpdate'))
+                    <li class="nav-item">
                         <li class="nav-item">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('settings.cloudupdate') }}">
-                                    <i class="ni ni-cloud-download-95 text-blue"></i> {{ __('Updates') }}
-                                </a>
-                            </li>
+                            <a class="nav-link" href="{{ route('settings.cloudupdate') }}">
+                                <i class="ni ni-cloud-download-95 text-blue"></i> {{ __('Updates') }}
+                            </a>
                         </li>
-                    @endif
+                    </li>
+                    
                 </ul>
             </div>
         </li>
 
-        @if (!config('settings.hide_admin_support',true))
-            <li class="nav-item">
-                <a class="nav-link" href="#navbar-support" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-maps">
-                    <i class="ni ni-support-16 text-success"></i>
-                    <span class="nav-link-text">{{ __('Support') }}</span>
-                </a>
-                <div class="collapse" id="navbar-support" style="">
-                    <ul class="nav nav-sm flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" target="_blank" href="https://mobidonia.gitbook.io/qr-menu-maker/faq/faq">
-                                {{ __('FAQ') }}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" target="_blank" href="https://help.mobidonia.com/">
-                                {{ __('Web project docs') }}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" target="_blank" href="https://mobidonia.gitbook.io/mobile-apps/">
-                                {{ __('Mobile app docs') }}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" target="_blank" href="https://mobidonia.helpviser.com/">
-                                {{ __('Ticket support') }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li> 
-        @endif
-        
+        <li class="nav-item">
+            <a class="nav-link" href="#navbar-support" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-maps">
+                <i class="ni ni-support-16 text-success"></i>
+                <span class="nav-link-text">{{ __('Support') }}</span>
+            </a>
+            <div class="collapse" id="navbar-support" style="">
+                <ul class="nav nav-sm flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://mobidonia.gitbook.io/qr-menu-maker/faq/faq">
+                            {{ __('FAQ') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://help.mobidonia.com/">
+                            {{ __('Web project docs') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://mobidonia.gitbook.io/mobile-apps/">
+                            {{ __('Mobile app docs') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://mobidonia.helpviser.com/">
+                            {{ __('Ticket support') }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
 
         
 </ul>

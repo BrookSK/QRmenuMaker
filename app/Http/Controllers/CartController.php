@@ -157,8 +157,6 @@ class CartController extends Controller
         if(strlen(config('global.order_fields'))>10){
             $fieldsToRender=$this->convertJSONToFields(json_decode(config('global.order_fields'),true)); 
         }
-
-        
         $isEmpty = false;
         if (Cart::getContent()->isEmpty()) {
             $isEmpty = true;
@@ -176,26 +174,6 @@ class CartController extends Controller
 
             //The restaurant
             $restaurant = Restorant::findOrFail($restorantID);
-
-            if(\Akaunting\Module\Facade::has('cards')&&$restaurant->getConfig('enable_loyalty', false)){
-                //Find the card
-                $card=null;
-                if(Auth::user()){
-                    $card=\Modules\Cards\Models\Card::where('client_id',auth()->user()->id)->where('vendor_id',$restaurant->id)->first();
-                }
-                
-                array_push($fieldsToRender,[
-                    "name"=>__("loyalty.card"),
-                    "id"=>"custom[loyalty_card]",
-                    "ftype"=>"input",
-                    "required"=>false,
-                    "placeholder"=>__("loyalty.card_number"),
-                    "validation"=>"",
-                    "value"=> $card? $card->card_id : "",
-                    "help"=>"",
-                    "order"=>1
-                ]);
-            }
 
             //Set cover image to be the cover image of the restaurant
             config(['global.restorant_details_cover_image'=>$restaurant->coverm]);

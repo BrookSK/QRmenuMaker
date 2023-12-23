@@ -192,33 +192,18 @@ class SettingsController extends Controller
             $theMegedGroupFields = [];
             foreach ($group['fields'] as $key => $field) {
                 if (! (isset($field['onlyin']) && $field['onlyin'] != config('settings.app_project_type'))) {
-
-                    $shouldBeAdded=true;
-
-                    //Hide on specific env config
-                    if(isset($field['hideon'])){
-                        $hideOn=explode(',', $field['hideon']);
-                        foreach ($hideOn as $hideSpecific) {
-                           if(config('app.'.$hideSpecific,false)){
-                                $shouldBeAdded=false;
-                           }
-                        }
-                    }
-                    if($shouldBeAdded){
-                        array_push($theMegedGroupFields, [
-                            'ftype'=>isset($field['ftype']) ? $field['ftype'] : 'input',
-                            'type'=>isset($field['type']) ? $field['type'] : 'text',
-                            'id'=>'env['.$field['key'].']',
-                            'name'=>isset($field['title']) && $field['title'] != '' ? $field['title'] : $field['key'],
-                            'placeholder'=>isset($field['placeholder']) ? $field['placeholder'] : '',
-                            'value'=>env($field['key'], $field['value']),
-                            'required'=>false,
-                            'separator'=>isset($field['separator']) ? $field['separator'] : null,
-                            'additionalInfo'=>isset($field['help']) ? $field['help'] : null,
-                            'data'=>isset($field['data']) ? $field['data'] : [],
-                         ]);
-                    }
-                    
+                    array_push($theMegedGroupFields, [
+                        'ftype'=>isset($field['ftype']) ? $field['ftype'] : 'input',
+                        'type'=>isset($field['type']) ? $field['type'] : 'text',
+                        'id'=>'env['.$field['key'].']',
+                        'name'=>isset($field['title']) && $field['title'] != '' ? $field['title'] : $field['key'],
+                        'placeholder'=>isset($field['placeholder']) ? $field['placeholder'] : '',
+                        'value'=>env($field['key'], $field['value']),
+                        'required'=>false,
+                        'separator'=>isset($field['separator']) ? $field['separator'] : null,
+                        'additionalInfo'=>isset($field['help']) ? $field['help'] : null,
+                        'data'=>isset($field['data']) ? $field['data'] : [],
+                     ]);
                 }
             }
             array_push($envMerged, [
@@ -369,7 +354,7 @@ class SettingsController extends Controller
                 'cssback'=>$cssback,
                 'hasDemoRestaurants'=>$hasDemoRestaurants,
                 'envConfigs'=>$this->getCurrentEnv(),
-                'showMultiLanguageMigration'=>config('settings.enable_miltilanguage_menus',false) && ! file_exists(storage_path('multilanguagemigrated')),
+                'showMultiLanguageMigration'=>env('ENABLE_MILTILANGUAGE_MENUS', false) && ! file_exists(storage_path('multilanguagemigrated')),
                 ]);
         } else {
             return redirect()->route('orders.index')->withStatus(__('No Access'));

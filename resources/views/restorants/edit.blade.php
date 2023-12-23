@@ -88,16 +88,8 @@
                             <h6 class="heading-small text-muted mb-4">{{ __('Restaurant information') }}</h6>
                             
                             @include('restorants.partials.info')
-                            @if(auth()->user()->hasAnyRole(['admin','owner']))
-                                @foreach ($vendorModules as $vendorModule)
-                                    <hr />
-                                    @include($vendorModule.'::card')
-                                @endforeach
-                            @endif
-                            
                             <hr />
                             @include('restorants.partials.owner')
-                            
                         </div>
                     </div>
                 </div>

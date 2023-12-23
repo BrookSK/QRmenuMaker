@@ -46,10 +46,8 @@ return [
     'isft' => env('APP_PROJECT_TYPE', 'ft') == 'ft',
     'ispc' => env('IS_POS_CLOUD_MODE',false),
     'isag' => env('IS_AGRIS_MODE',false),
-    'isloyalty' => env('IS_LOYALTY_MODE',false),
-    'issd' => env('IS_SOCIAL_DRIVE_MODE',false)&&env('APP_PROJECT_TYPE', 'ft') == 'qrsaas',
-    'isdrive' => env('IS_SOCIAL_DRIVE_MODE',false)&&env('APP_PROJECT_TYPE', 'ft') == 'ft',
-    'isqrexact' => env('APP_PROJECT_TYPE', 'ft') == 'qrsaas' && !( env('IS_POS_CLOUD_MODE',false) || env('IS_WHATSAPP_ORDERING_MODE', false) || env('IS_AGRIS_MODE', false) || env('IS_SOCIAL_DRIVE_MODE',false) || env('IS_LOYALTY_MODE',false)),
+    'issd' => env('IS_SOCIAL_DRIVE_MODE',false),
+    'isqrexact' => env('APP_PROJECT_TYPE', 'ft') == 'qrsaas' && !( env('IS_POS_CLOUD_MODE',false) || env('IS_WHATSAPP_ORDERING_MODE', false) || env('IS_AGRIS_MODE', false) || env('IS_SOCIAL_DRIVE_MODE',false)),
     'ordering' => env('APP_PROJECT_TYPE', 'ft') != 'qrsaas' || env('APP_PROJECT_TYPE', 'ft') == 'qrsaas' && ! env('QRSAAS_DISABLE_ODERING', false),
 
     /*

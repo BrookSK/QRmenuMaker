@@ -49,12 +49,6 @@
                             @if (config('settings.is_pos_cloud_mode'))
                                 <button type="button" onclick="loginAs('staff@example.com')" class="btn btn-outline-warning">Login as Staff</button><br /><br />
                             @endif
-                            @if (config('app.isloyalty'))
-                                <button type="button" onclick="loginAs('owner2@example.com')" class="btn btn-outline-success btn-sm">Login as Sport Shop (Owner)</button><br /><br />
-                                <button type="button" onclick="loginAs('owner3@example.com')" class="btn btn-outline-success btn-sm">Login as Bland Jewelry (Owner)</button><br /><br />
-                                <button type="button" onclick="loginAs('owner4@example.com')" class="btn btn-outline-success btn-sm">Login as Beauty Salon (Owner)</button><br /><br />
-                                <button type="button" onclick="loginAs('client@example.com')" class="btn btn-outline-primary">Login as Client</button><br /><br />
-                            @endif
 
                         </div>
                     </div>

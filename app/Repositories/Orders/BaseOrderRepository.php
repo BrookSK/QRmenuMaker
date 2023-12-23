@@ -112,7 +112,7 @@ class BaseOrderRepository extends Controller
 
     public function validateOrder(){
         $validator = Validator::make(['order_price'=>$this->order->order_price], [
-            'order_price'=>['numeric','min:'.$this->vendor->minimum]
+            'order_price'=>['numeric','min:0'.$this->vendor->minimum]
         ]);
         if($validator->fails()){
             $this->invalidateOrder();
@@ -137,13 +137,6 @@ class BaseOrderRepository extends Controller
         if($this->order==null){
             $this->order=new Order;
             $this->order->restorant_id=$this->vendor?$this->vendor->id:null;
-
-            //Set config based on restaurant
-            if($this->vendor){
-                config(['app.timezone' => $this->vendor->getConfig('time_zone',config('app.timezone'))]);
-            }
-            
-
             $this->order->comment="";
             $this->order->payment_method=$this->request->payment_method;
             $this->order->payment_status="unpaid";
@@ -202,15 +195,6 @@ class BaseOrderRepository extends Controller
                 $variant = Variants::findOrFail($item['variant']);
                 $itemSelectedPrice = $variant->price;
                 $variantName = $variant->optionsList;
-
-                //Check if qty is available
-                $variant->decrement('qty', $item['qty']);
-                $theItem->calculateQTYBasedOnVariants();
-                
-
-            }else{
-                //Decrement from item
-                $theItem->decrement('qty', $item['qty']);
             }
 
            //Find the extras
@@ -221,7 +205,7 @@ class BaseOrderRepository extends Controller
             }
             
             //Total vat on this item
-            $totalCalculatedVAT = $item['qty'] * ($theItem->vat > 0?  $itemSelectedPrice - ($itemSelectedPrice / (1+ ($theItem->vat / 100)))   :0);
+            $totalCalculatedVAT = $item['qty'] * ($theItem->vat > 0?$itemSelectedPrice * ($theItem->vat / 100):0);
 
             $this->order->items()->attach($item['id'], [
                 'qty'=>$item['qty'], 
@@ -264,11 +248,6 @@ class BaseOrderRepository extends Controller
                     
                 }
             }
-        }
-
-        //Set tip
-        if($this->request->has('tip')){
-            $this->order->tip=$this->request->tip;
         }
         
 

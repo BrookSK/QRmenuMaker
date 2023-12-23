@@ -38,7 +38,7 @@
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <h3 class="col-12 mb-0">{{ __('Order')." #".$order->id_formated }}</h3>
+                            <h3 class="col-12 mb-0">{{ __('Order')." #".$order->id }}</h3>
                         </div>
                     </div>
                     @include('orders.partials.orderstatus')

@@ -85,14 +85,6 @@ class HomeController extends Controller
         }
 
         $dataToDisplay=[];
-        foreach (config('global.modulesWithDashboardInfo') as $moduleWithDashboardInfo){
-            $generatedClass=Module::get($moduleWithDashboardInfo)->get('nameSpace')."\Http\Controllers\DashboardController";
-            $dataToDisplay[$moduleWithDashboardInfo]=(new $generatedClass())->index();  
-        }
-        //dd($dataToDisplay);
-
-      
-        
         $response = new \Illuminate\Http\Response(view('dashboard_pure', $dataToDisplay));
         $response->withCookie(cookie('lang', $locale, 120));
         App::setLocale(strtolower($locale));
@@ -107,7 +99,7 @@ class HomeController extends Controller
      */
     public function index($lang=null)
     {
-        if (config('settings.makePureSaaS',false)   ||   (auth()->user()->hasRole('admin')&&Module::has('pureadmindash')) ) {
+        if (config('settings.makePureSaaS',false)) {
             return $this->pureSaaSIndex($lang);
         }
 
@@ -133,8 +125,7 @@ class HomeController extends Controller
         if (auth()->user()->hasRole('driver')) {
             return $this->driverInfo();            
         }elseif (auth()->user()->hasRole('client')) {
-            //Redirect to pure client dashboard
-            return $this->pureSaaSIndex($lang);
+            return redirect()->route('orders.index');
         }else if (auth()->user()->hasRole('admin')&&config('app.isft')){
             //Admin in FT
             $last30daysDeliveryFee = Order::all()->where('created_at', '>', $last30days)->where('payment_status','paid')->sum('delivery_price');

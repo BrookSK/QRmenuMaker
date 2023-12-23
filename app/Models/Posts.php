@@ -10,7 +10,7 @@ class Posts extends Model
 {
     use HasFactory,HasTranslations;
     public $translatable = ['title','description','link_name','subtitle'];
-    protected $guarded = [];
+    protected $fillable = ['post_type', 'title', 'description', 'link', 'link_name','subtitle','image'];
     protected $table = 'posts';
 
     public function getImageLinkAttribute(){

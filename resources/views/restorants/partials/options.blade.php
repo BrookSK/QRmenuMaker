@@ -1,4 +1,4 @@
-@if(!config('settings.makePureSaaS',false)  && !(config('app.isdrive',false)||config('app.issd',false)) )
+@if(config('app.isft')||true)
             @include('partials.fields',['fields'=>[
                 ['ftype'=>'bool','name'=>"Pickup",'id'=>"can_pickup",'value'=>$restorant->can_pickup == 1 ? "true" : "false"],
                 ['ftype'=>'bool','name'=>"Delivery",'id'=>"can_deliver",'value'=>$restorant->can_deliver == 1 ? "true" : "false"],
@@ -10,7 +10,7 @@
                     ['ftype'=>'bool','name'=>"Self Delivery",'id'=>"self_deliver",'value'=>$restorant->self_deliver == 1 ? "true" : "false"],
                 ]])
             @endif
-       
+        @endif  
         @if (config('app.isqrexact'))
             @include('partials.fields',['fields'=>[
                 ['ftype'=>'bool','name'=>"Disable Call Waiter",'id'=>"disable_callwaiter",'value'=>$restorant->getConfig('disable_callwaiter', 0) ? "true" : "false"],
@@ -19,4 +19,3 @@
                 
             ]])
         @endif
-@endif  

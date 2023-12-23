@@ -27,9 +27,6 @@ function updatePrices(net,delivery,enableDelivery){
   delivery=parseFloat(delivery+"");
   var deduct=cartTotal.deduct;
   console.log("Deduct is "+deduct);
-
-  var tip=cartTotal.tip;
-  console.log("Tip is "+tip);
   
   var formatter = new Intl.NumberFormat(LOCALE, {
     style: 'currency',
@@ -50,7 +47,7 @@ function updatePrices(net,delivery,enableDelivery){
     cartTotal.deliveryPriceFormated=formatter.format(delivery);
 
     //Total
-    var ndd=net+delivery-deduct+tip;
+    var ndd=net+delivery-deduct;
     cartTotal.withDelivery=ndd;
     cartTotal.withDeliveryFormat=formatter.format(ndd);//+"==>"+new Date().getTime();
     total.totalPrice=ndd;
@@ -63,7 +60,7 @@ function updatePrices(net,delivery,enableDelivery){
     cartTotal.delivery=false;
 
     //Total
-    var nd=net-deduct+tip;
+    var nd=net-deduct;
     cartTotal.withDelivery=nd;
     cartTotal.withDeliveryFormat=formatter.format(nd);
     total.totalPrice=nd;
@@ -87,21 +84,6 @@ function setDeduct(deduction){
   cartTotal.deduct=deduction;
   cartTotal.deductFormat=formatter.format(deduction);
   total.lastChange=null;
-  cartTotal.lastChange=null; 
-  getCartContentAndTotalPrice();
-}
-
-function setTip(tiping){
-  var formatter = new Intl.NumberFormat(LOCALE, {
-    style: 'currency',
-    currency:  CASHIER_CURRENCY,
-  });
-
-  console.log("Tip is "+tiping);
-
-  cartTotal.tip=parseFloat(tiping);
-  cartTotal.tipFormat=formatter.format(tiping);
-  total.lastChange=null;
   cartTotal.lastChange=null;
   getCartContentAndTotalPrice();
 }
@@ -124,27 +106,6 @@ function getCartContentAndTotalPrice(){
      
    });
  };
-
-$("#tip_btn").on('click',function() {
-  var tip = parseFloat($('#tip').val());
-  if(tip>0){
-    $('#tipapplied').val(1);
-  }else{
-    $('#tipapplied').val(0);
-  }
-  
-
-
-
-  $("#tip_war").hide();
-  $("#tip_succ").show();
-
-  setTip(tip);
-  js.notify("Tip applied","success");
-
-
-
-});
 
 $("#promo_code_btn").on('click',function() {
     var code = $('#coupon_code').val();
@@ -553,8 +514,6 @@ window.onload = function () {
       totalPrice:0,
       deduct:0,
       deductFormat:"",
-      tip:0,
-      tipFormat:"",
       minimalOrder:0,
       totalPriceFormat:"",
       deliveryPriceFormated:"",
@@ -575,8 +534,6 @@ window.onload = function () {
       totalPrice:0,
       deduct:0,
       deductFormat:"",
-      tip:0,
-      tipFormat:"",
       minimalOrder:0,
       totalPriceFormat:"",
       deliveryPriceFormated:"",
@@ -592,12 +549,6 @@ window.onload = function () {
       },
       deductFormat: function () {
         return cartTotal.deductFormat
-      },
-      tip: function () {
-        return cartTotal.tip
-      },
-      tipFormat: function () {
-        return cartTotal.tipFormat
       },
       minimalOrder: function () {
         return cartTotal.minimalOrder

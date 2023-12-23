@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use App\Events\NewClient;
-use App\Restorant;
 
 class RegisterController extends Controller
 {
@@ -43,8 +41,6 @@ class RegisterController extends Controller
     {
         $lastVendor=session('last_visited_restaurant_alias',null);
         if($lastVendor&&auth()->user()->hasRole('client')){
-            //Fire the event, NewClient
-            NewClient::dispatch(auth()->user(),Restorant::where('subdomain',$lastVendor)->first());
             return route('vendrobyalias',['alias'=>$lastVendor]);
         }else{
             return route('home');

@@ -17,8 +17,6 @@ class OrderRepoGenerator extends BaseOrderRepository
                     $serviceType="Social";//Whatsapp and FB
                 }else if(config('app.issd')){
                     $serviceType="SocialDrive";//SocialDrive
-                }else if(config('app.isdrive')){
-                    $serviceType="SocialDrive";//SocialDrive
                 }else if(config('settings.is_pos_cloud_mode')||(auth()->user()!=null&&auth()->user()->hasRole('staff'))){
                     $serviceType="POS";//POS
                 }else if(config('settings.is_agris_mode')){

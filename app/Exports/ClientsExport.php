@@ -15,8 +15,6 @@ class ClientsExport implements FromArray, WithHeadings
         return [
             'client_name',
             'client_id',
-            'client_email',
-            'client_phone',
             'created'
         ];
     }

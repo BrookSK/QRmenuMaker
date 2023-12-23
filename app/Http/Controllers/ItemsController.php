@@ -238,23 +238,11 @@ class ItemsController extends Controller
 
         $item->available = $request->exists('itemAvailable');
         $item->has_variants = $request->exists('has_variants');
-
-        if ($request->exists('qty_management')) {
-            $item->qty_management = 1;
-        }else{
-            $item->qty_management = 0;
-        }
-        
-        if ($request->has('qty')) {
-            $item->qty = $request->qty;
-        }
-
         if(!$item->has_variants){
             $item->enable_system_variants=0;
 
             //Delete all system variants
             $item->systemvariants()->delete();
-
         }else{
 
             //We have variants, but do we have system variables

@@ -124,7 +124,6 @@ Route::group(['middleware' => ['auth','impersonate']], function () {
             Route::post('coupons', 'CouponsController@store')->name('coupons.store');
             Route::put('coupons/{coupon}', 'CouponsController@update')->name('coupons.update');
             Route::get('coupons/del/{coupon}', 'CouponsController@destroy')->name('coupons.delete');
-            Route::get('coupons/use/{coupon}', 'CouponsController@use')->name('coupons.use');
 
            
 

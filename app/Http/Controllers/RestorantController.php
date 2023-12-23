@@ -14,7 +14,6 @@ use App\Models\LocalMenu;
 use App\Models\Options;
 use App\Notifications\RestaurantCreated;
 use App\Notifications\WelcomeNotification;
-use App\Notifications\CallWaiter as NotificationsCallWaiter;
 use App\Plans;
 use App\Restorant;
 use App\Tables;
@@ -346,26 +345,16 @@ class RestorantController extends Controller
             $shifts[$shiftId]=$workingHours;
         }
 
-
         if ($this->verifyAccess($restaurant)) {
             $cities=[];
             try {
                 $cities=City::get()->pluck('name', 'id');
             } catch (\Throwable $th) {
             }
-
-            $vendorModules=[];
-            foreach (Module::all() as $key => $module) {
-                if($module->get('isVendorModule')){
-                    array_push($vendorModules,$module->get('alias'));
-                }
-            }
-
             return view('restorants.edit', [
                 'hasCloner'=>Module::has('cloner')&& auth()->user()->hasRole(['admin','manager']),
                 'restorant' => $restaurant,
                 'shifts'=>$shifts,
-                'vendorModules'=>$vendorModules,
                 'days'=>$days,
                 'cities'=> $cities,
                 'plans'=>Plans::get()->pluck('name', 'id'),
@@ -875,10 +864,6 @@ $restaurant=Restorant::findOrFail($restaurantid);
                 $msg = __('notifications_notification_callwaiter');
 
                 event(new CallWaiter($table, $msg));
-
-                //Fire push notification in the expo app
-                $table->restaurant->user->notify(new NotificationsCallWaiter($table->restaurant->user,$table, $msg));
-                
 
                 return redirect()->back()->withStatus(__('The restaurant is notified. The waiter will come shortly!'));
             }

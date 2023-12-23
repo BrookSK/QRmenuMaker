@@ -8,13 +8,14 @@
     <link rel="shortcut icon" href="/images/default/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@1/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body  class="pt-10  bg-gradient-to-r from-purple-500 to-pink-500">
-<div>
-    <div class="flex h-screen py-6" style="height: 100vh">
+<body>
+<div class="h-screen w-screen bg-cover bg-no-repeat bg-center" style="background-image: url('https://images.unsplash.com/photo-1609241889416-c4fb321e6827?auto=format&fit=crop&w=2070&q=80');">
+    <div class="flex h-screen py-6">
         <div class="container m-auto">
-            <div class="mb-10 bg-white shadow overflow-hidden sm:rounded-lg" style="opacity:0.9">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg" style="opacity:0.9">
                 <div class="px-4 py-8 border-b border-gray-200 sm:px-6">
                     <div class="flex justify-center items-center">
+                        <img alt="App logo" class="h-12" src="/images/default/icon.png">
                         <h2 class="pl-6 uppercase font-medium text-2xl text-gray-800">{{ config('app.name', 'Laravel') }} Installation</h2>
                     </div>
                 </div>

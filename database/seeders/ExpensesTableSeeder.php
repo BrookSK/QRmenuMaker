@@ -16,9 +16,6 @@ class ExpensesTableSeeder extends Seeder
      */
     public function run()
     {
-        if (config('app.isdrive')) {
-            return null;
-        }
         $categories = [
             ['name'=>'Suppliers','code'=>'C1'],
             ['name'=>'Utilities','code'=>'C2'],
