@@ -19,6 +19,7 @@ composer.lock
 /storage/framework/sessions/*
 /public/storage
 /public/hot
+/public/byadmin/frontcss.css
 /storage/*.key
 /bootstrap/compiled.php
 /app/storage/
