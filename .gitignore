@@ -21,6 +21,8 @@ composer.lock
 /storage/*.key
 /bootstrap/compiled.php
 /app/storage/
+/storage/installed
+/storage/verified
 /.fleet
 auth.json
 
