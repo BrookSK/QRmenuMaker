@@ -26,8 +26,11 @@ composer.lock
 /storage/installed
 /storage/verified
 /storage/multilanguagemigrated
+/storage/app/self-updater-new-version
 /.fleet
 auth.json
+error_log
+/public/error_log
 
 # Ignore PHPUnit specific files
 /.phpunit.cache
