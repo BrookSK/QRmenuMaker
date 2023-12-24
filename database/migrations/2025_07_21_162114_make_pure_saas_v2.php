@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MakePureSaas extends Migration
+class MakePureSaasV2 extends Migration
 {
     private $tables=['banners','cart_storage','cities','variants_has_extras','variants','extras','options','order_has_items','items','localmenus','order_has_status','ratings','orders','paths','visits','tables','restoareas','simple_delivery_areas','sms_verifications','status','address'];
 
