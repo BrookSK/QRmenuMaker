@@ -18,13 +18,16 @@ composer.lock
 # Ignore Laravel specific files/directories
 /public/storage
 /public/hot
+/public/error_log
 /storage/*.key
 /bootstrap/compiled.php
 /app/storage/
 /storage/installed
 /storage/verified
+/storage/app/self-updater-new-version
 /.fleet
 auth.json
+error_log
 
 # Ignore PHPUnit specific files
 /.phpunit.cache
