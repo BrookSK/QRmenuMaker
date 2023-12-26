@@ -31,6 +31,7 @@ composer.lock
 auth.json
 error_log
 /public/error_log
+/public/uploads
 
 # Ignore PHPUnit specific files
 /.phpunit.cache
