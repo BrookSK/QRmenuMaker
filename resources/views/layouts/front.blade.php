@@ -159,6 +159,9 @@ Coded by www.creative-tim.com
     <script src="{{ asset('custom') }}/js/js.js?id={{ config('config.version')}}"></script>
 
 
+    <!-- Animation Call Waiter -->
+    <script src="{{ asset('custom') }}/js/animationCallWaiter.js"></script>
+
 
 
      <!-- Google Map -->

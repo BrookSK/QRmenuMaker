@@ -1057,6 +1057,22 @@ a:hover {
     bottom: 0px;
     right: 20px;
     z-index: 1000;  
+    width: 4rem;
+    height: 4rem;
+ }
+
+ .callOutCallWaiterButtonBottom {
+    position: fixed;
+    bottom: 0px;
+    left: 20px;
+    z-index: 1000;
+    width: 4rem;
+    height: 4rem;
+ }
+
+ .rounded-callW {
+    width: auto;
+    border-radius: 50px 50px 50px 50px;
  }
 
 

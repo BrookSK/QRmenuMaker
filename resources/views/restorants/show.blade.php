@@ -221,6 +221,15 @@
             </div>
         @endif
 
+        @if(\Request::route()->getName() != "cart.checkout" && !$restorant->getConfig('disable_callwaiter', 0) && strlen(config('broadcasting.connections.pusher.app_id')) > 2 && strlen(config('broadcasting.connections.pusher.key')) > 2 && strlen(config('broadcasting.connections.pusher.secret')) > 2&&!config('settings.is_pos_cloud_mode'))
+            <a type="button" class="callOutCallWaiterButtonBottom icon icon-shape bg-gradient-red text-white rounded-callW shadow mb-4" data-toggle="modal" data-target="#modal-form">
+                <span class="btn-inner--icon mr-1">
+                    <i class="fa fa-bell"></i>
+                </span>
+                <span class="nav-link-inner--text">{{ __('Call Waiter') }}</span>
+            </a>
+        @endif
+
     </section>
     <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
         <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
