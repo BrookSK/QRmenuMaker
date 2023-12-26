@@ -1,5 +1,5 @@
 // Function to make the change after 7 seconds
-function alterarHTML() {
+function changeHTML() {
     // Code you want to change
     var element = document.querySelector('.callOutCallWaiterButtonBottom')
 
@@ -21,5 +21,5 @@ function alterarHTML() {
 
 // Call function after page load
 window.onload = function () {
-    alterarHTML(); // Call the function immediately upon page load
+    changeHTML(); // Call the function immediately upon page load
 };
