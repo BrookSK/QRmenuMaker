@@ -158,12 +158,6 @@ Coded by www.creative-tim.com
     <!-- All in one -->
     <script src="{{ asset('custom') }}/js/js.js?id={{ config('config.version')}}"></script>
 
-
-    <!-- Animation Call Waiter -->
-    <script src="{{ asset('custom') }}/js/animationCallWaiter.js"></script>
-
-
-
      <!-- Google Map -->
      <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=<?php echo config('settings.google_maps_api_key'); ?>&libraries=places&callback=js.initializeGoogle"></script>
 
@@ -185,6 +179,9 @@ Coded by www.creative-tim.com
     @else
         <?php echo file_get_contents(base_path('public/byadmin/frontmenu.js')) ?>
     @endif
+
+    <!-- Animation Call Waiter -->
+    <script src="{{ asset('custom') }}/js/animationCallWaiter.js"></script>
 
     <script>
         window.translations = {!! Cache::get('translations'.App::getLocale()) !!};
