@@ -922,23 +922,19 @@ $restaurant=Restorant::findOrFail($restaurantid);
                 $filename=Str::slug($tn, '_').".png";
                 $vendorURL.="?tid=".$_GET['table_id'];
             }
-            
-            
         }
+
+        try {
+            $url = 'https://api.qrserver.com/v1/create-qr-code/?size=512x512&format=png&data='.$vendorURL;
         
+            $tempImage = tempnam(sys_get_temp_dir(), $filename);
+            @copy($url, $tempImage);
 
-        // if(Module::has('qrgen')){
-        //     //With QR Module
-        //     return redirect((route('qrgen.gen',['name'=>$filename]))."?data=".$vendorURL);
-        // }else{
-            //Without QR module
-        $url = 'https://api.qrserver.com/v1/create-qr-code/?size=512x512&format=png&data='.$vendorURL;
-    
-        $tempImage = tempnam(sys_get_temp_dir(), $filename);
-        @copy($url, $tempImage);
+            return response()->download($tempImage, $filename, array('Content-Type:image/png'));
+        } catch(Exception $error) {
+            echo "<script> console.log('$error'); </script>";
+        }
 
-        return response()->download($tempImage, $filename,array('Content-Type:image/png'));
-        // }
     }
 
     /**
