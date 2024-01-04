@@ -13,7 +13,7 @@
 <div class="row">
     @if (!config('app.issd',false))
         <div class="col-md-6">
-            @include('partials.input',['type'=>"number", 'name'=>'Items limit','id'=>"limit_items",'placeholder'=>"Number of items",'required'=>false,'additionalInfo'=>"0 is unlimited numbers of items",'value'=>(isset($plan)?$plan->limit_items:null)])
+            @include('partials.input',['type'=>"number", 'name'=>'Limite de itens','id'=>"limit_items",'placeholder'=>"Número de ítens",'required'=>false,'additionalInfo'=>"0 é um número ilimitado de itens",'value'=>(isset($plan)?$plan->limit_items:null)])
         </div>
     @else
         <div class="col-md-6">
@@ -68,7 +68,7 @@
 
 
 <div class="col-md-6 mt-3">
-    @include('partials.input',['type'=>"number", 'name'=>'Orders limit per plan period','id'=>"limit_orders",'placeholder'=>"Number of orders per period",'required'=>false,'additionalInfo'=>"0 is unlimited numbers of orders per period",'value'=>(isset($plan)?$plan->limit_orders:null)])
+    @include('partials.input',['type'=>"number", 'name'=>'Limite de pedidos por período do plano','id'=>"limit_orders",'placeholder'=>"Número de pedidos por período",'required'=>false,'additionalInfo'=>"0 é um número ilimitado de pedidos por período",'value'=>(isset($plan)?$plan->limit_orders:null)])
 </div>
 
 

@@ -13,9 +13,9 @@
        
         @if (config('app.isqrexact'))
             @include('partials.fields',['fields'=>[
-                ['ftype'=>'bool','name'=>"Disable Call Waiter",'id'=>"disable_callwaiter",'value'=>$restorant->getConfig('disable_callwaiter', 0) ? "true" : "false"],
-                ['ftype'=>'bool','name'=>"Disable continues orders",'id'=>"disable_continues_ordering",'value'=>$restorant->getConfig('disable_continues_ordering', 0) ? "true" : "false"],
-                ['ftype'=>'bool','name'=>"Dine In",'id'=>"can_dinein",'value'=>$restorant->can_dinein == 1 ? "true" : "false"],
+                ['ftype'=>'bool','name'=>"Desabilitar Chamar garçom",'id'=>"disable_callwaiter",'value'=>$restorant->getConfig('disable_callwaiter', 0) ? "true" : "false"],
+                ['ftype'=>'bool','name'=>"Desativar pedidos contínuos",'id'=>"disable_continues_ordering",'value'=>$restorant->getConfig('disable_continues_ordering', 0) ? "true" : "false"],
+                ['ftype'=>'bool','name'=>"Comer no local",'id'=>"can_dinein",'value'=>$restorant->can_dinein == 1 ? "true" : "false"],
                 
             ]])
         @endif
