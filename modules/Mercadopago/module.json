@@ -1,0 +1,51 @@
+{
+    "alias": "mercadopago",
+    "version":"1.2",
+    "isPaymentModule":true,
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Mercadopago\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "global_fields":[
+        {
+            "separator":"Mercadopago configuration",
+            "title": "Enable Mercadopago for payments when ordering",
+            "key": "ENABLE_MERCADOPAGO",
+            "ftype": "bool",
+            "value":false
+        },
+        {
+            "title": "System will use",
+            "key": "VENDORS_OR_ADMIN_MERCADOPAGO",
+            "ftype":"select",
+            "onlyin":"qrsaas",
+            "value":"admin",
+            "data":{
+                "admin":"Admin defined Mercadopago",
+                "vendor":"Vendor defined Mercadopago"
+            }
+        },{
+            "title":"Mercadopago access token", 
+            "key":"MERCADOPAGO_ACCESS_TOKEN", 
+            "value":""
+        }],
+        "vendor_fields":[{
+            "separator":"Mercadopago configuration",
+            "title": "Enable Mercadopago for payments when ordering",
+            "key": "mercadopago_enable",
+            "ftype": "bool",
+            "value":false,
+            "onlyin":"qrsaas"
+        },{
+            "title":"Mercadopago access token", 
+            "key":"mercadopago_access_token", 
+            "value":"",
+            "onlyin":"qrsaas"
+        }]
+}
