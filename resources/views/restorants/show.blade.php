@@ -259,6 +259,32 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-form-tables" tabindex="-1" role="dialog" aria-labelledby="modal-form-tables" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card bg-secondary shadow border-0">
+                        <div class="card-header bg-transparent pb-2">
+                            <h4 class="text-center mt-2 mb-3">{{ __('Quick Order') }}</h4>
+                        </div>
+                        <div class="card-body px-lg-5 py-lg-5">
+                            @csrf
+                            @if (!isset($_GET['tid']))
+                                @include('partials.fields',$fields)
+                            @else
+                                <input type="hidden" value="{{$_GET['tid']}}" name="table_id"  id="table_id"/>
+                            @endif
+
+                        
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary my-4" onclick="placeOrder()">{{ __('Make a wish') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @if (isset($showGoogleTranslate)&&$showGoogleTranslate&&!$showLanguagesSelector)
     @include('googletranslate::buttons')

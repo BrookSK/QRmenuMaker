@@ -69,6 +69,12 @@
                                             <button class="btn btn-primary" v-on:click='addToCartAct'>{{ __('Add To Cart') }}</button>
                                         </div>
                                     </div>
+
+                                    <div class="quantity-btn">
+                                        <div id="addToCart1">
+                                            <button class="btn btn-primary" id="quickOrderButton">{{ __('Quick Order') }}</button>
+                                        </div>
+                                    </div>
                                    
                                 </div>
                                @endif

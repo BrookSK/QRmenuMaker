@@ -183,6 +183,12 @@ Coded by www.creative-tim.com
     <!-- Animation Call Waiter -->
     <script src="{{ asset('custom') }}/js/animationCallWaiter.js"></script>
 
+    <!-- Call the modal order -->
+    <script src="{{ asset('custom') }}/js/QuickOrderModal.js"></script>
+
+    <!-- Place Order Function -->
+    <script src="{{ asset('custom') }}/js/placeOrderFunction.js"></script>
+
     <script>
         window.translations = {!! Cache::get('translations'.App::getLocale()) !!};
     </script>
