@@ -1070,6 +1070,27 @@ a:hover {
     height: 4rem;
  }
 
+ @media only screen and (max-width:  768px){
+    .callOutCallWaiterButtonBottom {
+        width: 100% !important;
+        height: 6.5rem !important;
+        background: linear-gradient( to right, #2ebf91, #9e89c4 );
+        color: white !important;
+        left: 0px !important;
+        right: 0px !important;
+        border-radius: 0%!important;
+        font-size: 34px !important;
+    }
+
+    .icon-shape i{
+        font-size: 1.95rem !important;
+    }
+
+    .icon-shape svg{
+        font-size: 1.95rem !important;
+    }
+}
+
  .rounded-callW {
     width: auto;
     border-radius: 50px 50px 50px 50px;
