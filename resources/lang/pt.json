@@ -208,7 +208,7 @@
     "Intercom": "Interfone",
     "Floor": "Piso",
     "Entry number": "Número de entrada",
-    "Close": "Perto",
+    "Close": "Fechar",
     "Save": "Salvar",
     "Finalize order": "Finalizar pedido",
     "You don`t have any address. Please add new one": "Você não tem nenhum endereço. Por favor, adicione um novo",
@@ -651,7 +651,7 @@
     "User": "Do utilizador",
     "notifications_email": "E-mail",
     "notifications_thanks": "Obrigado por se registrar em :app_name",
-    "notifications_hello": "Olá: nome de usuário",
+    "notifications_hello": "Olá: :username",
     "notifications_visit": "Visite: app_name",
     "notifications_regdone": "Estamos felizes em tê-lo a bordo.",
     "notifications_adminapprove": "Assim que o administrador aprovar sua conta, informaremos você.",
@@ -1063,7 +1063,7 @@
     "Register": "Registro",
     "Sub total": "Subtotal",
     "Go to plans": "Ir para planos",
-    "close": "perto",
+    "close": "fechar",
     "Floor Plan": "Planta",
     "Restaurant wide logo": "Logo do restaurante",
     "Dark restaurant wide logo": "Logotipo largo do restaurante escuro",
@@ -1900,5 +1900,6 @@
     "settings_stripe_not_ok": "Você ativou os planos de preços e a plataforma para assinaturas é Stripe. Mas você não inseriu chave de distribuição real e segredo de distribuição em Configurações do Site -> Finanças. Insira os valores corretos ou altere seu provedor de assinatura",
     "Not in range": "Fora de alcance",
     "customer visit": "visita do cliente",
-    " Missing variants will have the same price as the item": " As variantes ausentes terão o mesmo preço do item"
+    " Missing variants will have the same price as the item": " As variantes ausentes terão o mesmo preço do item",
+    "Out of stock": " Fora de estoque"
 }
