@@ -1,9 +1,19 @@
+function isMobile() {
+    return window.innerWidth <= 767;
+}
+
 // Function to make the change after 7 seconds
 function changeHTML() {
     // Code you want to change
     var element = document.querySelector('.callOutCallWaiterButtonBottom')
 
-    if (element) {
+    // Check if it's a mobile device and update background accordingly
+    if (element && isMobile()) {
+        element.classList.remove('bg-gradient-red');
+        // element.classList.add('bg-gradient-onsolutions');
+    }
+
+    if (element && !isMobile()) {
         // Remove text and change class after 7 secondsRemove text and change class after 7 seconds
         setTimeout(function () {
             element.classList.remove('rounded-callW');
@@ -22,4 +32,5 @@ function changeHTML() {
 // Call function after page load
 window.onload = function () {
     changeHTML(); // Call the function immediately upon page load
+    // setTimeout(changeHTML, 100); // Call the function with a slight delay after page load
 };
