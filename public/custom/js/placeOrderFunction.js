@@ -1,23 +1,34 @@
-function placeOrder() {
-    // Simulate order submission or call the appropriate function to process the order
-    // Here, you can make an AJAX request to send the order or perform the desired action
-    // AJAX request example using jQuery:
+function placeOrder(itemId, callback) {
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    // Dados específicos para o pedido
+    var requestData = {
+        issd: true,
+        vendor_id: "#modalID", // Altere para o valor real que deseja enviar
+        delivery_method: "delivery",
+        payment_method: "cod",
+    };
+
     $.ajax({
         type: "POST",
-        url: "{{ route('order.store') }}", // Replace with your order route
+        url: "/order",
         data: {
-            // Here you can submit additional data if necessary
-            // For example: key: value,
+            item_id: itemId,
+            requestData: requestData,
+        },
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
         },
         success: function(response) {
-            // Success logic after placing the order
             console.log("Pedido feito com sucesso!");
-            // Here you can add more actions if the request is successful
+            // Execute a função de retorno de chamada e passe os dados relevantes
+            if (callback && typeof callback === 'function') {
+                callback(response, requestData);
+            }
         },
-        error: function(error) {
-            // Logic for handling order errors
+        error: function(xhr, status, error) {
             console.error("Erro ao fazer o pedido:", error);
-            // Here you can add more actions in case of order error
+            // Adicione lógica de tratamento de erro, se necessário
         }
     });
 }

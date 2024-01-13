@@ -277,7 +277,7 @@
 
                         
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-4" onclick="placeOrder()">{{ __('Make a wish') }}</button>
+                            <button type="button" class="btn btn-primary my-4" onclick="placeOrder('{{ $item->id }}')">{{ __('Make a wish') }}</button>
                             </div>
                         </div>
                     </div>

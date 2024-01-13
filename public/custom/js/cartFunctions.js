@@ -213,6 +213,45 @@ $("#fborder_btn").on('click',function() {
       });
 });
 
+$("#fborder_btn").on('click',function() {
+
+    var address = $('#addressID').val();
+    var comment = $('#comment').val();
+
+    // Chame a função placeOrder e forneça uma função de retorno de chamada
+    placeOrder(itemId, function (response, requestData) {
+      if (response.status) {
+          // Lógica para processar o pedido após a conclusão bem-sucedida
+          var text = response.data.msg;
+
+          // Acesso aos dados específicos do pedido fornecidos por placeOrderFunction.js
+          console.log('Dados específicos do pedido:', requestData);
+
+
+            var fullLink = document.createElement('input');
+            document.body.appendChild(fullLink);
+            fullLink.value = text;
+            fullLink.select();
+            document.execCommand("copy", false);
+            fullLink.remove();
+
+            swal({
+                title: "Good job!",
+                text: "Order is submited in the system and copied in your clipboard. Next, messenger will open and you need to paste the order details there.",
+                icon: "success",
+                button: "Continue to messenger",
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    document.getElementById('order-form').submit();
+                }
+              });
+
+        }
+      }).catch(function (error) {
+        
+      });
+});
+
 /**
  * Removes product from cart, and calls getCartConent
  * @param {Number} product_id
