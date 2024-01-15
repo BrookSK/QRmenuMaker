@@ -1134,7 +1134,7 @@ a:hover {
         color: white !important;
         left: 0px !important;
         right: 0px !important;
-        border-radius: 0%!important;
+        border-radius: 50px 50px 50px 50px !important;
         font-size: 34px !important;
     }
 
