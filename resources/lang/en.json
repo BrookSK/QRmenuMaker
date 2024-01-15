@@ -1900,5 +1900,6 @@
     "terms_of_service" : "Terms of Service",
     "settings_stripe_not_ok":"You have enabled pricing plans and platform for subscriptions is Stripe. But you haven't entered real stripe key and stripe secret in Site Settings -> Finances. Eaither enter correct values, or change your subscription provider",
     "Not in range":"Not in range",
-    "Online":"Online"
+    "Online":"Online",
+    "Out of stock": " Out of stock"
 }

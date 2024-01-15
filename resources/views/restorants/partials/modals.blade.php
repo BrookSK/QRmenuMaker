@@ -55,9 +55,9 @@
                                         function validateInput(input) {
                                           if (input.value > currentItem.qty) {
                                             if(currentItem.qty==0){
-                                                alert('The item is out of stock');
+                                                alert('O item está fora de estoque');
                                             }else{
-                                                alert('The number must not be greater than '+currentItem.qty);
+                                                alert('O número não deve ser maior que '+currentItem.qty);
                                             }
                                           
                                             input.value=currentItem.qty;
