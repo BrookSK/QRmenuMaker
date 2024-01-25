@@ -1,0 +1,46 @@
+{
+    "alias": "sendstatus",
+    "description": "",
+    "version":"1.2",
+    "isOrderModule":true,
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Sendstatus\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[{
+        "separator":"Send status templates",
+        "title": "Template 1",
+        "key": "SendStatusTemplate1",
+        "value":""
+    },
+    {
+        "title": "Template 2",
+        "key": "SendStatusTemplate2",
+       
+        "value":""
+    },
+    {
+        "title": "Template 3",
+        "key": "SendStatusTemplate3",
+       
+        "value":""
+    },
+    {
+        "title": "Template 4",
+        "key": "SendStatusTemplate4",
+       
+        "value":""
+    },
+    {
+        "title": "Template 5",
+        "key": "SendStatusTemplate5",
+       
+        "value":""
+    }
+]
+}
