@@ -1,0 +1,20 @@
+{
+    "alias": "stock",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Stock\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[{
+        "separator":"Stock Settings",
+        "title": "Enable stock quantity for products",
+        "key": "stock_enabled",
+        "ftype": "bool",
+        "value":false
+    }]
+}
