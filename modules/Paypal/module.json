@@ -1,0 +1,83 @@
+{
+    "alias": "paypal",
+    "description": "",
+    "keywords": [],
+    "version":"1.1",
+    "active": 1,
+    "isPaymentModule":true,
+    "order": 0,
+    "providers": [
+        "Modules\\Paypal\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "global_fields":[
+    {
+        "separator":"PayPal configuration",
+        "title": "Enable PayPal for payments when ordering",
+        "key": "ENABLE_PAYPAL",
+        "ftype": "bool",
+        "value":false
+    },
+    {
+        "title": "System will use",
+        "key": "VENDORS_OR_ADMIN_PAYPAL",
+        "ftype":"select",
+        "onlyin":"qrsaas",
+        "value":"admin",
+        "data":{
+            "admin":"Admin defined PayPal",
+            "vendor":"Vendor defined PayPal"
+        }
+    },{
+        "title":"Paypal client id", 
+        "key":"PAYPAL_CLIENT_ID", 
+        "value":""
+    },
+    {
+        "title":"Paypal secret", 
+        "key":"PAYPAL_SECRET", 
+        "value":""
+    },
+    {
+        "title":"Paypal mode", 
+        "key":"PAYPAL_MODE", 
+        "value":"sandbox",
+        "ftype":"select",
+        "data":{
+            "sandbox":"Development - sandbox",
+            "live":"Production"
+        }
+    }],
+    "vendor_fields":[{
+        "separator":"PayPal configuration",
+        "title": "Enable PayPal for payments when ordering",
+        "key": "paypal_enable",
+        "ftype": "bool",
+        "value":false,
+        "onlyin":"qrsaas"
+    },{
+        "title":"Paypal client id", 
+        "key":"paypal_client_id", 
+        "value":"",
+        "onlyin":"qrsaas"
+    },
+    {
+        "title":"Paypal secret", 
+        "key":"paypal_secret", 
+        "value":"",
+        "onlyin":"qrsaas"
+    },
+    {
+        "title":"Paypal mode", 
+        "key":"paypal_mode", 
+        "value":"sandbox",
+        "ftype":"select",
+        "onlyin":"qrsaas",
+        "data":{
+            "sandbox":"Development - sandbox",
+            "live":"Production"
+        }
+    }]
+}
