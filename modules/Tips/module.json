@@ -1,0 +1,13 @@
+{
+    "alias": "tips",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Tips\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
