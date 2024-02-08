@@ -12,8 +12,8 @@
     "files": [],
     "requires": [],
     "vendor_fields":[{
-        "separator":"Delivery Areas",
-        "title": "Enable Delivery Areas",
+        "separator":"Áreas de entrega",
+        "title": "Habilitar áreas de entrega",
         "key": "deliveryaeras_enable",
         "ftype": "bool",
         "value":true

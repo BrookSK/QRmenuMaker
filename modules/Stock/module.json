@@ -11,8 +11,8 @@
     "files": [],
     "requires": [],
     "vendor_fields":[{
-        "separator":"Stock Settings",
-        "title": "Enable stock quantity for products",
+        "separator":"Configurações de estoque",
+        "title": "Habilitar quantidade em estoque para produtos",
         "key": "stock_enabled",
         "ftype": "bool",
         "value":false

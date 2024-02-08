@@ -59,9 +59,9 @@ class Main extends Controller
     private function getFields()
     {
         return [
-            ['class'=>'col-md-4', 'ftype'=>'input', 'name'=>'Name', 'id'=>'name', 'placeholder'=>'First and Last name', 'required'=>true],
-            ['class'=>'col-md-4', 'ftype'=>'input', 'name'=>'Email', 'id'=>'email', 'placeholder'=>'Enter email', 'required'=>true],
-            ['class'=>'col-md-4', 'ftype'=>'input','type'=>"password", 'name'=>'Password', 'id'=>'password', 'placeholder'=>'Enter password', 'required'=>true],
+            ['class'=>'col-md-4', 'ftype'=>'input', 'name'=>'Nome', 'id'=>'name', 'placeholder'=>'Primeiro e último nome', 'required'=>true],
+            ['class'=>'col-md-4', 'ftype'=>'input', 'name'=>'Email', 'id'=>'email', 'placeholder'=>'Digite o e-mail', 'required'=>true],
+            ['class'=>'col-md-4', 'ftype'=>'input','type'=>"password", 'name'=>'Senha', 'id'=>'password', 'placeholder'=>'Digite a senha', 'required'=>true],
         ];
     }
 

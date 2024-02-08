@@ -8,7 +8,7 @@
             <input type="hidden" name="user_id" value="{{ $restorant->user->id }}">
             <input type="hidden" name="restaurant_id" value="{{ $restorant->id }}">
             @include('partials.fields',['fields'=>[
-                ['class'=>'col-12', 'ftype'=>'select','name'=>"Current plan",'id'=>"plan_id",'data'=>$plans,'required'=>true,'value'=>$restorant->user->mplanid()],
+                ['class'=>'col-12', 'ftype'=>'select','name'=>"Plano atual",'id'=>"plan_id",'data'=>$plans,'required'=>true,'value'=>$restorant->user->mplanid()],
             ]])
             <div class="text-center">
                 <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>

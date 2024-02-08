@@ -12,15 +12,15 @@
     "files": [],
     "requires": [],
     "vendor_fields":[{
-        "separator":"Staff",
-        "title": "Enable Staff",
+        "separator":"Funcionários",
+        "title": "Habilitar equipe de Funcionários",
         "key": "staff_enable",
         "ftype": "bool",
         "value":true
     }],
     "ownermenus":[
         {
-            "name":"Staff",
+            "name":"Funcionários",
             "route":"staff.index",
             "icon":"ni ni-single-02 text-blue"
         }

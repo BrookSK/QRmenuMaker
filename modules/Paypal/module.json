@@ -14,8 +14,8 @@
     "requires": [],
     "global_fields":[
     {
-        "separator":"PayPal configuration",
-        "title": "Enable PayPal for payments when ordering",
+        "separator":"Configuração do PayPal",
+        "title": "Habilite o PayPal para pagamentos ao fazer o pedido",
         "key": "ENABLE_PAYPAL",
         "ftype": "bool",
         "value":false
@@ -51,8 +51,8 @@
         }
     }],
     "vendor_fields":[{
-        "separator":"PayPal configuration",
-        "title": "Enable PayPal for payments when ordering",
+        "separator":"Configuração do PayPal",
+        "title": "Habilite o PayPal para pagamentos ao fazer o pedido",
         "key": "paypal_enable",
         "ftype": "bool",
         "value":false,

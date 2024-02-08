@@ -1,9 +1,9 @@
 @if(!config('settings.makePureSaaS',false)  && !(config('app.isdrive',false)||config('app.issd',false)) )
             @include('partials.fields',['fields'=>[
-                ['ftype'=>'bool','name'=>"Pickup",'id'=>"can_pickup",'value'=>$restorant->can_pickup == 1 ? "true" : "false"],
-                ['ftype'=>'bool','name'=>"Delivery",'id'=>"can_deliver",'value'=>$restorant->can_deliver == 1 ? "true" : "false"],
-                ['ftype'=>'bool','name'=>"Free Delivery",'id'=>"free_deliver",'value'=>$restorant->free_deliver == 1 ? "true" : "false"],
-                ['ftype'=>'bool','name'=>"Disable ordering",'id'=>"disable_ordering",'value'=>$restorant->getConfig('disable_ordering', false) ? "true" : "false"],
+                ['ftype'=>'bool','name'=>"Escolher",'id'=>"can_pickup",'value'=>$restorant->can_pickup == 1 ? "true" : "false"],
+                ['ftype'=>'bool','name'=>"Entrega",'id'=>"can_deliver",'value'=>$restorant->can_deliver == 1 ? "true" : "false"],
+                ['ftype'=>'bool','name'=>"Entrega grátis",'id'=>"free_deliver",'value'=>$restorant->free_deliver == 1 ? "true" : "false"],
+                ['ftype'=>'bool','name'=>"Desativar pedido",'id'=>"disable_ordering",'value'=>$restorant->getConfig('disable_ordering', false) ? "true" : "false"],
             ]])
             @if(config('app.isft')&&auth()->user()->hasRole('admin'))
                 @include('partials.fields',['fields'=>[

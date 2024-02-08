@@ -13,7 +13,7 @@
     "files": [],
     "requires": [],
     "vendor_fields":[{
-        "separator":"Send status templates",
+        "separator":"Enviar modelos de status",
         "title": "Template 1",
         "key": "SendStatusTemplate1",
         "value":""
