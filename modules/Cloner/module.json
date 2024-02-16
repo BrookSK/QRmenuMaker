@@ -1,0 +1,14 @@
+{
+    "alias": "cloner",
+    "version": "1.2",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Cloner\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

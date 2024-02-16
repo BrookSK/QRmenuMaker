@@ -126,16 +126,16 @@
                                         @include('partials.toggle',['id'=>'itemAvailable','name'=>'Item available','checked'=>($item->available == 1)])
                                         @include('partials.toggle',['id'=>'has_variants','name'=>'Enable variants','checked'=>($item->has_variants==1)])
                                         @if($item->has_variants==1)
-                                            @include('partials.toggle',['additionalInfo'=>'Missing variants will have the same price as the item','id'=>'enable_system_variants','name'=>'Enable System Variants','checked'=>($item->enable_system_variants==1)])
+                                            @include('partials.toggle',['additionalInfo'=>'Missing variants will have the same price as the item','id'=>'enable_system_variants','name'=>'Habilitar variantes do sistema','checked'=>($item->enable_system_variants==1)])
                                         @endif
                                         @if($restorant->getConfig('stock_enabled',"false")!="false")
-                                            @include('partials.toggle',['id'=>'qty_management','name'=>'Enable QTY Managment','checked'=>($item->qty_management==1)])
+                                            @include('partials.toggle',['id'=>'qty_management','name'=>'Ativar gerenciamento de QTD','checked'=>($item->qty_management==1)])
 
                                             @if ($item->qty_management==1)
                                                 @if ($item->has_variants==1)
-                                                    @include('partials.input',['readonly'=>true,'id'=>'qty','name'=>__('Item QTY - determined as sum of the QTY of the variants'),'placeholder'=>__('Item QTY'),'value'=>$item->qty,'required'=>false,'type'=>'number'])
+                                                    @include('partials.input',['readonly'=>true,'id'=>'qty','name'=>__('QTD do item - determinada como soma da QTD das variantes'),'placeholder'=>__('Quantidade do item'),'value'=>$item->qty,'required'=>false,'type'=>'number'])
                                                 @else
-                                                    @include('partials.input',['id'=>'qty','name'=>__('Item QTY'),'placeholder'=>__('Item QTY'),'value'=>$item->qty,'required'=>false,'type'=>'number'])
+                                                    @include('partials.input',['id'=>'qty','name'=>__('Quantidade do item'),'placeholder'=>__('Quantidade do item'),'value'=>$item->qty,'required'=>false,'type'=>'number'])
                                                 @endif
                                                 
                                                 
