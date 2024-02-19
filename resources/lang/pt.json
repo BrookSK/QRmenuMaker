@@ -472,8 +472,8 @@
     "Shopping Cart": "Carrinho de compras",
     "Cart is empty": "carrinho esta vazio",
     "Subtotal": "Subtotal",
-    "Checkout": "Confira",
-    "Continue Shopping": "Continue comprando",
+    "Checkout": "Realizar Pedido",
+    "Continue Shopping": "Adicionar Mais Items",
     "External plugins": "Plug-ins externos",
     "Loyalty Platform": "Plataforma de Fidelidade",
     "Version": "Versão",
@@ -497,7 +497,7 @@
     "-- select an option -- ": "-- selecione uma opção -- ",
     "Today working hours": "Hoje horário de trabalho",
     "Items": "Itens",
-    "Delivery time": "Tempo de entrega",
+    "Delivery time": "Horário  para entrega",
     "Pickup time": "Horário de coleta",
     "Order can not be placed since restaurant will be \/ is closed.": "O pedido não pode ser feito pois o restaurante estará\/está fechado.",
     "HAVE A PROMO CODE?": "TEM UM CÓDIGO PROMOCIONAL?",
@@ -1881,7 +1881,7 @@
     "Community": "Comunidade",
     "Update available": "Atualização disponível",
     "Download for free": "Download de graça",
-    "Dine In \/ Takeaway \/ Deliver": "Comer no local \/ para viagem \/ entrega",
+    "Dine In \/ Takeaway \/ Deliver": "Comer no Local \/ Para Viagem \/ Entrega",
     "Applied coupon discount": "Cupom de desconto aplicado",
     "You can make another try to pay.": "Você pode fazer outra tentativa de pagamento.",
     "Let's pay": "Vamos pagar",
@@ -1907,5 +1907,6 @@
     "Stock": "Estoque",
     "customer visit": "visita do cliente",
     "Missing variants will have the same price as the item": "As variantes ausentes terão o mesmo preço do item",
-    "Out of stock": "Fora de estoque"
+    "Out of stock": "Fora de estoque",
+    "Add tip": "Adicionar Gorjeta"
 }

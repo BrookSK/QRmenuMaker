@@ -140,7 +140,7 @@ $("#tip_btn").on('click',function() {
   $("#tip_succ").show();
 
   setTip(tip);
-  js.notify("Tip applied","success");
+  js.notify("Gorjeta Aplicada","success");
 
 
 
