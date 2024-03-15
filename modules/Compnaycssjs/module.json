@@ -1,0 +1,24 @@
+{
+    "alias": "compnaycssjs",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Compnaycssjs\\Providers\\Main"
+    ],
+    "vendor_fields":[{
+        "separator":"Custom JS and CSS",
+        "title": "Custom Menu CSS",
+        "key": "custom_menu_css",
+        "value":""
+        },{
+            "title": "Custom Menu JS",
+            "key": "custom_menu_js",
+            "value":""
+            }
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,35 @@
+{
+    "alias": "coupons",
+    "version":"1.2",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Coupons\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[{
+        "separator":"Coupons",
+        "title": "Enable Coupons",
+        "key": "couons_enable",
+        "ftype": "bool",
+        "value":true
+    }],
+    "ownermenus":[
+        {
+            "name":"Coupons",
+            "route":"admin.restaurant.coupons.index",
+            "icon":"ni ni-tag text-pink"
+        }
+    ],
+    "staffmenus":[
+        {
+            "name":"Coupons",
+            "route":"admin.restaurant.coupons.index",
+            "icon":"ni ni-tag text-pink"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "alias": "timezone",
+    "version": "1.1",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Timezone\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[
+    {
+        "separator":"Custom Timezone",
+        "title": "Time Zone",
+        "key": "time_zone",
+        "ftype": "select",
+        "value":"",
+        "data":[]
+    }
+    ]
+}

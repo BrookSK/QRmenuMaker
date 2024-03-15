@@ -1,0 +1,29 @@
+{
+    "alias": "manager",
+    "version":"1.2",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Manager\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[{
+        "separator":"Manager",
+        "title": "Enter manager email",
+        "key": "manager_email",
+        "ftype": "input",
+        "value":""
+    }
+    ],
+    "adminmenus":[
+        {
+            "name":"Managers",
+            "route":"manager.index",
+            "icon":"ni ni-circle-08 text-blue"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "alias": "domain",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Domain\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[
+        {
+            "separator":"Custom domain",
+            "title": "Domain",
+            "key": "domain",
+            "ftype": "input",
+            "value":""
+        }
+    ]
+}

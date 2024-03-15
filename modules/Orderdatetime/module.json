@@ -1,0 +1,28 @@
+{
+    "alias": "orderdatetime",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Orderdatetime\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[
+        {
+            "separator":"Order date time",
+            "title": "Enable order after working time of the store",
+            "key": "order_date_time_enable",
+            "ftype": "bool",
+            "value": false
+        },
+        {
+            "title": "Show date time picker even if store is open",
+            "key": "always_order_date_time_enable",
+            "ftype": "bool",
+            "value": false
+        }
+    ]
+}

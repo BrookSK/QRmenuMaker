@@ -1,0 +1,32 @@
+{
+    "alias": "impressum",
+    "description": "",
+    "version":"1.0",
+    "name":"Impressum",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Impressum\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "global_fields":[],
+    "vendor_fields":[{
+        "separator":"Impressum",
+        "title": "Title of the Impressum",
+        "key": "impressum_title",
+        "ftype": "input",
+        "type": "text",
+        "value":"Impressum",
+        "placeholder": "Enter desired title name"
+    },{
+        "title": "Impressum",
+        "key": "impressum_value",
+        "ftype": "textarea",
+        "type": "text",
+        "value":"",
+        "placeholder": "Enter desired Impressum"
+    }]
+}
