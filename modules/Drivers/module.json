@@ -1,0 +1,28 @@
+{
+    "alias": "drivers",
+    "description": "",
+    "version":"1.2",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Drivers\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[{
+        "separator":"Drivers",
+        "title": "Enable Drivers",
+        "key": "drivers_enable",
+        "ftype": "bool",
+        "value":true
+    }],
+    "ownermenus":[
+        {
+            "name":"Drivers",
+            "route":"drivers.index",
+            "icon":"ni ni-delivery-fast text-pink"
+        }
+    ]
+}

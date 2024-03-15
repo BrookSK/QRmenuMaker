@@ -1,0 +1,24 @@
+{
+    "alias": "pdf-invoice",
+    "description": "",
+    "version":"2.1",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\PdfInvoice\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "global_fields":[{
+        "separator":"PDF Invoice Settings",
+        "title": "Title of the document",
+        "key": "pdf_invoice_title",
+        "ftype": "input",
+        "type": "text",
+        "value":"Order",
+        "placeholder": "Enter desired title name"
+    }],
+    "vendor_fields":[]
+}

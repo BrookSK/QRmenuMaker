@@ -1,0 +1,28 @@
+{
+    "alias": "clients",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Clients\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[{
+        "separator":"Clients",
+        "title": "Allow clients registration",
+        "key": "clients_enable",
+        "ftype": "bool",
+        "value":false
+        }
+    ],
+    "ownermenus":[
+        {
+            "name":"Clients",
+            "icon":"ni ni-single-02 text-blue",
+            "route":"clients.index"
+        }
+    ]
+}

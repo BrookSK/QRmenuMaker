@@ -1,0 +1,27 @@
+{
+    "alias": "defaulttax",
+    "version":"1.0",
+    "name":"Default tax",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Defaulttax\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[{
+        "separator":"Tax config",
+        "title":"Default tax value", 
+        "key":"default_tax_value", 
+        "value":18
+    },{
+        "title":"Hide tax input", 
+        "key":"hide_tax_input", 
+        "ftype":"bool",
+        "value":false
+    }
+    ]
+}

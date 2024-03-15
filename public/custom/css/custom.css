@@ -1145,6 +1145,16 @@ a:hover {
     .icon-shape svg{
         font-size: 1.95rem !important;
     }
+
+    /* Estilos para dispositivos móveis */
+    .btn-mob-new-color {
+        color: black !important; /* Define a cor preta para dispositivos móveis */
+    }
+
+    /* Estilos para dispositivos móveis */
+    .btn-mob-new-color::before {
+        color: black !important; /* Define a cor preta para dispositivos móveis */
+    }
 }
 
 .rounded-callW {

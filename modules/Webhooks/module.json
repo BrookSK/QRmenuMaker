@@ -1,0 +1,73 @@
+{
+    "alias": "webhooks",
+    "description": "",
+    "version":"1.6",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Webhooks\\Providers\\Main",
+        "Modules\\Webhooks\\Providers\\Event"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "global_fields":[
+        {
+        "separator":"WebHooks",
+        "title": "Webhook called when order is approved by system",
+        "key": "WEBHOOK_BY_ADMIN",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "A POST call will be made to the provided URL"
+    },{
+        "title": "Webhook called when order is approved by vendor",
+        "key": "WEBHOOK_BY_VENDOR",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "A POST call will be made to the provided URL"
+    },{
+        "title": "Webhook called when there is new vendor registered",
+        "key": "WEBHOOK_NEW_VENDOR",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "A POST call will be made to the provided URL"
+    },{
+        "title": "Webhook called when order status is changes",
+        "key": "WEBHOOK_ORDER_STATUS_UPDATE",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "A POST call will be made to the provided URL,Containing order and last status"
+    }
+
+    
+
+],
+    "vendor_fields":[{
+        "separator":"WebHooks",
+        "title": "Webhook called when order is approved by system",
+        "key": "webhook_url_by_admin",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "A POST call will be made to the provided URL"
+    },{
+        "title": "Webhook called when order is approved by vendor",
+        "key": "webhook_url_by_vendor",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "A POST call will be made to the provided URL"
+    },{
+        "title": "Webhook called when order status is changes",
+        "key": "webhook_order_status",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "A POST call will be made to the provided URL. Containing order and last status"
+    }]
+}

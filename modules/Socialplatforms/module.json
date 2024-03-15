@@ -1,0 +1,35 @@
+{
+    "alias": "socialplatforms",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Socialplatforms\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[
+        {
+            "separator":"Social networks links",
+            "title": "Facebook",
+            "key": "facebook"
+        },{
+            "title": "Twitter",
+            "key": "twitter"
+        },
+        {
+            "title": "Youtube",
+            "key": "youtube"
+        },
+        {
+            "title":"Instagram",
+            "key":"instagram"
+        },
+        {
+            "title":"Website",
+            "key":"website"
+        }
+    ]
+}
