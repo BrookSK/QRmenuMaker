@@ -35,7 +35,7 @@
                             <span class="btn-inner--icon">
                                 <i class="fa fa-list-alt"></i>
                               </span>
-                             <span  class="btn-inner--text">{{ __('My Orders') }}</span>
+                             <span style="color:white" class="btn-inner--text">{{ __('My Orders') }}</span>
                          </a>
                          @endif
                         
