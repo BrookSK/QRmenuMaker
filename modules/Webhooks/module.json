@@ -15,33 +15,33 @@
     "global_fields":[
         {
         "separator":"WebHooks",
-        "title": "Webhook called when order is approved by system",
+        "title": "Webhook chamado quando o pedido é aprovado pelo sistema",
         "key": "WEBHOOK_BY_ADMIN",
         "ftype": "input",
         "type": "text",
         "value":"",
-        "placeholder": "A POST call will be made to the provided URL"
+        "placeholder": "Uma chamada POST será feita para o URL fornecido"
     },{
-        "title": "Webhook called when order is approved by vendor",
+        "title": "Webhook chamado quando o pedido é aprovado pelo fornecedor",
         "key": "WEBHOOK_BY_VENDOR",
         "ftype": "input",
         "type": "text",
         "value":"",
-        "placeholder": "A POST call will be made to the provided URL"
+        "placeholder": "Uma chamada POST será feita para o URL fornecido"
     },{
-        "title": "Webhook called when there is new vendor registered",
+        "title": "Webhook chamado quando há novo fornecedor registrado",
         "key": "WEBHOOK_NEW_VENDOR",
         "ftype": "input",
         "type": "text",
         "value":"",
-        "placeholder": "A POST call will be made to the provided URL"
+        "placeholder": "Uma chamada POST será feita para o URL fornecido"
     },{
-        "title": "Webhook called when order status is changes",
+        "title": "Webhook chamado quando o status do pedido é alterado",
         "key": "WEBHOOK_ORDER_STATUS_UPDATE",
         "ftype": "input",
         "type": "text",
         "value":"",
-        "placeholder": "A POST call will be made to the provided URL,Containing order and last status"
+        "placeholder": "Uma chamada POST será feita para o URL fornecido, contendo o pedido e o último status"
     }
 
     
@@ -49,25 +49,25 @@
 ],
     "vendor_fields":[{
         "separator":"WebHooks",
-        "title": "Webhook called when order is approved by system",
+        "title": "Webhook chamado quando o pedido é aprovado pelo sistema",
         "key": "webhook_url_by_admin",
         "ftype": "input",
         "type": "text",
         "value":"",
-        "placeholder": "A POST call will be made to the provided URL"
+        "placeholder": "Uma chamada POST será feita para o URL fornecido"
     },{
-        "title": "Webhook called when order is approved by vendor",
+        "title": "Webhook chamado quando o pedido é aprovado pelo fornecedor",
         "key": "webhook_url_by_vendor",
         "ftype": "input",
         "type": "text",
         "value":"",
-        "placeholder": "A POST call will be made to the provided URL"
+        "placeholder": "Uma chamada POST será feita para o URL fornecido"
     },{
-        "title": "Webhook called when order status is changes",
+        "title": "Webhook chamado quando o status do pedido é alterado",
         "key": "webhook_order_status",
         "ftype": "input",
         "type": "text",
         "value":"",
-        "placeholder": "A POST call will be made to the provided URL. Containing order and last status"
+        "placeholder": "Uma chamada POST será feita para o URL fornecido. Contendo pedido e último status"
     }]
 }

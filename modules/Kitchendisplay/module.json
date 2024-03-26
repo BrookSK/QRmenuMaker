@@ -13,7 +13,7 @@
     "requires": [],
     "vendor_fields":[{
         "separator":"Kitchen Display System",
-        "title": "Enable Kitchen Display System",
+        "title": "Ativar sistema de exibição de cozinha",
         "key": "kds_enable",
         "ftype": "bool",
         "value":true

@@ -13,7 +13,7 @@
     "requires": [],
     "vendor_fields":[{
         "separator":"Coupons",
-        "title": "Enable Coupons",
+        "title": "Habilitar cupons",
         "key": "couons_enable",
         "ftype": "bool",
         "value":true

@@ -13,13 +13,13 @@
     "vendor_fields":[
         {
             "separator":"Order date time",
-            "title": "Enable order after working time of the store",
+            "title": "Habilitar pedido após horário de funcionamento da loja",
             "key": "order_date_time_enable",
             "ftype": "bool",
             "value": false
         },
         {
-            "title": "Show date time picker even if store is open",
+            "title": "Mostrar seletor de data e hora mesmo se a loja estiver aberta",
             "key": "always_order_date_time_enable",
             "ftype": "bool",
             "value": false
