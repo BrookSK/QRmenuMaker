@@ -37,7 +37,7 @@
                             @include('orders.partials.map',['order'=>$order])
                         </div>
                     @endif
-                    
+
                 </div>
                 @endif
                 <br/>
@@ -51,7 +51,7 @@
                         <h5 class="h3 mb-0">{{ __("Status History")}}</h5>
                     </div>
                     @include('orders.partials.orderstatus')
-                    
+
                 </div>
                 @if(auth()->user()->hasAnyRole(['admin','owner','staff','driver']))
                 @foreach ($orderModules as $orderModule)
@@ -79,8 +79,7 @@
 @section('js')
 <!-- Google Map -->
 <script async defer src= "https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=<?php echo config('settings.google_maps_api_key'); ?>"> </script>
-  
 
-    <script src="{{ asset('custom') }}/js/ratings.js"></script>
+<script src="{{ asset('custom') }}/js/ratings.js"></script>
 @endsection
 

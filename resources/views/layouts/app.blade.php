@@ -19,7 +19,7 @@
 
         <!-- Fonts -->
         <link href="{{ asset('css') }}/gfonts.css" rel="stylesheet">
-        
+
         <!-- Icons -->
         <link href="{{ asset('argon') }}/vendor/nucleo/css/nucleo.css" rel="stylesheet">
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -86,13 +86,13 @@
         <script>
             var t="<?php echo 'translations'.App::getLocale() ?>";
            window.translations = {!! Cache::get('translations'.App::getLocale(),"[]") !!};
-           
-           
+
+
         </script>
 
         <!-- Navtabs -->
-        <script src="{{ asset('argonfront') }}/js/core/jquery.min.js" type="text/javascript"></script>
 
+        <script src="{{ asset('argonfront') }}/js/core/jquery.min.js" type="text/javascript"></script>
 
         <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
@@ -136,7 +136,9 @@
          <!-- Cart custom sidemenu -->
         <script src="{{ asset('custom') }}/js/cartSideMenu.js"></script>
 
-
+        {{-- Bootstrap min --}}
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
         <script>
             var ONESIGNAL_APP_ID = "{{ config('settings.onesignal_app_id') }}";
             var USER_ID = '{{  auth()->user()&&auth()->user()?auth()->user()->id:"" }}';
@@ -149,7 +151,7 @@
                 USER_ID = '{{  auth()->user()->restaurant->user_id }}';
             </script>
         @endif
-       
+
 
         <!-- OneSignal -->
         @if(strlen( config('settings.onesignal_app_id'))>4)
