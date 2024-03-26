@@ -3,7 +3,7 @@
 return [
     'enter_item_name' => 'Digite :item nome',
     'item_managment'=>':Gerenciamento de itens',
-    'add_new_item'=>'Adicionar novo :item',
+    'add_new_item'=>'Adicionar :item',
     'new_item'=>'Novo :item',
     'back'=>'Voltar',
     'item_has_been_added'=>':item foi adicionado',

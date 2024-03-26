@@ -12,7 +12,7 @@
     "requires": [],
     "vendor_fields":[{
         "separator":"Clients",
-        "title": "Allow clients registration",
+        "title": "Permitir cadastro de clientes",
         "key": "clients_enable",
         "ftype": "bool",
         "value":false

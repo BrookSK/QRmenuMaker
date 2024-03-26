@@ -14,7 +14,7 @@
     "vendor_fields":[
     {
         "separator":"Custom Timezone",
-        "title": "Time Zone",
+        "title": "Fuso horário",
         "key": "time_zone",
         "ftype": "select",
         "value":"",

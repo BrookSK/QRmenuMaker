@@ -13,7 +13,7 @@
     "requires": [],
     "vendor_fields":[{
         "separator":"Expenses",
-        "title": "Enable Expenses",
+        "title": "Habilitar despesas",
         "key": "expenses_enable",
         "ftype": "bool",
         "value":true

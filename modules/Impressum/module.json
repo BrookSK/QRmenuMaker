@@ -15,12 +15,12 @@
     "global_fields":[],
     "vendor_fields":[{
         "separator":"Impressum",
-        "title": "Title of the Impressum",
+        "title": "Título do Impressum",
         "key": "impressum_title",
         "ftype": "input",
         "type": "text",
         "value":"Impressum",
-        "placeholder": "Enter desired title name"
+        "placeholder": "Digite o nome do título desejado"
     },{
         "title": "Impressum",
         "key": "impressum_value",

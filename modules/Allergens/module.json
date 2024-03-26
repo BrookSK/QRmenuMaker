@@ -21,7 +21,7 @@
     ],
     "vendor_fields":[{
         "separator":"Allergens",
-        "title": "Display allergens on menu",
+        "title": "Exibir alérgenos no menu",
         "key": "allergens_enable",
         "ftype": "bool",
         "value":true

@@ -448,6 +448,113 @@ a:hover {
 }
 
 /* 
+    Custom edit - Lucas
+*/
+
+/* Danger Buttons */
+
+.btn-new-danger-custom
+{
+    /* font-size: 1rem; */
+    font-weight: 600;
+    line-height: 1.5;
+
+    display: inline-block;
+
+    /* padding: .625rem 1.25rem; */
+    padding: 0.45rem 3rem;
+
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    border: 1px solid transparent;
+    border-radius: .375rem;
+}
+@media screen and (prefers-reduced-motion: reduce)
+{
+    .btn-new-danger-custom
+    {
+        transition: none;
+    }
+}
+.btn-new-danger-custom:hover,
+.btn-new-danger-custom:focus
+{
+    text-decoration: none;
+}
+.btn-new-danger-custom:focus,
+.btn-new-danger-custom.focus
+{
+    outline: 0;
+    box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);
+}
+.btn-new-danger-custom.disabled,
+.btn-new-danger-custom:disabled
+{
+    opacity: .65;
+    box-shadow: none;
+}
+.btn-new-danger-custom:not(:disabled):not(.disabled)
+{
+    cursor: pointer;
+}
+.btn-new-danger-custom:not(:disabled):not(.disabled):active,
+.btn-new-danger-custom:not(:disabled):not(.disabled).active
+{
+    box-shadow: none;
+}
+.btn-new-danger-custom:not(:disabled):not(.disabled):active:focus,
+.btn-new-danger-custom:not(:disabled):not(.disabled).active:focus
+{
+    box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08), none;
+}
+
+a.btn-new-danger-custom.disabled,
+fieldset:disabled a.btn-new-danger-custom
+{
+    pointer-events: none;
+}
+
+.btn-new-danger-custom {
+    border: solid 1px white !important;
+    background-color: #F5365B !important;
+    color: #ffffff; /* Cor do texto, ajuste conforme necessário */
+    border-radius: 8px; /* Ajuste conforme necessário para obter o raio desejado */
+    position: relative;
+    overflow: hidden; /* Adicionado para evitar overflow do gradiente */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-new-danger-custom:hover {
+    background-color: #e00101 !important;
+}
+
+.btn-new-danger-custom::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    right: -10%;
+    bottom: -10%;
+    opacity: 0;
+    z-index: -1;
+    border-radius: 8px; /* Ajuste conforme necessário para obter o raio desejado */
+    transition: opacity 0.3s ease;
+}
+
+.btn-new-danger-custom:hover::before {
+    opacity: 1;
+}
+
+/* End Danger Buttons */
+
+/* 
     Custom edit - Ryan
 */
 

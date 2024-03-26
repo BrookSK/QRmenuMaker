@@ -13,12 +13,12 @@
     "files": [],
     "requires": [],
     "vendor_fields":[{
-        "separator":"Tax config",
-        "title":"Default tax value", 
+        "separator":"Configuração tributária",
+        "title":"Valor de imposto padrão", 
         "key":"default_tax_value", 
         "value":18
     },{
-        "title":"Hide tax input", 
+        "title":"Ocultar entrada de impostos", 
         "key":"hide_tax_input", 
         "ftype":"bool",
         "value":false

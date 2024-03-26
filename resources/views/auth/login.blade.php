@@ -125,7 +125,7 @@
                                 </label>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-danger my-4">{{ __('Sign in') }}</button>
+                                <button type="submit" class="btn-new-danger-custom my-4">{{ __('Sign in') }}</button>
                             </div>
 
                             @if(config('app.isft') || isset($_GET['showCreate']))

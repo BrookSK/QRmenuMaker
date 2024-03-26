@@ -13,7 +13,7 @@
     "requires": [],
     "vendor_fields":[{
         "separator":"Drivers",
-        "title": "Enable Drivers",
+        "title": "Habilitar drivers",
         "key": "drivers_enable",
         "ftype": "bool",
         "value":true
