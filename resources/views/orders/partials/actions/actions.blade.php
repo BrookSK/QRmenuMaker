@@ -19,7 +19,7 @@
     </script>
       <button type="button" class="btn btn-primary btn-sm" onClick=(setSelectedOrderId({{ $order->id }}))  data-toggle="modal" data-target="#modal-asign-driver">{{ __('Assign to driver') }}</button>
        @else
-      <a href="{{ url('updatestatus/'.$next_status.'/'.$order->id) }}" id="{{$next_status}}" class="btn btn-sm {{$btnType   }}">{{ __($next_status) }}</a>
+      <a href="{{ url('updatestatus/'.$next_status.'/'.$order->id) }}" id="{{$next_status}}" class="{{$btnType   }} btn-new-danger-custom btn-sm">{{ __($next_status) }}</a>
     @endif
 
 @endforeach
