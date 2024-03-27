@@ -9,7 +9,7 @@
 <meta name="og:title" property="og:title" content="{{ $restorant->name }}">
 <meta name="description" content="{{ $restorant->description }}">
 @if (\Akaunting\Module\Facade::has('googleanalytics'))
-    @include('googleanalytics::index') 
+    @include('googleanalytics::index')
 @endif
 @endsection
 
@@ -40,7 +40,7 @@
 
 
 
-@section('content') 
+@section('content')
 <?php
     function clean($string) {
         $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
@@ -48,7 +48,6 @@
         return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
      }
 ?>
-
 @include('restorants.partials.modals')
 
     <section class="section-profile-cover section-shaped grayscale-05 d-none d-md-none d-lg-block d-lx-block">
@@ -68,7 +67,7 @@
                 <div class="col-lg-12">
                     <div class="title white"  <?php if($restorant->description){echo 'style="border-bottom: 1px solid #f2f2f2;"';} ?> >
                         <h1 class="display-3 text-white notranslate" data-toggle="modal" data-target="#modal-restaurant-info" style="cursor: pointer;">{{ $restorant->name }}</h1>
-                        
+
                         <p class="display-4" style="margin-top: 120px">{{ $restorant->description }}</p>
                         @include('restorants.partials.social_links')
 
@@ -112,8 +111,8 @@
         <input type="hidden" id="rid" value="{{ $restorant->id }}"/>
         <div class="container container-restorant">
 
-            
-            
+
+
             @if(!$restorant->categories->isEmpty())
         <nav class="tabbable sticky" style="top: {{ config('app.isqrsaas') ? 64:88 }}px;">
                 <ul class="nav nav-pills bg-white mb-2">
@@ -129,13 +128,13 @@
                     @endforeach
                 </ul>
 
-                
+
             </nav>
 
-            
+
             @endif
 
-            
+
 
 
             @if(!$restorant->categories->isEmpty())
@@ -154,7 +153,7 @@
                                     <a  @if (!($item->qty_management==1&&$item->qty<1)) onClick="setCurrentItem({{ $item->id }})" @endif href="javascript:void(0)"><img src="{{ $item->logom }}" loading="lazy" data-src="{{ config('global.restorant_details_image') }}" class="img-fluid lazy" alt=""></a>
                                 </figure>
                                 @endif
-                                
+
                                 @if ($item->qty_management==1&&$item->qty<1)
                                     [{{ __('Out of stock')}}] - {{ $item->name }}
                                 @else
@@ -178,13 +177,13 @@
                                                  <img  src="{{$allergen->image_link}}" />
                                              </div>
                                             @endforeach
-                                             
+
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
-                           
+
+
+
                             </div>
                         </div>
                     @endforeach
@@ -203,7 +202,7 @@
             @endif
             <!-- Check if is installed -->
             @if (isset($doWeHaveImpressumApp)&&$doWeHaveImpressumApp)
-                
+
                 <!-- Check if there is value -->
                 @if (strlen($restorant->getConfig('impressum_value',''))>5)
                     <h3>{{  __(htmlspecialchars($restorant->getConfig('impressum_title',''))) }}</h3>
@@ -211,8 +210,8 @@
                 @endif
             @endif
 
-           
-            
+
+
         </div>
 
         @if(  !(isset($canDoOrdering)&&!$canDoOrdering)   )
@@ -248,7 +247,7 @@
                                     <input type="hidden" value="{{$_GET['tid']}}" name="table_id"  id="table_id"/>
                                 @endif
 
-                           
+
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary my-4">{{ __('Call Now') }}</button>
                                 </div>
@@ -284,7 +283,7 @@
     @endsection
     @section('addiitional_button_1_mobile')
         <div class="dropdown mobile_menu">
-           
+
             <a type="button" class="nav-link  dropdown-toggle" data-toggle="dropdown"id="navbarDropdownMenuLink2">
                 <span class="btn-inner--icon">
                   <i class="fa fa-globe"></i>
@@ -314,7 +313,7 @@
         var TEMPLATE_USED="<?php echo config('settings.front_end_template','defaulttemplate') ?>";
     </script>
     <script src="{{ asset('custom') }}/js/order.js"></script>
-    @include('restorants.phporderinterface') 
+    @include('restorants.phporderinterface')
     @if (isset($showGoogleTranslate)&&$showGoogleTranslate&&!$showLanguagesSelector)
         @include('googletranslate::scripts')
     @endif

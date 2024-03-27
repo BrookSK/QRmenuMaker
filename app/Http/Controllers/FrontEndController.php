@@ -61,31 +61,31 @@ class FrontEndController extends Controller
         //2 - Extract the domain
         $domain = request()->getHost();
 
-        
+
         //3 - Make sure, this is no the project domain itself,
         if (strpos( config('app.url'),$domain) !== false) {
             return "";
         }
-        
+
         //4 - The extracted domain is in the list of custom values
         $theConfig=Config::where('value','like',"%".$domain."%")->first();
         if($theConfig){
             //5 - Return the company subdomain if company is active
             $vendor_id=$theConfig->model_id;
- 
+
             $vendor=Restorant::where('id',$vendor_id)->first();
             if($vendor){
                 return $vendor->subdomain;
             }else{
                 return "";
             }
-            
+
         }else{
             //By default return no domain
             return "";
         }
 
-       
+
 
 
     }
@@ -102,7 +102,7 @@ class FrontEndController extends Controller
             $stripedQuery = '%'.strip_tags(\Request::input('q')).'%';
             $q->where('name', 'like', $stripedQuery)->orWhere('description', 'like', $stripedQuery);
         })->with('category.restorant')->get();
-        
+
 
         //Find how many time happens on item level
         $restorants = [];
@@ -210,7 +210,7 @@ class FrontEndController extends Controller
                 //Default QR
                 return $this->qrsaasMode();
             }
-            
+
         }
 
         if(config('app.isdrive')){
@@ -251,15 +251,15 @@ class FrontEndController extends Controller
                 }else{
                     abort(404);
                 }
-               
+
             }
 
             return $this->restorant($subDomain);
         }
     }
-    
 
-    
+
+
 
     /**
      * 3. QR Mode.
@@ -272,8 +272,8 @@ class FrontEndController extends Controller
         } else {
             //Normal, with landing
             $plans = config('settings.forceUserToPay',false)?Plans::where('id','!=',intval(config('settings.free_pricing_id')))->get()->toArray():Plans::get()->toArray();
-            
-            
+
+
             $colCounter = [4, 12, 6, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 
             $availableLanguagesENV = config('settings.front_languages');
@@ -323,7 +323,7 @@ class FrontEndController extends Controller
             }
 
             $featured_vendors=Restorant::where('active',1)->where('is_featured',1)->get()->shuffle();
-           
+
 
             $response = new \Illuminate\Http\Response(view('qrsaas.'.config('settings.qr_landing'), [
                 'col'=>$colCounter[count($plans)],
@@ -672,21 +672,21 @@ class FrontEndController extends Controller
 
     /**
      * 9. Loyalty mode
-     * 
+     *
      */
     public function loyaltyMode(){
         if (config('settings.disable_landing')) {
             //With disabled landing
             return redirect()->route('login');
         } else {
-            
+
 
             //Normal, with landing
             $plans = config('settings.forceUserToPay',false)?Plans::where('id','!=',intval(config('settings.free_pricing_id')))->get()->toArray():Plans::get()->toArray();
             $colCounter = [12, 6, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
 
-            
-           
+
+
             foreach($plans as $key => $plan){
                 $plans[$key]['price_form'] =rtrim(money($plan['price'],config('settings.cashier_currency'),config('settings.do_convertion'))->format(), ".00");
             }
@@ -718,7 +718,7 @@ class FrontEndController extends Controller
             $processes = Process::where('post_type', 'process')->get();
             $blog_posts = Process::where('post_type', 'blog')->get();
 
-           
+
             $response = new \Illuminate\Http\Response(view('cards::landing', [
                 'pages'=>Pages::where('showAsLink',1)->get(),
                 'isExtended' => md5(config('settings.extended_license_download_code',""))=="d0398556dbecac06370bdc8baec559a9" || config('settings.is_demo',false),
@@ -888,7 +888,7 @@ class FrontEndController extends Controller
                 }
 
                 $allReastaurantsTitle = __('All restaurants delivering to your address');
-                
+
                 if (! $hasRestorantsWithDelivery) {
                     $allReastaurantsTitle = __('All restaurants');
                 }
@@ -914,9 +914,9 @@ class FrontEndController extends Controller
             }
         }
 
-        
 
-        
+
+
         $langs=$this->handleLangs();
 
         //Set the cookie of the last entered address
@@ -961,7 +961,7 @@ class FrontEndController extends Controller
                 session(['applocale_change' => strtolower($locale)]);
             }
         }
-      
+
         return [$availableLanguages,$locale];
     }
 
@@ -1001,7 +1001,7 @@ class FrontEndController extends Controller
 
     public function loyalty($alias)
     {
-        return $this->loyaltyPlatform(Restorant::whereRaw('REPLACE(subdomain, "-", "") = ?', [str_replace("-","",$alias)])->first());  
+        return $this->loyaltyPlatform(Restorant::whereRaw('REPLACE(subdomain, "-", "") = ?', [str_replace("-","",$alias)])->first());
     }
 
     public function loyaltyPlatform($company){
@@ -1041,7 +1041,7 @@ class FrontEndController extends Controller
             }
         }
 
- 
+
 
         $response = new \Illuminate\Http\Response(view($viewFile,$viewData));
         return $response;
@@ -1075,23 +1075,23 @@ class FrontEndController extends Controller
                 config(['settings.front_end_template' =>$vendorTemplate ]);
                 $menuTemplate=$vendorTemplate;
             }
-            
+
         }
-        
+
 
         //Do we have google translate app
         $doWeHaveGoogleTranslateApp=Module::has('googletranslate')&&$restorant->getConfig('gt_enable',false)=="true";
-               
+
         if ($restorant && $restorant->active == 1) {
 
             if(config('settings.is_pos_cloud_mode')){
                 return redirect(route('admin.restaurants.edit',$restorant->id));
             }
-    
+
             //Set config based on restaurant
             config(['app.timezone' => $restorant->getConfig('time_zone',config('app.timezone'))]);
-    
-    
+
+
 
             if(isset($_GET['pay'])){
                 //This is a payment link
@@ -1104,26 +1104,26 @@ class FrontEndController extends Controller
             $restorant->increment('views');
 
             $canDoOrdering = $restorant->getPlanAttribute()['canMakeNewOrder'];
-            
+
             //ratings usernames
             $usernames = [];
             if(config('app.isft')){
                 if ($restorant && $restorant->ratings) {
                     foreach ($restorant->ratings as $rating) {
                         $user = User::where('id', $rating->user_id)->get()->first();
-    
+
                         if (! array_key_exists($user->id, $usernames)) {
                             $new_obj = (object) [];
                             $new_obj->name = $user->name;
-    
+
                             $usernames[$user->id] = (object) $new_obj;
                         }
                     }
                 }
             }
-            
 
-           
+
+
             $previousOrders = Cookie::get('orders') ? Cookie::get('orders') : '';
             $previousOrderArray = array_filter(explode(',', $previousOrders));
 
@@ -1146,7 +1146,7 @@ class FrontEndController extends Controller
            // dd(Categories::where('restorant_id',$restorant->id)->ordered()->get());
 
            $businessHours=$restorant->getBusinessHours();
-           
+
            $tz= $restorant->getConfig('time_zone',config('app.timezone'));
            $now = new \DateTime('now',new \DateTimeZone($tz));
 
@@ -1154,21 +1154,21 @@ class FrontEndController extends Controller
            $formatter->setPattern(config('settings.datetime_workinghours_display_format_new'));
            $formatter->setTimeZone($tz);
 
-         
+
            $viewFile='restorants.show';
            if($menuTemplate!='defaulttemplate'){
             $viewFile=config('settings.front_end_template','defaulttemplate')."::show";
            }
-          
+
 
            $wh=$businessHours->forWeek();
-           
+
 
            $canDoOrdering=$canDoOrdering&&($businessHours->isOpen()||$doWeHaveOrderAfterHours);
            if ($restorant->getConfig('disable_ordering', false)){
             $canDoOrdering=false;
            }
-           
+
            $openingTime=null;
            $closingTime=null;
            try {
@@ -1182,25 +1182,24 @@ class FrontEndController extends Controller
 
 
            $viewData=[
-                'wh'=>$wh,
-                'allergens'=>in_array("allergens", config('global.modules',[]))?Allergens::where('post_type','allergen')->get():[],
-                'currentDay'=>strtolower((new DateTime())->format('l')),
-                'doWeHaveImpressumApp'=>$doWeHaveImpressumApp,
-                'restorant' => $restorant,
-                'openingTime' => $openingTime,
-                'closingTime' => $closingTime,
-                'doWeHaveOrderAfterHours'=> $doWeHaveOrderAfterHours,
-                'usernames' => $usernames,
-                'canDoOrdering'=>$canDoOrdering,
-                'currentLanguage'=>$currentEnvLanguage,
-                'showGoogleTranslate'=>$doWeHaveGoogleTranslateApp,
-                'showAllGTLanguages'=>$restorant->getConfig('gt_all',true),
-                'showGTLanguages'=>$restorant->getConfig('gt_list',""),
-                'showLanguagesSelector'=>env('ENABLE_MILTILANGUAGE_MENUS', false) && $restorant->localmenus()->count() > 1,
-                'hasGuestOrders'=>count($previousOrderArray) > 0,
-                'fields'=>[['class'=>'col-12', 'classselect'=>'noselecttwo', 'ftype'=>'select', 'name'=>'Table', 'id'=>'table_id', 'placeholder'=>'Select table', 'data'=>$tablesData, 'required'=>true]],
+                'wh'                      => $wh,
+                'allergens'               => in_array("allergens", config('global.modules',[]))?Allergens::where('post_type','allergen')->get():[],
+                'currentDay'              => strtolower((new DateTime())->format('l')),
+                'doWeHaveImpressumApp'    => $doWeHaveImpressumApp,
+                'restorant'               => $restorant,
+                'openingTime'             => $openingTime,
+                'closingTime'             => $closingTime,
+                'doWeHaveOrderAfterHours' => $doWeHaveOrderAfterHours,
+                'usernames'               => $usernames,
+                'canDoOrdering'           => $canDoOrdering,
+                'currentLanguage'         => $currentEnvLanguage,
+                'showGoogleTranslate'     => $doWeHaveGoogleTranslateApp,
+                'showAllGTLanguages'      => $restorant->getConfig('gt_all',true),
+                'showGTLanguages'         => $restorant->getConfig('gt_list',""),
+                'showLanguagesSelector'   => env('ENABLE_MILTILANGUAGE_MENUS', false) && $restorant->localmenus()->count() > 1,
+                'hasGuestOrders'          => count($previousOrderArray) > 0,
+                'fields'                  => [['class'=>'col-12', 'classselect'=>'noselecttwo', 'ftype'=>'select', 'name'=>'Table', 'id'=>'table_id', 'placeholder'=>'Select table', 'data'=>$tablesData, 'required'=>true]],
            ];
-    
 
            $response = new \Illuminate\Http\Response(view($viewFile,$viewData));
 
