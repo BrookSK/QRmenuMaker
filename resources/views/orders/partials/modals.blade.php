@@ -215,7 +215,7 @@
                             <select name="payment" id="payment_method" class="noselecttwo form-control">
                                 <option value="dinheiro">Dinheiro</option>
                                 <option value="debito">Débito</option>
-                                <option value="credito">Crédido</option>
+                                <option value="credito">Crédito</option>
                                 <option value="pix">PIX</option>
                             </select>
                             <button class="btn btn-sm btn-primary" id="payment_finish">Finalizar Pedido</button>
