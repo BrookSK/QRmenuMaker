@@ -59,7 +59,7 @@ class User extends Authenticatable
     public function getAcceptanceratingAttribute()
     {
         if ($this->numorders == 0) {
-            return 'No orders';
+            return 'Sem pedidos';
         } else {
             return round(((1 - ($this->rejectedorders / $this->numorders)) * 100), 2);
         }

@@ -18,5 +18,8 @@
         @include('orders.partials.modals')
     </div>
 @endsection
+@section('js')
+    <script src="{{ asset('custom') }}/js/admin_orders.js"></script>
+@endsection
 
 

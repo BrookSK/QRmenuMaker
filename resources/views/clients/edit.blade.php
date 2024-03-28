@@ -52,12 +52,12 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Points -->
             @if ($hasPoints)
                 @include('cards::points.client_points')
             @endif
-            
+
 
 
         </div>

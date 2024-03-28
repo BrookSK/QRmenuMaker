@@ -1,0 +1,58 @@
+{
+    "alias": "vendorlinks",
+    "version":"1.1",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Vendorlinks\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "global_fields":[
+        {
+            "separator":"Links that appear in the side menu of the vendor navigation",
+            "title":"Enabled", 
+            "key":"ENABLE_VENDOR_LINKS", 
+            "ftype":"bool",
+            "value":true
+        },
+        {
+            "title":"Name of the menu", 
+            "key":"NAME_OF_THE_MENU_IN_VENDOR_LINKS", 
+            "value":"Support"
+        },
+        {
+            "title":"Link 1 - name", 
+            "key":"LINK_ONE_NAME", 
+            "value":""
+        },
+        {
+            "title":"Link 1 - url", 
+            "key":"LINK_ONE_LINK", 
+            "value":""
+        },
+        {
+            "title":"Link 2 - name", 
+            "key":"LINK_TWO_NAME", 
+            "value":""
+        },
+        {
+            "title":"Link 2 - url", 
+            "key":"LINK_TWO_LINK", 
+            "value":""
+        },
+        {
+            "title":"Link 3 - name", 
+            "key":"LINK_THREE_NAME", 
+            "value":""
+        },
+        {
+            "title":"Link 3 - url", 
+            "key":"LINK_THREE_LINK", 
+            "value":""
+        }
+    ]
+}
