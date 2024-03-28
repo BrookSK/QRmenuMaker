@@ -210,7 +210,6 @@
                         $items[$key]['item_price'] = 0;
                         $items[$key]['total']      = 0;
                         foreach ($agroupeds as $item) {
-                            dd($item);
                             $theItemPrice               = ($item['pivot']['variant_price'] ? $item['pivot']['variant_price'] : $item['price']);
                             $total                      = $item['pivot']['qty'] * $theItemPrice;
                             $items[$key]['qty']        += $item['pivot']['qty'];
