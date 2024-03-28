@@ -20,7 +20,7 @@
 @foreach($orders as $order)
 <tr>
     <td>
-        
+
         <a class="btn badge badge-success badge-pill" href="{{ route('orders.show',$order->id )}}">#{{ $order->id_formated }}</a>
     </td>
     @hasrole('admin|driver')
@@ -55,9 +55,9 @@
         @include('orders.partials.laststatus')
     </td>
     @if (!isset($hideAction))
-        @include('orders.partials.actions.table',['order' => $order ]) 
+        @include('orders.partials.actions.table',['order' => $order ])
     @endif
-    
+
 </tr>
 @endforeach
 </tbody>

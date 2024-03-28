@@ -32,7 +32,7 @@ class Items extends TranslateAwareModel
         'qty',
         'qty_management'
     ];
-    public $translatable = [];// ['name', 'description'];
+    public $translatable = ['name', 'description'];
     protected $table     = 'items';
     protected $appends   = ['logom', 'icon', 'short_description'];
     protected $guarded   = [];

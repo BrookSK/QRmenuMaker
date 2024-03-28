@@ -191,18 +191,17 @@
         <ul id="order-items">
             @php
                 $orderAgroupeds = $order->items->groupBy('name')->toArray();
-
                 $items = [];
                 $theItemPrice = 0;
                 $total = 0;
                 foreach ($orderAgroupeds as $key => $agroupeds) {
-                    if(count($agroupeds) == 1){
+                    if(count($agroupeds) <= 1){
                         $items[$key]['qty']        = 0;
                         $items[$key]['item_price'] = 0;
                         $items[$key]['total']      = 0;
-                        $theItemPrice              = ($agroupeds['pivot']['variant_price'] ? $agroupeds['pivot']['variant_price'] : $agroupeds['price']);
-                        $total                     = $agroupeds['pivot']['qty'] * $theItemPrice;
-                        $items[$key]['qty']        = $agroupeds['pivot']['qty'];
+                        $theItemPrice              = ($agroupeds[0]['pivot']['variant_price'] ? $agroupeds[0]['pivot']['variant_price'] : $agroupeds[0]['price']);
+                        $total                     = $agroupeds[0]['pivot']['qty'] * $theItemPrice;
+                        $items[$key]['qty']        = $agroupeds[0]['pivot']['qty'];
                         $items[$key]['item_price'] = $theItemPrice;
                         $items[$key]['total']      = $total;
                         continue;
@@ -211,6 +210,7 @@
                         $items[$key]['item_price'] = 0;
                         $items[$key]['total']      = 0;
                         foreach ($agroupeds as $item) {
+                            dd($item);
                             $theItemPrice               = ($item['pivot']['variant_price'] ? $item['pivot']['variant_price'] : $item['price']);
                             $total                      = $item['pivot']['qty'] * $theItemPrice;
                             $items[$key]['qty']        += $item['pivot']['qty'];

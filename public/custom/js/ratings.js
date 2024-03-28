@@ -1,6 +1,5 @@
 "use strict";
 $(document).ready(function(){
-
     checkIfRated();
 
     $('#success-box-ratings').hide()
