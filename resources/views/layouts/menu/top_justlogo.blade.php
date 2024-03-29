@@ -115,9 +115,9 @@
               \Request::route()->getName() != "cart.checkout")
                 <a  id="desCartLink" onclick="openNav()" class="btn btn-neutral btn-icon btn-cart" style="cursor:pointer;">
                   <span class="btn-inner--icon">
-                    <i class="fa fa-shopping-cart"></i>
+                    <i class="btn-mob-new-color fa fa-shopping-cart"></i>
                   </span>
-                  <span class="nav-link-inner--text">{{ __('Cart') }}</span>
+                  <span class="nav-link-inner--text btn-mob-new-color">{{ __('Cart') }}</span>
                   <span v-if="counter>0" class="badge badge-primary">@{{ counter }}</span>
               </a>
               @endif
@@ -144,8 +144,8 @@
 
                   @if(config('settings.enable_guest_log'))
                     <a href="{{ route('register.visit',['restaurant_id'=>$restorant->id])}}" class="nav-link" style="cursor:pointer;">
-                        <i class="fa fa-calendar-plus-o"></i>
-                        <span class="nav-link-inner--text">{{ __('Register visit') }}</span>
+                        <i class="btn-mob-new-color fa fa-calendar-plus-o"></i>
+                        <span class="nav-link-inner--text btn-mob-new-color">{{ __('Register visit') }}</span>
                     </a>
                   @endif
 
