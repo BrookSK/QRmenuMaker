@@ -1255,14 +1255,20 @@ fieldset:disabled a.btn-new-danger-custom
     }
 
     .callOutCallWaiterButtonBottomMobile{
-        width: 16.2% !important;
-        height: 4.5rem !important;
+        /* width: 16.2% !important;
+        height: 4.5rem !important; */
         background: linear-gradient( to right, #2ebf91, #9e89c4 );
         color: white !important;
-        left: 0px !important;
-        right: 0px !important;
+        /* left: 0px !important;
+        right: 0px !important; */
         border-radius: 50px 50px 50px 50px !important;
         font-size: 34px !important;
+        position: fixed !important;
+        bottom: 0px !important;
+        left: 20px !important;
+        z-index: 1000 !important;
+        width: 4rem !important;
+        height: 4rem !important;
     }
 
     .icon-shape i{
