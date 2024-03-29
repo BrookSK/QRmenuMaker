@@ -115,9 +115,9 @@
               \Request::route()->getName() != "cart.checkout")
                 <a  id="desCartLink" onclick="openNav()" class="btn btn-neutral btn-icon btn-cart" style="cursor:pointer;">
                   <span class="btn-inner--icon">
-                    <i class="fa fa-shopping-cart"></i>
+                    <i class="btn-mob-new-color fa fa-shopping-cart"></i>
                   </span>
-                  <span class="nav-link-inner--text">{{ __('Cart') }}</span>
+                  <span class="nav-link-inner--text btn-mob-new-color">{{ __('Cart') }}</span>
                   <span v-if="counter>0" class="badge badge-primary">@{{ counter }}</span>
               </a>
               @endif
@@ -133,19 +133,19 @@
                 
                 @if(config('app.isqrsaas'))
                   @if(\Request::route()->getName() != "cart.checkout" && !$restorant->getConfig('disable_callwaiter', 0) && strlen(config('broadcasting.connections.pusher.app_id')) > 2 && strlen(config('broadcasting.connections.pusher.key')) > 2 && strlen(config('broadcasting.connections.pusher.secret')) > 2&&!config('settings.is_pos_cloud_mode'))
-                    <a type="button" class="nav-link" data-toggle="modal" data-target="#modal-form">
+                    <a type="button" class="nav-link btn-mob-new-color" data-toggle="modal" data-target="#modal-form">
                       <span class="btn-inner--icon">
-                        <i class="fa fa-bell"></i>
+                        <i class="btn-mob-new-color fa fa-bell"></i>
                       </span>
-                      <span class="nav-link-inner--text">{{ __('Call Waiter') }}</span>
+                      <span class="nav-link-inner--text btn-mob-new-color">{{ __('Call Waiter') }}</span>
                     </a>
                   @endif
 
 
                   @if(config('settings.enable_guest_log'))
                     <a href="{{ route('register.visit',['restaurant_id'=>$restorant->id])}}" class="nav-link" style="cursor:pointer;">
-                        <i class="fa fa-calendar-plus-o"></i>
-                        <span class="nav-link-inner--text">{{ __('Register visit') }}</span>
+                        <i class="btn-mob-new-color fa fa-calendar-plus-o"></i>
+                        <span class="nav-link-inner--text btn-mob-new-color">{{ __('Register visit') }}</span>
                     </a>
                   @endif
 
@@ -153,9 +153,9 @@
 
                     <a  href="{{ route('guest.orders')}}" class="nav-link" style="cursor:pointer;">
 
-                        <i class="fa fa-list-alt"></i>
+                        <i class="btn-mob-new-color fa fa-list-alt"></i>
 
-                      <span class="nav-link-inner--text">{{ __('My Orders') }}</span>
+                      <span class="nav-link-inner--text btn-mob-new-color">{{ __('My Orders') }}</span>
                     </a>
                   @endif
                 @endif
@@ -169,8 +169,8 @@
                  (isset($canDoOrdering)?$canDoOrdering:true)
                 )
                 <a id="mobileCartLink" onclick="openNav()" class="nav-link" style="cursor:pointer;">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span class="nav-link-inner--text">{{ __('Cart') }}</span>
+                    <i class="btn-mob-new-color fa fa-shopping-cart"></i>
+                    <span class="nav-link-inner--text btn-mob-new-color">{{ __('Cart') }}</span>
                 </a>
                 @endif
                 

@@ -13,11 +13,29 @@ use Illuminate\Support\Str;
 class Items extends TranslateAwareModel
 {
     use SoftDeletes;
-    public $translatable = ['name', 'description'];
 
-    protected $table = 'items';
-    protected $appends = ['logom', 'icon', 'short_description'];
-    protected $guarded = [];
+    protected $fillable   = [
+        'id',
+        'name',
+        'description',
+        'image',
+        'price',
+        'category_id',
+        'created_at',
+        'updated_at',
+        'available',
+        'has_variants',
+        'vat',
+        'deleted_at',
+        'enable_system_variants',
+        'discounted_price',
+        'qty',
+        'qty_management'
+    ];
+    public $translatable = ['name', 'description'];
+    protected $table     = 'items';
+    protected $appends   = ['logom', 'icon', 'short_description'];
+    protected $guarded   = [];
     protected $imagePath = '/uploads/restorants/';
 
     protected function getImge($imageValue, $default, $version = '_large.jpg')
@@ -29,12 +47,12 @@ class Items extends TranslateAwareModel
             if (strpos($imageValue, 'http') !== false) {
                 //Have http
                 if (
-                    strpos($imageValue, '.jpg') !== false || 
-                    strpos($imageValue, '.jpeg') !== false || 
-                    strpos($imageValue, '.png') !== false || 
+                    strpos($imageValue, '.jpg') !== false ||
+                    strpos($imageValue, '.jpeg') !== false ||
+                    strpos($imageValue, '.png') !== false ||
                     strpos($imageValue, 'api.tinify.com') !== false ||
                     strpos($imageValue, 'amazonaws.com') !== false ||
-                    strpos($imageValue, 'googleapis.com') !== false  
+                    strpos($imageValue, 'googleapis.com') !== false
                 ) {
                     //Has extension
                     return $imageValue;
@@ -108,7 +126,7 @@ class Items extends TranslateAwareModel
         }else{
             return $this->variants();
         }
-       
+
     }
 
     public function allergens()
@@ -129,7 +147,7 @@ class Items extends TranslateAwareModel
 
     public function makeAllMissingVariants($itemPrice){
         //At this moment, all system variables, should be removed
-        
+
         //The idea is to go over all the options to create the matrix
         $optionsMatrix=[];
         foreach ($this->options as $key => $option) {
@@ -144,13 +162,13 @@ class Items extends TranslateAwareModel
         foreach ($optionsMatrix as $key => $valuer) {
             array_push($regular,$valuer);
         }
-        for ($i=sizeof($regular)-1; $i>0 ; $i--) { 
+        for ($i=sizeof($regular)-1; $i>0 ; $i--) {
            foreach ($regular[$i-1] as $key => &$valueSE) {
                 $valueSE['data']=$regular[$i];
            }
         }
 
-        //Ok, now we have the matrix - 
+        //Ok, now we have the matrix -
        // print_r($regular);
         $strings=[];
         if(sizeof($regular)>0){
@@ -208,12 +226,12 @@ class Items extends TranslateAwareModel
                                                                                 }
                                                                             }
                                                                         }
-                                                                        
+
                                                                     }
                                                                 }
                                                             }
                                                         }
-                                                        
+
                                                     }
                                                 }
                                             }
@@ -226,7 +244,7 @@ class Items extends TranslateAwareModel
                 }
             }
         }
-        
+
 
 
         //Now for each variant, l
@@ -265,13 +283,13 @@ class Items extends TranslateAwareModel
         $this->save();
     }
 
-   
+
     public static function boot()
     {
         parent::boot();
         self::deleting(function ($model) {
             if ($model->isForceDeleting()) {
-               
+
 
                 //Delete Options
                 $model->options()->forceDelete();

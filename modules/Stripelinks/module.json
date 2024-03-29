@@ -1,0 +1,31 @@
+{
+    "alias": "stripelinks",
+    "version":"1.3",
+    "description": "",
+    "keywords": [],
+    "isPaymentModule":true,
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Stripelinks\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "global_fields":[{
+        "separator":"Stripe link configuration",
+        "title": "Enable Stripe checkout for payments when ordering",
+        "key": "STRIPE_LINKS_ENABLED",
+        "ftype": "bool",
+        "value":false,
+        "onlyin":"qrsaas"
+    }],
+    "vendor_fields":[{
+        "separator":"Stripe link configuration",
+        "title": "Enable Stripe checkout for payments when ordering",
+        "key": "stripelinks_enable",
+        "ftype": "bool",
+        "value":false,
+        "onlyin":"qrsaas"
+    }]
+}

@@ -1,0 +1,14 @@
+{
+    "alias": "floorplan",
+    "version":"1.1",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Floorplan\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
