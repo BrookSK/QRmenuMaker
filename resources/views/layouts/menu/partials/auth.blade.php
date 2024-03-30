@@ -6,9 +6,9 @@
 </a>
 <a href="#" class="nav-link nav-link-icon mobile-menu" data-toggle="dropdown" role="button">
     <span class="btn-inner--icon">
-        <i class="fa fa-user mr-2"></i>
+        <i class="btn-mob-new-color fa fa-user mr-2"></i>
       </span>
-    <span class="nav-link-inner--text">{{ Auth::user()->name }}</span>
+    <span class="nav-link-inner--text btn-mob-new-color">{{ Auth::user()->name }}</span>
 </a>
 <div class="dropdown-menu">
     <a href="/profile" class="dropdown-item">{{ __('Profile') }}</a>

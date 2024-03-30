@@ -1,0 +1,16 @@
+{
+    "alias": "pureadmindash",
+    "version": "1.4",
+    "nameSpace": "Modules\\Pureadmindash",
+    "hasDashboardInfo":true,
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Pureadmindash\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

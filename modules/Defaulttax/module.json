@@ -1,0 +1,27 @@
+{
+    "alias": "defaulttax",
+    "version":"1.0",
+    "name":"Default tax",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Defaulttax\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "vendor_fields":[{
+        "separator":"Configuração tributária",
+        "title":"Valor de imposto padrão", 
+        "key":"default_tax_value", 
+        "value":18
+    },{
+        "title":"Ocultar entrada de impostos", 
+        "key":"hide_tax_input", 
+        "ftype":"bool",
+        "value":false
+    }
+    ]
+}

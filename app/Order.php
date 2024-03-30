@@ -78,21 +78,21 @@ class Order extends Model
                     return $this->restorant_id."_".$this->id_per_vendor;
                 }
             }
-    
+
             if(auth()->user()->hasRole(['owner','staff'])){
                 if(strlen($this->id_per_vendor)!=0){
                     return $this->id_per_vendor;
                 }
             }
-    
+
             if(strlen($this->id_per_vendor)!=0){
                 return $this->id_per_vendor;
             }
         }
 
-       
 
-        
+
+
         return $this->id;
     }
 
@@ -139,12 +139,12 @@ class Order extends Model
                 }else{
                     $delivery=$this->delivery_method==3?__('Dine in'):__('Takeaway');
                 }
-                
+
             }
         }
 
         return $delivery;
-        
+
     }
 
     public function stakeholders()
@@ -154,7 +154,7 @@ class Order extends Model
 
     public function items()
     {
-        return $this->belongsToMany(\App\Items::class, 'order_has_items', 'order_id', 'item_id')->withPivot(['qty', 'extras', 'vat', 'vatvalue', 'variant_price', 'variant_name','id','kds_finished'])->withTrashed();
+        return $this->belongsToMany(\App\Items::class, 'order_has_items', 'order_id', 'item_id')->withPivot(['qty', 'extras', 'vat', 'vatvalue', 'variant_price', 'variant_name','id','kds_finished', 'created_at', 'is_item_fulfilled', 'item_id'])->orderByPivot('created_at', 'DESC')->withTrashed();
     }
 
     public function ratings()
@@ -168,9 +168,9 @@ class Order extends Model
             $message = view('messages.socialdrive', ['order' => $this])->render();
         }else{
             $message = view('messages.social', ['order' => $this])->render();
-            
+
         }
-        
+
         $message=str_replace('&#039;',"'",$message);
         if($encode){
             $message= urlencode($message);
@@ -215,7 +215,7 @@ class Order extends Model
         self::deleting(function (self $order) {
             //Delete Order items
             $order->items()->detach();
-            
+
             //Delete Oders statuses
             $order->status()->detach();
 
@@ -230,10 +230,10 @@ class Order extends Model
                 $order->id_per_vendor=$formatted_number = sprintf("%06d", $ordersCount+1);;
                 $order->update();
             }
-            
+
             return true;
         });
-        
+
     }
 
     public function getConfigsAttribute(){
@@ -261,9 +261,9 @@ class Order extends Model
                 }else{
                     return $this->getDriverOrderActions();
                 }
-                
+
             }
-           
+
         }else if (auth()->user()->hasRole('owner')) {
             return $this->getOwnerOrderActions();
         }else if (auth()->user()->hasRole('staff')) {
@@ -272,7 +272,7 @@ class Order extends Model
     }
 
     private function getTDriverOrderActions(){
-        $lastStatusAlias=$this->getLastStatusAttribute()[0]->alias; 
+        $lastStatusAlias=$this->getLastStatusAttribute()[0]->alias;
         if(in_array($lastStatusAlias,["assigned_to_driver"])){
             return ["buttons"=>['rejected_by_driver','accepted_by_driver'],'message'=>""];
         }else if(in_array($lastStatusAlias,["accepted_by_driver"])){
@@ -286,7 +286,7 @@ class Order extends Model
     }
 
     private function getDriverOrderActions(){
-        $lastStatusAlias=$this->getLastStatusAttribute()[0]->alias; 
+        $lastStatusAlias=$this->getLastStatusAttribute()[0]->alias;
         if(in_array($lastStatusAlias,["assigned_to_driver"])){
             return ["buttons"=>['rejected_by_driver','accepted_by_driver'],'message'=>""];
         }else if(in_array($lastStatusAlias,["prepared"])){
@@ -297,7 +297,7 @@ class Order extends Model
             }else{
                 $message=__('Order is not paid yet. Client needs to give you')." ".money($this->order_price_with_discount+$this->delivery_price,config('settings.cashier_currency'), config('settings.do_convertion'))->format();
             }
-            
+
             return ["buttons"=>['delivered'],'message'=>$message];
         }else if(in_array($lastStatusAlias,["accepted_by_driver"])){
             if($this->getIsPreparedAttribute()){
@@ -307,7 +307,7 @@ class Order extends Model
                 //Not yet prepared
                 return ["buttons"=>[],'message'=>"At the moment order is in preparing. No action for you at the moment. Based on desired delivery time, you may head up to the venue."];
             }
-            
+
         }else if(in_array($lastStatusAlias,["rejected_by_driver"])){
             return ["buttons"=>[],'message'=>""];
         }
@@ -355,7 +355,7 @@ class Order extends Model
                 }else{
                     //No Drivers
                     return ["buttons"=>['delivered'],'message'=>""];
-                } 
+                }
             }else if(in_array($lastStatusAlias,["assigned_to_driver"])){
                 //In this case we can re-assign or deliver it
                 return ["buttons"=>['delivered','assigned_to_driver'],'message'=>""];

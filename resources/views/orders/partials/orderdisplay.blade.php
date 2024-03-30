@@ -35,7 +35,7 @@
 @foreach($orders as $order)
 <tr>
     <td>
-        
+
         <a class="btn badge badge-success badge-pill" href="{{ route('orders.show',$order->id )}}">#{{ $order->id_formated }}</a>
     </td>
     @hasrole('admin|driver')
@@ -98,7 +98,7 @@
         @money( $order->delivery_price, config('settings.cashier_currency'),config('settings.do_convertion'))
     </td>
     @if (!isset($hideAction))
-        @include('orders.partials.actions.table',['order' => $order ]) 
+        @include('orders.partials.actions.table',['order' => $order ])
     @endif
 </tr>
 @endforeach

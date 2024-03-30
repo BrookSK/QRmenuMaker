@@ -29,7 +29,7 @@ use App\Models\SimpleDelivery;
 
 class OrderController extends Controller
 {
-   
+
     public function migrateStatuses()
     {
         if (Status::count() < 13) {
@@ -133,30 +133,30 @@ class OrderController extends Controller
             $items = [];
             foreach ($orders->get() as $key => $order) {
                 $item = [
-                    'order_id' => $order->id,
-                    'restaurant_name' => $order->restorant->name,
-                    'restaurant_id' => $order->restorant_id,
-                    'created' => $order->created_at,
-                    'last_status' => $order->status->pluck('alias')->last(),
-                    'client_name' => $order->client ? $order->client->name : '',
-                    'client_id' => $order->client ? $order->client_id : null,
-                    'table_name' => $order->table ? $order->table->name : '',
-                    'table_id' => $order->table ? $order->table_id : null,
-                    'area_name' => $order->table && $order->table->restoarea ? $order->table->restoarea->name : '',
-                    'area_id' => $order->table && $order->table->restoarea ? $order->table->restoarea->id : null,
-                    'address' => $order->address ? $order->address->address : '',
-                    'address_id' => $order->address_id,
-                    'driver_name' => $order->driver ? $order->driver->name : '',
-                    'driver_id' => $order->driver_id,
-                    'order_value' => $order->order_price_with_discount,
-                    'order_delivery' => $order->delivery_price,
-                    'order_total' => $order->delivery_price + $order->order_price_with_discount,
-                    'payment_method' => $order->payment_method,
-                    'srtipe_payment_id' => $order->srtipe_payment_id,
-                    'order_fee' => $order->fee_value,
-                    'restaurant_fee' => $order->fee,
+                    'order_id'              => $order->id,
+                    'restaurant_name'       => $order->restorant->name,
+                    'restaurant_id'         => $order->restorant_id,
+                    'created'               => $order->created_at,
+                    'last_status'           => $order->status->pluck('alias')->last(),
+                    'client_name'           => $order->client ? $order->client->name : '',
+                    'client_id'             => $order->client ? $order->client_id : null,
+                    'table_name'            => $order->table ? $order->table->name : '',
+                    'table_id'              => $order->table ? $order->table_id : null,
+                    'area_name'             => $order->table && $order->table->restoarea ? $order->table->restoarea->name : '',
+                    'area_id'               => $order->table && $order->table->restoarea ? $order->table->restoarea->id : null,
+                    'address'               => $order->address ? $order->address->address : '',
+                    'address_id'            => $order->address_id,
+                    'driver_name'           => $order->driver ? $order->driver->name : '',
+                    'driver_id'             => $order->driver_id,
+                    'order_value'           => $order->order_price_with_discount,
+                    'order_delivery'        => $order->delivery_price,
+                    'order_total'           => $order->delivery_price + $order->order_price_with_discount,
+                    'payment_method'        => $order->payment_method,
+                    'srtipe_payment_id'     => $order->srtipe_payment_id,
+                    'order_fee'             => $order->fee_value,
+                    'restaurant_fee'        => $order->fee,
                     'restaurant_static_fee' => $order->static_fee,
-                    'vat' => $order->vatvalue,
+                    'vat'                   => $order->vatvalue,
                 ];
                 array_push($items, $item);
             }
@@ -193,22 +193,22 @@ class OrderController extends Controller
         $vendor_id = null;
 
         $requestData = [
-            'issd' => true,
-            'vendor_id'   => $vendor_id,
-            'driver_id' => $request->driver_id,
-            'delivery_method' => "delivery",
-            'payment_method' => "cod",
-            'address_id' => null,
-            'pickup_address' => $request->pickup_address,
-            'pickup_lat' => $request->pickup_lat,
-            'pickup_lng' => $request->pickup_lng,
+            'issd'             => true,
+            'vendor_id'        => $vendor_id,
+            'driver_id'        => $request->driver_id,
+            'delivery_method'  => "delivery",
+            'payment_method'   => "cod",
+            'address_id'       => null,
+            'pickup_address'   => $request->pickup_address,
+            'pickup_lat'       => $request->pickup_lat,
+            'pickup_lng'       => $request->pickup_lng,
             'delivery_address' => $request->delivery_address,
-            'delivery_lat' => $request->delivery_lat,
-            'delivery_lng' => $request->delivery_lng,
-            "timeslot" => "",
-            "items" => [],
-            "comment" => $request->comment,
-            "phone" => $request->phoneclient,
+            'delivery_lat'     => $request->delivery_lat,
+            'delivery_lng'     => $request->delivery_lng,
+            "timeslot"         => "",
+            "items"            => [],
+            "comment"          => $request->comment,
+            "phone"            => $request->phoneclient,
         ];
         return new Request($requestData);
     }
@@ -332,20 +332,20 @@ class OrderController extends Controller
         }
 
         $requestData = [
-            'vendor_id'   => $vendor_id,
+            'vendor_id'       => $vendor_id,
             'delivery_method' => $delivery_method,
-            'payment_method' => $request->paymentType ? $request->paymentType : "cod",
-            'address_id' => $request->addressID,
-            "timeslot" => $request->timeslot,
-            "items" => $items,
-            "comment" => $request->comment,
-            "stripe_token" => $stripe_token,
+            'payment_method'  => $request->paymentType ? $request->paymentType : "cod",
+            'address_id'      => $request->addressID,
+            "timeslot"        => $request->timeslot,
+            "items"           => $items,
+            "comment"         => $request->comment,
+            "stripe_token"    => $stripe_token,
             "dinein_table_id" => $table_id,
-            "phone" => $phone,
-            "customFields" => $customFields,
-            "deliveryAreaId" => $deliveryAreaId,
-            "tip" => $request->has('tipapplied') && $request->tipapplied . "" == "1" ? $request->tip : 0,
-            "coupon_code" => $request->has('coupon_code') && strlen($request->coupon_code) > 0 ? $request->coupon_code : null
+            "phone"           => $phone,
+            "customFields"    => $customFields,
+            "deliveryAreaId"  => $deliveryAreaId,
+            "tip"             => $request->has('tipapplied') && $request->tipapplied . "" == "1" ? $request->tip : 0,
+            "coupon_code"     => $request->has('coupon_code') && strlen($request->coupon_code) > 0 ? $request->coupon_code : null
         ];
 
 
@@ -372,10 +372,10 @@ class OrderController extends Controller
 
 
         //Data
-        $vendor_id =  $mobileLikeRequest->vendor_id;
+        $vendor_id  = $mobileLikeRequest->vendor_id;
         $expedition = $mobileLikeRequest->delivery_method;
         $hasPayment = $mobileLikeRequest->payment_method != "cod";
-        $isStripe = $mobileLikeRequest->payment_method == "stripe";
+        $isStripe   = $mobileLikeRequest->payment_method == "stripe";
 
         $vendorHasOwnPayment = null;
         if (config('settings.social_mode') || config('app.issd', false)) {
@@ -482,13 +482,13 @@ class OrderController extends Controller
             }
 
             return view('orders.show', [
-                'order' => $order,
-                'pdFInvoice' => $pdFInvoice,
-                'custom_data' => $order->getAllConfigs(),
-                'statuses' => Status::pluck('name', 'id'),
-                'drivers' => $drivers,
+                'order'        => $order,
+                'pdFInvoice'   => $pdFInvoice,
+                'custom_data'  => $order->getAllConfigs(),
+                'statuses'     => Status::pluck('name', 'id'),
+                'drivers'      => $drivers,
                 'orderModules' => $orderModules,
-                'fields' => [['class' => 'col-12', 'classselect' => 'noselecttwo', 'ftype' => 'select', 'name' => 'Driver', 'id' => 'driver', 'placeholder' => 'Assign Driver', 'data' => $driversData, 'required' => true]],
+                'fields'       => [['class' => 'col-12', 'classselect' => 'noselecttwo', 'ftype' => 'select', 'name' => 'Driver', 'id' => 'driver', 'placeholder' => 'Assign Driver', 'data' => $driversData, 'required' => true]],
             ]);
         } else {
             return redirect()->route('orders.index')->withStatus(__('No Access.'));
@@ -657,15 +657,15 @@ class OrderController extends Controller
                 }
             }
             array_push($items, [
-                'id' => $order['id'],
-                'id_formated' => $order['id_formated'],
+                'id'              => $order['id'],
+                'id_formated'     => $order['id_formated'],
                 'restaurant_name' => $order['restorant']['name'],
-                'last_status' => count($order['status']) > 0 ? __($order['status'][count($order['status']) - 1]['name']) : 'Just created',
-                'last_status_id' => count($order['status']) > 0 ? $order['status'][count($order['status']) - 1]['pivot']['status_id'] : 1,
-                'time' => Carbon::create($order['updated_at'])->setTimezone(Carbon::now()->tzName)->locale(config('app.locale'))->isoFormat('LLLL'),
-                'client' => $client,
-                'link' => '/orders/' . $order['id'],
-                'price' => money($order['order_price'], config('settings.cashier_currency'), config('settings.do_convertion')) . '',
+                'last_status'     => count($order['status']) > 0 ? __($order['status'][count($order['status']) - 1]['name']) : 'Just created',
+                'last_status_id'  => count($order['status']) > 0 ? $order['status'][count($order['status']) - 1]['pivot']['status_id'] : 1,
+                'time'            => Carbon::create($order['updated_at'])->setTimezone(Carbon::now()->tzName)->locale(config('app.locale'))->isoFormat('LLLL'),
+                'client'          => $client,
+                'link'            => '/orders/' . $order['id'],
+                'price'           => money($order['order_price'], config('settings.cashier_currency'), config('settings.do_convertion')) . '',
             ]);
         }
 
@@ -782,7 +782,7 @@ class OrderController extends Controller
         }
     }
 
-    public function updateStatus($alias, Order $order)
+    public function updateStatus($alias, Order $order, Request $request)
     {
         if (isset($_GET['driver'])) {
             $order->driver_id = $_GET['driver'];
@@ -822,17 +822,17 @@ class OrderController extends Controller
         //
 
         $rolesNeeded = [
-            'accepted_by_admin' => 'admin',
-            'assigned_to_driver' => ['admin', 'owner'],
-            'rejected_by_admin' => 'admin',
+            'accepted_by_admin'      => 'admin',
+            'assigned_to_driver'     => ['admin', 'owner'],
+            'rejected_by_admin'      => 'admin',
             'accepted_by_restaurant' => ['owner', 'staff'],
-            'prepared' => ['owner', 'staff'],
+            'prepared'               => ['owner', 'staff'],
             'rejected_by_restaurant' => ['owner', 'staff'],
-            'picked_up' => ['driver', 'owner', 'staff'],
-            'delivered' => ['driver', 'owner', 'staff'],
-            'closed' => ['owner', 'staff'],
-            'accepted_by_driver' => ['driver'],
-            'rejected_by_driver' => ['driver']
+            'picked_up'              => ['driver', 'owner', 'staff'],
+            'delivered'              => ['driver', 'owner', 'staff'],
+            'closed'                 => ['owner', 'staff'],
+            'accepted_by_driver'     => ['driver'],
+            'rejected_by_driver'     => ['driver']
         ];
 
         if (!auth()->user()->hasRole($rolesNeeded[$alias])) {
@@ -930,6 +930,16 @@ class OrderController extends Controller
             OrderAcceptedByAdmin::dispatch($order);
         }
 
+        if ($alias == 'delivered') {
+            foreach ($order->items as $item) {
+                $order->items()->updateExistingPivot($item->id, ['is_item_fulfilled' => true]);
+            }
+        }
+
+        if ($request->input('payment_method')) {
+            $order->payment_method = $request->input('payment_method');
+            $order->update();
+        }
 
         return redirect()->route('orders.index')->withStatus(__('Order status succesfully changed.'));
     }
