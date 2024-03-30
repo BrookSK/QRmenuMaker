@@ -941,7 +941,7 @@ class OrderController extends Controller
             $order->update();
         }
 
-        return redirect()->route('orders.index')->withStatus(__('Order status succesfully changed.'));
+        return redirect()->back()->withStatus(__('Order status succesfully changed.'));
     }
 
     public function rateOrder(Request $request, Order $order)
