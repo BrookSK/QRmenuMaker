@@ -4,7 +4,7 @@ namespace App;
 
 use App\MyModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+//
 class City extends MyModel
 {
     use SoftDeletes;
