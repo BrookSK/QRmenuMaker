@@ -212,7 +212,7 @@ class FinanceController extends Controller
             __('Restaurant Name') => $order->restorant->name,
             __('Restaurant ID') => $order->restorant_id,
             __('Created At') => $order->created_at,
-            __('Last Status') => $order->status->pluck('alias')->last(),
+            __('Last Status') => __($order->status->pluck('alias')->last()),
             __('Client Name') => $order->client ? $order->client->name : "",
             __('Client ID') => $order->client_id,
             __('Address') => $order->address ? $order->address->address : '',
