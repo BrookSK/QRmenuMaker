@@ -20,6 +20,11 @@ class Tables extends Model
         return $this->hasMany(\App\Visit::class, 'table_id', 'id');
     }
 
+    public function orders()
+    {
+        return $this->hasMany(\App\Order::class, 'table_id', 'id');
+    }
+
     public function restaurant()
     {
         return $this->belongsTo(\App\Restorant::class);

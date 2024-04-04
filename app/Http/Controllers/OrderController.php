@@ -26,6 +26,9 @@ use App\Events\OrderAcceptedByAdmin;
 use App\Events\OrderAcceptedByVendor;
 use App\Models\Orderitems;
 use App\Models\SimpleDelivery;
+use App\Tables;
+use Exception;
+use Mollie\Api\Types\OrderStatus;
 
 class OrderController extends Controller
 {
@@ -596,6 +599,32 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function test()
+    {
+        try {
+            $order = Order::find('617');
+
+            $table = $order->table;
+
+            foreach ($table->orders->toArray() as $orderTable) {
+                $orderTable = json_decode(json_encode($orderTable));
+                $tableHasOtherOrders = false;
+                if ($orderTable->id != $order->id) {
+                    $statusId = json_decode(json_encode($orderTable->last_status[0]))->id;
+                    if ($statusId != 8 && $statusId != 9 && $statusId != 11) {
+                        $tableHasOtherOrders = true;
+                    }
+                }
+            }
+
+            // dump($order->id, $table->orders->toArray(), $tableHasOtherOrders);
+
+            return response()->json($tableHasOtherOrders ? $order : []);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage());
+        }
     }
 
     public function liveapi()
