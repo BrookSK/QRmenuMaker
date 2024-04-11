@@ -1,0 +1,81 @@
+{
+    "alias": "print-node",
+    "version":"1.8",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\PrintNode\\Providers\\Main",
+        "Modules\\PrintNode\\Providers\\Event"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "global_fields":[{
+        "separator":"Print Node",
+        "title": "ConvertAPI.com API secret",
+        "key": "CONVERT_API_SECRET",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "Enter ConvertAPI.com API secret"
+    }],
+    "vendor_fields":[{
+        "separator":"Print Node",
+        "title": "Print Node API Key",
+        "key": "print_node_key",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "Enter printnode.com api key"
+    },{
+        "title": "Main thermal printer ID",
+        "key": "print_node_main_thermal_id",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "Enter printnode printer ID "
+    },{
+        "title": "Kitchen thermal printer ID",
+        "key": "print_node_kitchen_thermal_id",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "Enter printnode printer ID "
+    },{
+        "title": "Standard printer ID",
+        "key": "print_node_standard_id",
+        "ftype": "input",
+        "type": "text",
+        "value":"",
+        "placeholder": "Enter printnode printer ID for A4 Invoices printing"
+    },{
+        "title":"Print A4 Standard order when", 
+        "key":"printnode_print_afour_when", 
+        "value":"order_received",
+        "ftype":"select",
+        "data":{
+            "restaurant_approve":"We accept the order",
+            "order_received":"On order received"
+        }
+    },{
+        "title":"Print on main thermal printer when", 
+        "key":"printnode_print_main_thermal_when", 
+        "value":"restaurant_approve",
+        "ftype":"select",
+        "data":{
+            "restaurant_approve":"We accept the order",
+            "order_received":"On order received"
+        }
+    },{
+        "title":"Print on kitchen thermal printer when", 
+        "key":"printnode_print_kitchen_thermal_when", 
+        "value":"restaurant_approve",
+        "ftype":"select",
+        "data":{
+            "restaurant_approve":"We accept the order",
+            "order_received":"On order received"
+        }
+    }]
+}

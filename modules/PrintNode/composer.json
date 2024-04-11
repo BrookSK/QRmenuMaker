@@ -1,0 +1,19 @@
+{
+    "name": "akaunting/print-node",
+    "description": "",
+    "authors": [
+        {
+            "name": "Akaunting",
+            "email": "info@akaunting.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Modules\\PrintNode\\": ""
+        }
+    },
+    "require": {
+        "mike42/escpos-php": "^3.0",
+        "convertapi/convertapi-php": "^1.5"
+    }
+}
