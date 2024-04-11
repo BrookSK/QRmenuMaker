@@ -1,0 +1,51 @@
+{
+    "alias": "asaas",
+    "version":"1.2",
+    "isPaymentModule":true,
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Asaas\\Providers\\Main"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [],
+    "global_fields":[
+        {
+            "separator":"Asaas configuration",
+            "title": "Enable Asaas for payments when ordering",
+            "key": "ENABLE_ASAAS",
+            "ftype": "bool",
+            "value":false
+        },
+        {
+            "title": "System will use",
+            "key": "VENDORS_OR_ADMIN_ASAAS",
+            "ftype":"select",
+            "onlyin":"qrsaas",
+            "value":"admin",
+            "data":{
+                "admin":"Admin defined Asaas",
+                "vendor":"Vendor defined Asaas"
+            }
+        },{
+            "title":"Asaas access token", 
+            "key":"ASAAS_ACCESS_TOKEN", 
+            "value":""
+        }],
+        "vendor_fields":[{
+            "separator":"Asaas configuration",
+            "title": "Enable Asaas for payments when ordering",
+            "key": "asaas_enable",
+            "ftype": "bool",
+            "value":false,
+            "onlyin":"qrsaas"
+        },{
+            "title":"Asaas access token", 
+            "key":"asaas_access_token", 
+            "value":"",
+            "onlyin":"qrsaas"
+        }]
+}

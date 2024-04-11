@@ -1,0 +1,18 @@
+{
+    "name": "akaunting/asaas",
+    "description": "",
+    "authors": [
+        {
+            "name": "Akaunting",
+            "email": "info@akaunting.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Modules\\Asaas\\": ""
+        }
+    },
+    "require": {
+        "mercadopago/dx-php": "^2.2"
+    }
+}
