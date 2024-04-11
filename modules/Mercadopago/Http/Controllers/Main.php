@@ -44,6 +44,7 @@ class Main extends Controller
         $item = new Item();
         $item->title = 'Pedido #'.$order->id;
         $item->quantity = 1;
+        $item->email = "jon@gmail.com";
         $item->unit_price = $totalValue;
         $preference->items = array($item);
         $preference->external_reference=$order->id;
