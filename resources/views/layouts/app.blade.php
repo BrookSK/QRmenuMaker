@@ -75,6 +75,9 @@
             @include('layouts.footers.guest')
         @endguest
 
+        <!-- Custom js dropdown list -->
+        <script src="{{ asset('custom') }}/js/dropdownList.js"></script>
+
         <!-- Commented because navtabs includes same script -->
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
 
