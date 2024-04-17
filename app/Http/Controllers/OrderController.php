@@ -407,19 +407,26 @@ class OrderController extends Controller
         $validator = $orderRepo->validateData();
         if ($validator->fails()) {
             notify()->error($validator->errors()->first());
-            return $orderRepo->redirectOrInform();
+            // return $orderRepo->redirectOrInform();
+            // Após o pedido ser feito com sucesso, redirecione o usuário para a página de processamento de pagamento
+            return redirect()->route('processando-pagamento-asaas', ['order_id' => $orderRepo->getId()]);
+
         }
 
         //Proceed with making the order
         $validatorOnMaking = $orderRepo->makeOrder();
         if ($validatorOnMaking->fails()) {
             notify()->error($validatorOnMaking->errors()->first());
-            return $orderRepo->redirectOrInform();
+            // return $orderRepo->redirectOrInform();
+            // Após o pedido ser feito com sucesso, redirecione o usuário para a página de processamento de pagamento
+            return redirect()->route('processando-pagamento-asaas', ['order_id' => $orderRepo->getId()]);
+
         }
 
         // return $orderRepo->redirectOrInform();
         // Após o pedido ser feito com sucesso, redirecione o usuário para a página de processamento de pagamento
-        return redirect()->route('processando-pagamento-asaas', ['order_id' => $orderRepo->getId()]);    }
+        return redirect()->route('processando-pagamento-asaas', ['order_id' => $orderRepo->getId()]);    
+    }
 
 
     public function orderLocationAPI(Order $order)
