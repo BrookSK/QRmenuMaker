@@ -417,8 +417,9 @@ class OrderController extends Controller
             return $orderRepo->redirectOrInform();
         }
 
-        return $orderRepo->redirectOrInform();
-    }
+        // return $orderRepo->redirectOrInform();
+        // Após o pedido ser feito com sucesso, redirecione o usuário para a página de processamento de pagamento
+        return redirect()->route('processando-pagamento-asaas', ['order_id' => $orderRepo->getId()]);    }
 
 
     public function orderLocationAPI(Order $order)

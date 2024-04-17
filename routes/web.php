@@ -153,6 +153,9 @@ Route::group(['middleware' => ['auth','impersonate']], function () {
     Route::get('restaurants/working_hours/remove/{hours}','RestorantController@workingHoursremove')->name('restaurant.workinghoursremove');
     Route::post('/restaurant/address','RestorantController@getCoordinatesForAddress')->name('restaurant.coordinatesForAddress');
 
+    //Creating the route to the Asaas Payment Processing page
+    Route::get('/processando-pagamento-asaas/{order_id}', 'PageController@processandoPagamentoAsaas')->name('processando-pagamento-asaas');
+
     Route::prefix('finances')->name('finances.')->group(function () {
         Route::get('admin', 'FinanceController@adminFinances')->name('admin');
         Route::get('owner', 'FinanceController@ownerFinances')->name('owner');
