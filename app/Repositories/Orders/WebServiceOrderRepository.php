@@ -11,6 +11,7 @@ namespace App\Repositories\Orders;
 use App\Notifications\OrderNotification;
 use App\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 use Cart;
 
 class WebServiceOrderRepository extends BaseOrderRepository implements OrderTypeInterface
@@ -67,9 +68,14 @@ class WebServiceOrderRepository extends BaseOrderRepository implements OrderType
     }
 
     public function redirectOrInform(){
+        Log::info('Chamada para redirectOrInform()');
+        Log::info('Status do Pedido: ' . ($this->status ? 'Sucesso' : 'Erro'));   
+
+
         if($this->status){
             //Success - redirect to success or to pay page
-            return $this->paymentRedirect==null?redirect()->route('order.success', ['order' => $this->order]):redirect($this->paymentRedirect);
+            // return $this->paymentRedirect==null?redirect()->route('order.success', ['order' => $this->order]):redirect($this->paymentRedirect);
+            return redirect()->route('processando-pagamento-asaas', ['order_id' => $this->order->id]);
         }else{
             //There was some error, return back to the order page
             return redirect()->route('cart.checkout')->withInput();
