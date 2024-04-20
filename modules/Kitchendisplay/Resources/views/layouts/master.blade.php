@@ -19,8 +19,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('softd') }}/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="{{ asset('softd') }}/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('soft') }}/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="{{ asset('soft') }}/img/favicon.png">
   <title>
     {{ $vendor->name." - ".config('app.name')}}
   </title>
@@ -28,13 +28,13 @@
   <link href="{{ asset('css') }}/gfonts.css" rel="stylesheet">
 
   <!-- Nucleo Icons -->
-  <link href="{{ asset('softd') }}/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="{{ asset('softd') }}/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="{{ asset('soft') }}/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="{{ asset('soft') }}/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="{{ asset('vendor') }}/fa/fa.js" crossorigin="anonymous"></script>
-  <link href="{{ asset('softd') }}/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="{{ asset('soft') }}/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link id="pagestyle" href="{{ asset('softd') }}/css/soft-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+  <link id="pagestyle" href="{{ asset('soft') }}/css/soft-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
 
   <!-- Select2  -->
   <link type="text/css" href="{{ asset('custom') }}/css/select2.min.css" rel="stylesheet">
@@ -55,11 +55,11 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="{{ asset('softd') }}/js/core/popper.min.js"></script>
-  <script src="{{ asset('softd') }}/js/core/bootstrap.min.js"></script>
-  <script src="{{ asset('softd') }}/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="{{ asset('soft') }}/js/core/popper.min.js"></script>
+  <script src="{{ asset('soft') }}/js/core/bootstrap.min.js"></script>
+  <script src="{{ asset('soft') }}/js/plugins/smooth-scrollbar.min.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{ asset('softd') }}/js/soft-ui-dashboard.min.js?v=1.0.1"></script>
+  <script src="{{ asset('soft') }}/js/soft-ui-dashboard.min.js?v=1.0.1"></script>
 
   <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
 
