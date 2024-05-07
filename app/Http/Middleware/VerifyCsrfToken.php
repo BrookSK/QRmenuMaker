@@ -20,5 +20,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'adminer', 'paddle', 'webhooks/mollie',
+	    'notification-pix', 'paddle', 'webhooks/mollie',
     ];
 }

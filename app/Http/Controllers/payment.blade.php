@@ -59,6 +59,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">
+                        
+                        <div class="custom-control custom-radio mb-3">
+                            <button>Pagar com pix</button>
+                        </div>
+                        
                         <!-- Errors on Stripe -->
                         @if (session('error'))
                             <div role="alert" class="alert alert-danger">{{ session('error') }}</div>
@@ -82,15 +87,11 @@
                                     <label class="custom-control-label" for="paymentStripe">{{ __('Pay with card') }}</label>
                                 </div>
                             @endif
-                            <div class="custom-control custom-radio mb-3">
-                                <input name="paymentType" class="custom-control-input" id="paymentStripelinks" type="radio" value="stripelinks" >
-                                <label class="custom-control-label" for="paymentStripelinks">Pagamento via PIX</label>
-                            </div>
+
                             <!-- Extra Payments ( Via module ) -->
-                            <!-- descomente quando precisar usaar outros modulos
                             @foreach ($extraPayments as $extraPayment)
                                 @include($extraPayment.'::selector')
-                            @endforeach -->
+                            @endforeach
 
 
                         @endif
