@@ -27,6 +27,11 @@ Auth::routes();
 Route::get('/selectpay/{order}', 'PaymentController@selectPaymentGateway')->name('selectpay');
 Route::get('/selectedpaymentt/{order}/{payment}', 'PaymentController@selectedPaymentGateway')->name('selectedpaymentt');
 
+Route::get('/pagamento-pix/{order}', 'PaymentController@pagamentoPix')->name('pagamento-pix');
+
+Route::get('/status-pix/{order}', 'PaymentController@statusPix')->name('status-pix');
+
+Route::post('/notification-pix', 'PaymentController@notificationPix')->name('notification-pix');
 
 Route::group(['middleware' => ['auth','impersonate']], function () {
     Route::get('/home/{lang?}', 'HomeController@index')->name('home')->middleware(['isOwnerOnPro','verifiedSetup']);
@@ -355,4 +360,3 @@ Route::post('/fb-order', 'OrderController@fbOrderMsg')->name('fb.order');
 Route::get('onboarding', 'FrontEndController@onboarding')->name('sd.onboarding');
 
 Route::get('/{alias}', 'FrontEndController@restorant')->where('alias', '.*')->name('vendrobyalias');
-

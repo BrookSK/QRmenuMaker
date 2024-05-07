@@ -1122,7 +1122,9 @@ class OrderController extends Controller
         //If order is not paid - redirect to payment
         if ($request->redirectToPayment . "" == "1" && $order->payment_status != 'paid' && strlen($order->payment_link) > 5) {
             //Redirect to payment
-            return redirect($order->payment_link);
+            //return redirect($order->payment_link);
+            $url = '/pagamento-pix/'.$order->id;
+            return Redirect::to($url);
         }
 
         //If we have whatsapp send

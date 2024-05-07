@@ -15,6 +15,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/notification-pix', 'PaymentController@notificationPix')->name('notification-pix');
+
 Route::group(['middleware' => 'auth:api'], function () {
     //Driver - Private
     Route::get('/driverorders', 'DriverController@getOrders')->name('driver.orders');
